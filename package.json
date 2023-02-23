@@ -1,12 +1,12 @@
 {
   "name": "shulga-app-core",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build": "tsc"
+    "build": "rmdir /S /Q dist && tsc"
   },
   "repository": {
     "type": "git",
