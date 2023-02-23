@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/wag1twat/app-core#readme",
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.21.0",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-typescript": "^7.21.0",
     "@jest/globals": "^29.4.3",
