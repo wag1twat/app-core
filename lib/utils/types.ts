@@ -16,4 +16,4 @@ type OmitBy<P, T extends P> = Omit<P, keyof T>
 
 type StringOrNumber = string | number
 
-export type { Split, ReplaceAll, StringOrNumber }
+export type { OmitBy, Split, ReplaceAll, StringOrNumber }

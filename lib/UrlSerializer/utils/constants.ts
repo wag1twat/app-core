@@ -1,4 +1,4 @@
-import { SerializerOptions } from "./types"
+import { UrlSerializerOptions } from "./types"
 
 const accsessors = {
     '.': ['.', ''] as const,
@@ -6,7 +6,7 @@ const accsessors = {
     '{}': ['{', '}'] as const,
 }
 
-const defaultSerializeOptions: SerializerOptions = {
+const defaultSerializeOptions: UrlSerializerOptions = {
     skipNull: true,
     skipUndefined: true,
     arrayAccsessor: '[]',

@@ -1,6 +1,6 @@
 import {describe, test} from '@jest/globals';
 import { ValidationError } from 'runtypes';
-import { RequiredEnv } from '../RequiredEnv';
+import { RequiredEnv } from '../lib/RequiredEnv';
 
 describe('RequiredEnv', () => {
     const initialKeys = ['REACT_APP_API', 'REACT_APP_TOKEN', 'REACT_APP_SECRET_KEY']

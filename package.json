@@ -1,6 +1,6 @@
 {
   "name": "shulga-app-core",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "",
   "main": "./lib/index.ts",
   "exports": "./lib/index.ts",
@@ -33,5 +33,10 @@
   "dependencies": {
     "@types/react": "^18.0.28",
     "runtypes": "^6.6.0"
-  }
+  },
+  "files": [
+    "lib/",
+    "tsconfig.json",
+    "babel.config.cjs"
+  ]
 }
