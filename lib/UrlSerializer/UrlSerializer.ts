@@ -2,7 +2,7 @@ import { OmitBy, ReplaceAll, Split } from "../utils"
 import { nonEmptyString } from "../utils/non-empty-string"
 import { accsessors, defaultSerializeOptions } from "./utils/constants"
 import { UniqueException } from "./utils/exceptions"
-import { UrlSerializerOptions, UrlSerializerParams, UrlSerializerQueries } from "./utils/types"
+import { UrlSerializerOptions, UrlSerializerParams, UrlSerializerQueries } from './utils/types'
 import { Guards } from "../Guards"
 
 class UrlSerializer<S extends `${string}`, P extends UrlSerializerParams<`:${string}`>> {

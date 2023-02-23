@@ -1,19 +1,19 @@
 import { StringOrNumber } from "../../utils"
 
-type SerializerOptions = {
+type UrlSerializerOptions = {
     objectAccsessor: '.' | '{}' | '[]',
     arrayAccsessor: '.' | '{}' | '[]',
     skipUndefined: boolean
     skipNull: boolean
 }
 
-type SerializerParams<T extends string> = {
+type UrlSerializerParams<T extends string> = {
     [K in T]: string
 }
 
-type SerializerQueries = {
-    [x : string]: (StringOrNumber | boolean | undefined | null) | Array<StringOrNumber | null | undefined> | SerializerQueries
+type UrlSerializerQueries = {
+    [x : string]: (StringOrNumber | boolean | undefined | null) | Array<StringOrNumber | null | undefined> | UrlSerializerQueries
 } & {}
 
 
-export type { SerializerParams, SerializerOptions, SerializerQueries }
+export type { UrlSerializerParams, UrlSerializerOptions, UrlSerializerQueries }
