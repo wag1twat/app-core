@@ -22,7 +22,7 @@
     "baseUrl": ".",
     "rootDir": "./lib",
     "outDir": "./dist",
-    "declaration": true
+    "declaration": true,
   },
   "ts-node": {
     "esm": true
