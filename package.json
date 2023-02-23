@@ -1,6 +1,6 @@
 {
-  "name": "app-core",
-  "version": "1.0.1",
+  "name": "shulga-app-core",
+  "version": "1.0.6",
   "description": "",
   "main": "./lib/index.ts",
   "exports": "./lib/index.ts",
