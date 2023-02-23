@@ -2,10 +2,11 @@
   "name": "shulga-app-core",
   "version": "1.0.9",
   "description": "",
-  "main": "./lib/index.ts",
-  "exports": "./lib/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -35,8 +36,6 @@
     "runtypes": "^6.6.0"
   },
   "files": [
-    "lib/",
-    "tsconfig.json",
-    "babel.config.cjs"
+    "dist/"
   ]
 }
