@@ -7,8 +7,10 @@ type UrlSerializerOptions = {
     skipNull: boolean
 }
 
+type UrlSerializerParamKey<T extends string> =`:${T}`
+type UrlSerializerParam = string
 type UrlSerializerParams<T extends string> = {
-    [K in T]: string
+    [K in UrlSerializerParamKey<T>]: UrlSerializerParam
 }
 
 type UrlSerializerQueries = {

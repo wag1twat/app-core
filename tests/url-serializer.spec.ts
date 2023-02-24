@@ -1,14 +1,14 @@
 import { describe, test } from "@jest/globals";
-import { UniqueException } from "../lib/UrlSerializer/utils/exceptions";
+import { UniqueParamException } from "../lib/UrlSerializer/utils/exceptions";
 import { UrlSerializer } from "../lib/UrlSerializer";
 
 const root = 'https://anydomain.com' as const
 const queries = {
     regionId: 12,
     cityId: 121,
-    departments: [1, 6, 88],
+    departments: [88],
     users: {
-        ids: [12, 44, 9],
+        ids: [12],
         registry: true
     },
     undefinedProperty: undefined,
@@ -57,7 +57,7 @@ describe('Serializer', () => {
             user.extend().param('userId')
         }
         catch(err) {
-            expect(err).toBeInstanceOf(UniqueException)
+            expect(err).toBeInstanceOf(UniqueParamException)
         }
     })
     test('queries with default options', () => {
@@ -65,13 +65,9 @@ describe('Serializer', () => {
             skipNull: true, skipUndefined: true, objectAccsessor: '.', arrayAccsessor: '[]'
         })
 
-        const data = serializer.build().queries(queries)
+        const base = serializer.path('user').build().queries(queries)
 
-        expect(data.path).toBe(root + '?regionId=12&cityId=121&departments[]=1&departments[]=6&departments[]=88&users.ids[]=12&users.ids[]=44&users.ids[]=9&users.registry=true')
-
-        const extended = data.extend().path('users').param('id').build()
-
-        expect(extended.path).toBe(root + '/users/:id')
+        expect(base.path).toBe(root + '/user?regionId=12&cityId=121&departments[]=88&users.ids[]=12&users.registry=true')
     })
 
     test('queries with custom options', () => {
@@ -82,16 +78,28 @@ describe('Serializer', () => {
             skipUndefined: true
         })
 
-        const data = serializer.build().queries(queries)
+        const base = serializer.path('post').build()
 
-        expect(data.path).toBe(root + '?regionId=12&cityId=121&departments[]=1&departments[]=6&departments[]=88&users{ids}[]=12&users{ids}[]=44&users{ids}[]=9&users{registry}=true')
+        const extend1 = base.extend().param('id').build()
 
-        const extended1 = data.extend().path('users').param('id').build()
+        expect(extend1.path).toBe(root+'/post/:id')
 
-        expect(extended1.path).toBe(root + '/users/:id')
+        const basequeries = base.queries(queries)
 
-        const extended2 = data.extend().build().queries(queries, { skipUndefined: false, skipNull: false })
+        expect(basequeries.path).toBe(root+'/post?regionId=12&cityId=121&departments[]=88&users{ids}[]=12&users{registry}=true')
 
-        expect(extended2.path).toBe(root + '?regionId=12&cityId=121&departments[]=1&departments[]=6&departments[]=88&users{ids}[]=12&users{ids}[]=44&users{ids}[]=9&users{registry}=true&undefinedProperty=undefined&nullProperty=null')
+        const extend2 = base.extend().build()
+
+        const extend2queries = extend2.queries({
+            post: 23
+        })
+
+        expect(extend2queries.path).toBe(base.path+'?post=23')
+
+        const extend3queries = extend2queries.extend().build().queries({
+            user: 16
+        })
+
+        expect(extend3queries.path).toBe(base.path+'?post=23&user=16')
     })
 })

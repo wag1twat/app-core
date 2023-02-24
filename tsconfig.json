@@ -23,6 +23,7 @@
     "rootDir": "./lib",
     "outDir": "./dist",
     "declaration": true,
+    "removeComments": true
   },
   "ts-node": {
     "esm": true

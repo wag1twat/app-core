@@ -13,7 +13,6 @@ type ReplaceAll<T extends string, M extends { [k: string]: string },
 
 type OmitBy<P, T extends P> = Omit<P, keyof T>
 
-
 type StringOrNumber = string | number
 
 export type { OmitBy, Split, ReplaceAll, StringOrNumber }
