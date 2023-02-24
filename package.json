@@ -1,13 +1,15 @@
 {
-  "type": "module",
   "name": "shulga-app-core",
-  "version": "1.0.11",
+  "version": "1.0.14",
   "description": "",
   "main": "./dist/index.js",
+  "exports": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build": "npx gulp"
+    "build": "npx gulp",
+    "publish": "npm publish --access public",
+    "unpublish": "npm unpublish shulga-app-core@1.0.13"
   },
   "repository": {
     "type": "git",
@@ -35,9 +37,9 @@
     "@types/merge-stream": "^1.1.2",
     "@types/merge2": "^1.4.0",
     "@types/node": "^18.14.0",
-    "del": "^7.0.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0",
+    "gulp-clean": "^0.4.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "gulp-uglify": "^3.0.2",

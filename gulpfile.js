@@ -1,24 +1,19 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-import gulp from 'gulp'
-import ts from 'gulp-typescript'
-import sourcemaps from 'gulp-sourcemaps'
-import uglify from 'gulp-uglify';
-import babel from 'gulp-babel'
-import { deleteSync } from 'del'
-import merge from 'merge-stream'
-import typescript from 'typescript'
-import config from './tsconfig.json' assert { type: 'json' }
-
-const __filename = fileURLToPath(import.meta.url);
-
-const __dirname = path.dirname(__filename);
+const gulp = require('gulp')
+const ts = require('gulp-typescript')
+const sourcemaps = require('gulp-sourcemaps')
+const uglify = require('gulp-uglify')
+const babel = require('gulp-babel')
+const clean = require('gulp-clean');
+const merge = require('merge-stream')
+const typescript = require('typescript')
+const config = require('./tsconfig.json')
 
 const sourcePath = __dirname + '/lib/**/*.ts'
 const destinationPath = __dirname + '/dist'
 
 function cleanup(cb) {
-    deleteSync(__dirname + '/dist', { force: true });
+    gulp.src(destinationPath, { read: false })
+        .pipe(clean())
     cb()
 }
 
@@ -46,4 +41,4 @@ function build (cb) {
     cb()
 }   
 
-export default gulp.series(cleanup, build);
+module.exports.default = gulp.series(cleanup, build);
