@@ -1,16 +1,3 @@
-import { UrlSerializerOptions } from "./types"
+import { Types } from "../../Base/Types";
 
-const accsessors = {
-    '.': ['.', ''] as const,
-    '[]': ['[', ']'] as const,
-    '{}': ['{', '}'] as const,
-}
-
-const defaultSerializeOptions: UrlSerializerOptions = {
-    skipNull: true,
-    skipUndefined: true,
-    arrayAccsessor: '[]',
-    objectAccsessor: '.'
-}
-
-export { accsessors, defaultSerializeOptions }
+export const defaultSerializeOptions = Types.Object.defaultToQueriesOptions
