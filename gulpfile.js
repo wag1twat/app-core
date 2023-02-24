@@ -17,22 +17,17 @@ const destinationPath = __dirname + '/dist'
 function cleanup(cb) {
     gulp.src(destinationPath, { read: false })
         .pipe(clean())
+    gulp.src(__dirname + '/README.md', { read: false })
+        .pipe(clean())
     cb()
 }
 
 function concatMds(cb) {
     const stream = gulp.src(docsPath)
     
-    merge([
-        gulp.src(__dirname + '/README(backup).md')
-            .pipe(clean()),
-        gulp.src(__dirname + '/README.md')
-            .pipe(rename('README(backup).md'))
-            .pipe(gulp.dest('./')),
-        stream
+    stream
         .pipe(concat('README.md'))
         .pipe(gulp.dest('./'))
-    ])
 
     cb()
 }

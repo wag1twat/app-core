@@ -27,3 +27,5 @@ process.env = {
 
 const env2 = new RequiredEnv(["https://anydomain.com"] as const, { checkOnInitializeClass: true }); // oops, throw exception
 ```
+
+adasasdasdasdasdasdada
