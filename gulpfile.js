@@ -10,7 +10,7 @@ const concat = require('gulp-concat');
 const config = require('./tsconfig.json')
 
 const sourcePath = __dirname + '/lib/**/*.ts'
-const docsPath = __dirname + '/lib/**/*.md'
+const docsPath = [__dirname + '/lib/*.md', __dirname + '/lib/**/*.md']
 const destinationPath = __dirname + '/dist'
 
 function cleanup(cb) {
