@@ -1,12 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
+    "target": "es2015",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -16,17 +12,13 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": false,
     "noEmit": false,
     "jsx": "react-jsx",
-    "baseUrl": ".",
+    "baseUrl": "./lib",
     "rootDir": "./lib",
     "outDir": "./dist",
-    "declaration": true,
-    "removeComments": true
-  },
-  "ts-node": {
-    "esm": true
+    "declaration": true
   },
   "include": ["./lib/**/*.ts", "./lib/**/*.js"],
   "exclude": ["node_modules", "**/__tests__/*"]
