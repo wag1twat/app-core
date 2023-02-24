@@ -1,5 +1,5 @@
 import { Guards } from "../Guards";
-import { MutableRefObject, UIEvent as ReactUIEvent } from "react";
+import { MutableRefObject, UIEvent as ReactUIEvent, UIEventHandler } from "react";
 
 class EventHandling {
     static scrollBottomRef = <E extends Element>(ref: MutableRefObject<E | null>, options?: ScrollToOptions) => {
@@ -15,8 +15,8 @@ class EventHandling {
         }
     }
 
-    static ifScrollBottom = <E extends Element>(callback: (event: ReactUIEvent<E, UIEvent>) => void, enabled: boolean) => {
-        return (event: ReactUIEvent<E, UIEvent>) => {
+    static ifScrollBottom = <El extends Element>(callback: (e: ReactUIEvent<El, UIEvent>) => void, enabled: boolean): UIEventHandler<El> => {
+        return (event) => {
             if(enabled) {
                 if(event.currentTarget) {
                     let isScrollHeight =  Guards.isNumber(event.currentTarget.scrollHeight)
