@@ -1,5 +1,7 @@
 # Not realease version.
 
+--
+
 ## RequiredEnv
 
 ##### What problem are we solving?
@@ -29,3 +31,5 @@ process.env = {
 
 const env2 = new RequiredEnv(["https://anydomain.com"] as const, { checkOnInitializeClass: true }); // oops, throw exception
 ```
+
+--

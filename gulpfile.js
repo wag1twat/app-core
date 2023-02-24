@@ -7,56 +7,49 @@ const clean = require('gulp-clean');
 const merge = require('merge-stream')
 const typescript = require('typescript')
 const concat = require('gulp-concat');
-const rename = require('gulp-rename');
 const config = require('./tsconfig.json')
 
-const sourcePath = __dirname + '/lib/**/*.ts'
+const libPath = __dirname + '/lib/**/*.ts'
 const docsPath = [__dirname + '/lib/.md', __dirname + '/lib/**/.md']
-const destinationPath = __dirname + '/dist'
+const distPath = __dirname + '/dist'
 
-function cleanup(cb) {
-    merge([
-        gulp.src(destinationPath, { read: true, allowEmpty: true, })
-            .pipe(clean({ force: true })),
-        gulp.src(__dirname + '/*.md', { read: true, allowEmpty: true })
-            .pipe(clean({ force: true }))
-    ])
-        
-    cb()
+function cleanup(path) {
+    return gulp.src(path, { read: true, allowEmpty: true, })
+        .pipe(clean({ force: true }))
 }
 
-function concatMds(cb) {
-    const stream = gulp.src(docsPath)
-    
-    stream
-        .pipe(concat('README.md'))
-        .pipe(gulp.dest('./'))
+gulp.task('cleanDocs', () => {
+    return cleanup(__dirname + '/*.md')
+})
 
-    cb()
-}
+gulp.task('createDocs', () => {
+    return gulp.src(docsPath)
+            .pipe(concat('README.md'))
+            .pipe(gulp.dest('./'))
+})
 
-function build (cb) {
-    const tsResult = gulp.src(sourcePath)
+gulp.task('cleanDist', () => {
+    return cleanup(distPath)
+})
+
+gulp.task('createDist', () => {
+    const tsResult = gulp.src(libPath)
         .pipe(sourcemaps.init())
         .pipe(ts({
             typescript,
             ...config.compilerOptions
         }))
 
-    merge([
-        tsResult.dts
-            .pipe(gulp.dest(destinationPath)),
-        tsResult.js
-            .pipe(babel({
-                presets: [
-                    ["@babel/preset-env", { targets: { node: '16' }}]
-                ]
-            }))
-            .pipe(uglify())
-            .pipe(sourcemaps.write('.')).pipe(gulp.dest('dist'))
-    ]);
-
-    cb()
-}
-
-module.exports.default = gulp.series(cleanup, concatMds, build);
+    return merge([
+                tsResult.dts
+                    .pipe(gulp.dest(distPath)),
+                tsResult.js
+                    .pipe(babel({
+                        presets: [
+                            ["@babel/preset-env", { targets: { node: '16' }}]
+                        ]
+                    }))
+                    .pipe(uglify())
+                    .pipe(sourcemaps.write('.')).pipe(gulp.dest('dist'))
+            ]);
+})
