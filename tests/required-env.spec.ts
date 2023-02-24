@@ -3,8 +3,8 @@ import { ValidationError } from 'runtypes';
 import { RequiredEnv } from '../lib/RequiredEnv';
 
 describe('RequiredEnv', () => {
-    const initialKeys = ['REACT_APP_API', 'REACT_APP_TOKEN', 'REACT_APP_SECRET_KEY']
-    let keys = ['REACT_APP_API', 'REACT_APP_TOKEN', 'REACT_APP_SECRET_KEY']
+    const initialKeys = ['REACT_APP_API', 'REACT_APP_TOKEN', 'REACT_APP_SECRET_KEY'] as const
+    let keys = ['REACT_APP_API', 'REACT_APP_TOKEN', 'REACT_APP_SECRET_KEY'] as Array<'REACT_APP_API' | 'REACT_APP_TOKEN' | 'REACT_APP_SECRET_KEY'>
     const proccessEnv = process.env
 
     beforeEach(() => {
@@ -20,8 +20,6 @@ describe('RequiredEnv', () => {
     
     test('valid', () => {
         try {
-            keys.push('REACT_APP_CI_TOKEN')
-
             keys.forEach(key => {
                 process.env[key] = key
             })
@@ -29,6 +27,7 @@ describe('RequiredEnv', () => {
             const requiredEnv = new RequiredEnv(keys)
 
             const env = requiredEnv.getVariables()
+            
 
             expect(Object.keys(env).length).toBe(keys.length)
 
@@ -43,8 +42,6 @@ describe('RequiredEnv', () => {
 
     test('invalid checkOnInitializeClass = true', () => {
         try {
-            keys.push('REACT_APP_CI_TOKEN')
-
             keys.forEach(key => {
                 process.env[key] = key
             })
@@ -58,8 +55,6 @@ describe('RequiredEnv', () => {
 
     test('invalid checkOnInitializeClass = false', () => {
         try {
-            keys.push('REACT_APP_CI_TOKEN')
-
             keys.forEach(key => {
                 process.env[key] = key
             })

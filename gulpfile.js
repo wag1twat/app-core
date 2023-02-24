@@ -6,14 +6,26 @@ const babel = require('gulp-babel')
 const clean = require('gulp-clean');
 const merge = require('merge-stream')
 const typescript = require('typescript')
+const concat = require('gulp-concat');
 const config = require('./tsconfig.json')
 
 const sourcePath = __dirname + '/lib/**/*.ts'
+const docsPath = __dirname + '/lib/**/*.md'
 const destinationPath = __dirname + '/dist'
 
 function cleanup(cb) {
     gulp.src(destinationPath, { read: false })
         .pipe(clean())
+    cb()
+}
+
+function concatMds(cb) {
+    const stream = gulp.src(docsPath)
+    
+    stream
+        .pipe(concat('README.md'))
+        .pipe(gulp.dest('./'))
+
     cb()
 }
 
@@ -39,6 +51,6 @@ function build (cb) {
     ]);
 
     cb()
-}   
+}
 
-module.exports.default = gulp.series(cleanup, build);
+module.exports.default = gulp.series(cleanup, concatMds, build);
