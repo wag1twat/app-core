@@ -108,7 +108,6 @@ class UrlSerializer<Path extends string, Params extends UrlSerializerParams<stri
             return new UrlSerializer<Path, Params>(this._path, this._options, this._params)
         }
         if(path && type === 'queries') {
-            console.log(path)
             return new UrlSerializer<`${Path}?${string}`, Params>(path, this._options, this._params)
         }
         if(path && type === 'link') {
