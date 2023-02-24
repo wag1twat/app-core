@@ -15,10 +15,13 @@ const docsPath = [__dirname + '/lib/*.md', __dirname + '/lib/**/*.md']
 const destinationPath = __dirname + '/dist'
 
 function cleanup(cb) {
-    gulp.src(destinationPath, { read: false })
-        .pipe(clean())
-    gulp.src(__dirname + '/README.md', { read: false })
-        .pipe(clean())
+    merge([
+        gulp.src(destinationPath, { read: true, allowEmpty: true, })
+            .pipe(clean({ force: true })),
+        gulp.src(__dirname + '/README.md', { read: true, allowEmpty: true })
+            .pipe(clean({ force: true }))
+    ])
+        
     cb()
 }
 
