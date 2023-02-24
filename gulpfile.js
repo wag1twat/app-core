@@ -7,6 +7,7 @@ const clean = require('gulp-clean');
 const merge = require('merge-stream')
 const typescript = require('typescript')
 const concat = require('gulp-concat');
+const rename = require('gulp-rename');
 const config = require('./tsconfig.json')
 
 const sourcePath = __dirname + '/lib/**/*.ts'
@@ -22,9 +23,16 @@ function cleanup(cb) {
 function concatMds(cb) {
     const stream = gulp.src(docsPath)
     
-    stream
+    merge([
+        gulp.src(__dirname + '/README(backup).md')
+            .pipe(clean()),
+        gulp.src(__dirname + '/README.md')
+            .pipe(rename('README(backup).md'))
+            .pipe(gulp.dest('./')),
+        stream
         .pipe(concat('README.md'))
         .pipe(gulp.dest('./'))
+    ])
 
     cb()
 }
