@@ -7,7 +7,9 @@ When starting the application, we may have n keys in ENV and some of them can be
 ```javascript
 import { RequiredEnv } from "shulga-app-core";
 
-env = {
+// Example#1
+
+process.env = {
   REACT_APP_API: "https://anydomain.com", // required
   REACT_APP_CI_TOKEN: "hash",
 };
@@ -16,6 +18,12 @@ const env1 = new RequiredEnv(["https://anydomain.com"] as const, { checkOnInitia
 
 const values1 = env1.getVariables(); // Record<https://anydomain.com, string | undefined>
 
+// Example#2
 
-const env1 = new RequiredEnv(["https://anydomain.com"] as const, { checkOnInitializeClass: true }); // oops, throw exception
+process.env = {
+  REACT_APP_API: undefined, // but required ???
+  REACT_APP_CI_TOKEN: "hash",
+};
+
+const env2 = new RequiredEnv(["https://anydomain.com"] as const, { checkOnInitializeClass: true }); // oops, throw exception
 ```
