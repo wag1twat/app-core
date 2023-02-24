@@ -11,14 +11,14 @@ const rename = require('gulp-rename');
 const config = require('./tsconfig.json')
 
 const sourcePath = __dirname + '/lib/**/*.ts'
-const docsPath = [__dirname + '/lib/*.md', __dirname + '/lib/**/*.md']
+const docsPath = [__dirname + '/lib/.md', __dirname + '/lib/**/.md']
 const destinationPath = __dirname + '/dist'
 
 function cleanup(cb) {
     merge([
         gulp.src(destinationPath, { read: true, allowEmpty: true, })
             .pipe(clean({ force: true })),
-        gulp.src(__dirname + '/README.md', { read: true, allowEmpty: true })
+        gulp.src(__dirname + '/*.md', { read: true, allowEmpty: true })
             .pipe(clean({ force: true }))
     ])
         
