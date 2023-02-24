@@ -1,6 +1,6 @@
-import { MutableRefObject, UIEvent } from "react";
+import { MutableRefObject, UIEvent as ReactUIEvent, UIEventHandler } from "react";
 declare class EventHandling {
-    static scrollBottomRef: <E extends HTMLElement>(ref: MutableRefObject<E | null>, options?: ScrollToOptions) => void;
-    static ifScrollBottom: (callback: <E extends HTMLElement>(event: UIEvent<E, UIEvent<Element, globalThis.UIEvent>>) => void, enabled: boolean) => <E_1 extends HTMLElement>(event: UIEvent<E_1, UIEvent<Element, globalThis.UIEvent>>) => void;
+    static scrollBottomRef: <E extends Element>(ref: MutableRefObject<E | null>, options?: ScrollToOptions) => void;
+    static ifScrollBottom: <El extends Element>(callback: (e: ReactUIEvent<El, UIEvent>) => void, enabled: boolean) => UIEventHandler<El>;
 }
 export { EventHandling };
