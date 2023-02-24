@@ -15,8 +15,8 @@ class EventHandling {
         }
     }
 
-    static ifScrollBottom =(callback: <E extends Element>(event: ReactUIEvent<E, UIEvent>) => void, enabled: boolean) => {
-        return <E extends Element>(event: ReactUIEvent<E, UIEvent>) => {
+    static ifScrollBottom = <E extends Element>(callback: (event: ReactUIEvent<E, UIEvent>) => void, enabled: boolean) => {
+        return (event: ReactUIEvent<E, UIEvent>) => {
             if(enabled) {
                 if(event.currentTarget) {
                     let isScrollHeight =  Guards.isNumber(event.currentTarget.scrollHeight)
