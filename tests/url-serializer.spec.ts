@@ -41,6 +41,7 @@ describe('Serializer', () => {
         expect(postsLink.path).toBe(root + '/users/10/posts')
 
         const postLink = post.link({ ':userId': '10', ':postId': '20' })
+
         expect(postLink.path).toBe(root + '/users/10/posts/20')
 
         const extendedLink = postLink.extend().path('likes').param('likeId').path('user').build().link({
