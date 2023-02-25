@@ -78,9 +78,15 @@ const postLink = post.link({ ':userId': '10' })
 ![Postlink](https://github.com/wag1twat/app-core/blob/main/assets/postLinkError.png)
 
 ```javascript
-const extendedLink = postLink.extend().path('likes').param('likeId').path('user').build().link({
-    ':likeId': '30',
-})
+const extendedLink = postLink
+    .extend()
+    .path('likes')
+    .param('likeId')
+    .path('user')
+    .build()
+    .link({
+        ':likeId': '30',
+    })
 ```
 
 ![Extended](https://github.com/wag1twat/app-core/blob/main/assets/extendedLink.png)

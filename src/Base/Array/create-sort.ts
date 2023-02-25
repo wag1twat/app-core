@@ -4,7 +4,9 @@ import { $Object } from '../Object'
 
 const createSort =
     <T extends any[]>(collection: T) =>
-    <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(options: Types.Array.Sort.Options<T, XPath>) => {
+    <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(
+        options: Types.Array.Sort.Options<T, XPath>
+    ) => {
         let called: boolean = false
 
         const { field, order, orders, onUpdate } = options
@@ -23,13 +25,18 @@ const createSort =
         }
 
         const install = () => {
-            ;(state._field = field ? field : undefined), (state._order = order ? order : Types.Array.Sort.defaultOrder)
+            state._field = field ? field : undefined
+            state._order = order ? order : Types.Array.Sort.defaultOrder
             state._orders = orders ? orders : Types.Array.Sort.defaultOrders
-            state._collection = ([] as unknown as T).concat.apply(collection) as T
+            state._collection = ([] as unknown as T).concat.apply(
+                collection
+            ) as T
             onUpdateCallback()
         }
 
-        const updateField = <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(
+        const updateField = <
+            XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>
+        >(
             field: Types.Array.Sort.Field<T, XPath> | undefined
         ) => {
             if (!Guards.isUndefined(field)) {
@@ -37,7 +44,9 @@ const createSort =
             }
         }
 
-        const updateOrder = <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(
+        const updateOrder = <
+            XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>
+        >(
             field: Types.Array.Sort.Field<T, XPath> | undefined,
             noUpdateOrderFalsyEqualXPath: boolean
         ) => {
@@ -48,15 +57,24 @@ const createSort =
                     if (state._field === field) {
                         is = true && called
                     }
-                } else if (Guards.isString(state._field) && Guards.isObject(field)) {
+                } else if (
+                    Guards.isString(state._field) &&
+                    Guards.isObject(field)
+                ) {
                     if (state._field === field.xpath) {
                         is = true && called
                     }
-                } else if (Guards.isObject(state._field) && Guards.isString(field)) {
+                } else if (
+                    Guards.isObject(state._field) &&
+                    Guards.isString(field)
+                ) {
                     if (state._field.xpath === field) {
                         is = true && called
                     }
-                } else if (Guards.isObject(state._field) && Guards.isObject(field)) {
+                } else if (
+                    Guards.isObject(state._field) &&
+                    Guards.isObject(field)
+                ) {
                     if (state._field.xpath === field.xpath) {
                         is = true && called
                     }
@@ -69,13 +87,18 @@ const createSort =
                 const lastOrderIndex = state._orders.length - 1
                 const currentOrderIndex = state._orders.indexOf(state._order)
                 const nextOrderIndex = currentOrderIndex + 1
-                state._order = nextOrderIndex <= lastOrderIndex ? state._orders[nextOrderIndex] : state._orders[0]
+                state._order =
+                    nextOrderIndex <= lastOrderIndex
+                        ? state._orders[nextOrderIndex]
+                        : state._orders[0]
             }
         }
 
         const onDefaultOrder = () => {
             if (state._order === 'default') {
-                state._collection = ([] as unknown as T).concat.apply(collection) as T
+                state._collection = ([] as unknown as T).concat.apply(
+                    collection
+                ) as T
 
                 onUpdateCallback()
 
@@ -84,7 +107,9 @@ const createSort =
             return false
         }
 
-        const update = <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(
+        const update = <
+            XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>
+        >(
             options: Types.Array.Sort.UpdateOptions<T, XPath> = {}
         ) => {
             const { field, noUpdateOrderFalsyEqualXPath = false } = options
@@ -105,11 +130,35 @@ const createSort =
                         l = l[state._field]
                         r = r[state._field]
                     } else if (isObjectField) {
-                        l = (state._field as Types.Array.Sort.FieldObject<T, XPath>).handler(
-                            $Object(l).getXPath((state._field as Types.Array.Sort.FieldObject<T, XPath>).xpath)
+                        l = (
+                            state._field as Types.Array.Sort.FieldObject<
+                                T,
+                                XPath
+                            >
+                        ).handler(
+                            $Object(l).getXPath(
+                                (
+                                    state._field as Types.Array.Sort.FieldObject<
+                                        T,
+                                        XPath
+                                    >
+                                ).xpath
+                            )
                         )
-                        r = (state._field as Types.Array.Sort.FieldObject<T, XPath>).handler(
-                            $Object(r).getXPath((state._field as Types.Array.Sort.FieldObject<T, XPath>).xpath)
+                        r = (
+                            state._field as Types.Array.Sort.FieldObject<
+                                T,
+                                XPath
+                            >
+                        ).handler(
+                            $Object(r).getXPath(
+                                (
+                                    state._field as Types.Array.Sort.FieldObject<
+                                        T,
+                                        XPath
+                                    >
+                                ).xpath
+                            )
                         )
                     }
 

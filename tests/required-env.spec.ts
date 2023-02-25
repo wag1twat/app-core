@@ -3,10 +3,16 @@ import { ValidationError } from 'runtypes'
 import { RequiredEnv } from '../src/RequiredEnv'
 
 describe('RequiredEnv', () => {
-    const initialKeys = ['REACT_APP_API', 'REACT_APP_TOKEN', 'REACT_APP_SECRET_KEY'] as const
-    let keys = ['REACT_APP_API', 'REACT_APP_TOKEN', 'REACT_APP_SECRET_KEY'] as Array<
-        'REACT_APP_API' | 'REACT_APP_TOKEN' | 'REACT_APP_SECRET_KEY'
-    >
+    const initialKeys = [
+        'REACT_APP_API',
+        'REACT_APP_TOKEN',
+        'REACT_APP_SECRET_KEY',
+    ] as const
+    let keys = [
+        'REACT_APP_API',
+        'REACT_APP_TOKEN',
+        'REACT_APP_SECRET_KEY',
+    ] as Array<'REACT_APP_API' | 'REACT_APP_TOKEN' | 'REACT_APP_SECRET_KEY'>
     const proccessEnv = process.env
 
     beforeEach(() => {
@@ -58,7 +64,10 @@ describe('RequiredEnv', () => {
                 process.env[key] = key
             })
 
-            const env = new RequiredEnv([...keys, 'REACT_APP_UNDEFINED_VARIABLE'], { checkOnInitializeClass: false })
+            const env = new RequiredEnv(
+                [...keys, 'REACT_APP_UNDEFINED_VARIABLE'],
+                { checkOnInitializeClass: false }
+            )
 
             const variables = env.getVariables()
 

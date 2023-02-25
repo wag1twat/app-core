@@ -14,7 +14,9 @@ const docsPath = [__dirname + '/src/.md', __dirname + '/src/**/.md']
 const distPath = __dirname + '/dist'
 
 function cleanup(path) {
-    return gulp.src(path, { read: true, allowEmpty: true }).pipe(clean({ force: true }))
+    return gulp
+        .src(path, { read: true, allowEmpty: true })
+        .pipe(clean({ force: true }))
 }
 
 gulp.task('cleanDocs', () => {
@@ -45,7 +47,9 @@ gulp.task('createDist', () => {
         tsResult.js
             .pipe(
                 babel({
-                    presets: [['@babel/preset-env', { targets: { node: '16' } }]],
+                    presets: [
+                        ['@babel/preset-env', { targets: { node: '16' } }],
+                    ],
                 })
             )
             .pipe(uglify())

@@ -9,7 +9,10 @@ describe('Array', () => {
     const order = 'ASC' as const
 
     let _collection: typeof users
-    let _field: Types.Array.Sort.Field<typeof users, Types.Utility.JSONPath<(typeof users)[number]>>
+    let _field: Types.Array.Sort.Field<
+        typeof users,
+        Types.Utility.JSONPath<(typeof users)[number]>
+    >
     let _order: Types.Array.Sort.Order
     let _orders: Types.Array.Sort.Order[]
 

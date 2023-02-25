@@ -4,7 +4,13 @@ export namespace Types {
 
         export type StringOrNumber = string | number
 
-        export type Primitive = string | number | bigint | boolean | undefined | symbol
+        export type Primitive =
+            | string
+            | number
+            | bigint
+            | boolean
+            | undefined
+            | symbol
 
         // TODO: array path
         export type JSONPath<T, Prefix = ''> = {
@@ -12,10 +18,15 @@ export namespace Types {
                 ? `${string & Prefix}${string & K}`
                 :
                       | `${string & Prefix}${string & K}`
-                      | (IsAny<T[K]> extends false ? JSONPath<T[K], `${string & Prefix}${string & K}.`> : never)
+                      | (IsAny<T[K]> extends false
+                            ? JSONPath<T[K], `${string & Prefix}${string & K}.`>
+                            : never)
         }[keyof T]
 
-        export type JSONFind<T extends Record<string, any>, Path = JSONPath<T>> = Path extends keyof T
+        export type JSONFind<
+            T extends Record<string, any>,
+            Path = JSONPath<T>
+        > = Path extends keyof T
             ? T[Path]
             : Path extends `${infer Up}.${infer Down}`
             ? IsAny<T[Up]> extends false
@@ -70,12 +81,20 @@ export namespace Types {
         export namespace Sort {
             export type Order = 'ASC' | 'DESC' | 'default'
 
-            export type FieldObject<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
+            export type FieldObject<
+                T extends any[],
+                XPath extends Utility.JSONPath<Of<T>>
+            > = {
                 xpath: XPath
-                handler: (item: Utility.JSONFind<Of<T>, XPath> | undefined) => Utility.Primitive
+                handler: (
+                    item: Utility.JSONFind<Of<T>, XPath> | undefined
+                ) => Utility.Primitive
             }
 
-            export type Field<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = XPath | FieldObject<T, XPath>
+            export type Field<
+                T extends any[],
+                XPath extends Utility.JSONPath<Of<T>>
+            > = XPath | FieldObject<T, XPath>
 
             export type State<T extends any[]> = {
                 _collection: T
@@ -84,14 +103,20 @@ export namespace Types {
                 _field?: Field<T, Utility.JSONPath<Of<T>>>
             }
 
-            export type Options<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
+            export type Options<
+                T extends any[],
+                XPath extends Utility.JSONPath<Of<T>>
+            > = {
                 field?: Field<T, XPath>
                 order?: Order
                 orders?: Order[]
                 onUpdate?: (state: State<T>) => void
             }
 
-            export type UpdateOptions<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
+            export type UpdateOptions<
+                T extends any[],
+                XPath extends Utility.JSONPath<Of<T>>
+            > = {
                 field?: Field<T, XPath>
                 noUpdateOrderFalsyEqualXPath?: boolean
             }
@@ -108,7 +133,9 @@ export namespace Types {
                 r: Utility.Primitive
             ) {
                 if (isL && isR) {
-                    return isAsc ? (r as string).localeCompare(l as string) : (l as string).localeCompare(r as string)
+                    return isAsc
+                        ? (r as string).localeCompare(l as string)
+                        : (l as string).localeCompare(r as string)
                 } else if (!isL || !isR) {
                     return isAsc ? (isL ? 1 : -1) : -1
                 }
@@ -123,7 +150,13 @@ export namespace Types {
                 r: Utility.Primitive
             ) {
                 if (isL && isR) {
-                    return isAsc ? ((r as number) < (l as number) ? 1 : -1) : (r as number) > (l as number) ? 1 : -1
+                    return isAsc
+                        ? (r as number) < (l as number)
+                            ? 1
+                            : -1
+                        : (r as number) > (l as number)
+                        ? 1
+                        : -1
                 } else if (isL || isR) {
                     return isAsc ? (isL ? 1 : -1) : -1
                 }
@@ -138,7 +171,13 @@ export namespace Types {
                 r: Utility.Primitive
             ) {
                 if (isL && isR) {
-                    return isAsc ? ((r as boolean) < (l as boolean) ? 1 : -1) : (r as boolean) > (l as boolean) ? 1 : -1
+                    return isAsc
+                        ? (r as boolean) < (l as boolean)
+                            ? 1
+                            : -1
+                        : (r as boolean) > (l as boolean)
+                        ? 1
+                        : -1
                 } else if (isL || isR) {
                     return isAsc ? (isL ? 1 : -1) : -1
                 }

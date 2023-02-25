@@ -5,7 +5,9 @@ import { $String } from '../String'
 
 const getXPath =
     <O extends object>(obj: O) =>
-    <Path extends Types.Utility.JSONPath<O>>(path: Path): Types.Utility.JSONFind<O, Path> | undefined => {
+    <Path extends Types.Utility.JSONPath<O>>(
+        path: Path
+    ): Types.Utility.JSONFind<O, Path> | undefined => {
         const parts = $String(`${path}`).split('.')
 
         const part = parts.shift()

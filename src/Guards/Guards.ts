@@ -14,16 +14,21 @@ class Guards {
     static isUndefined = (value: unknown): value is undefined => {
         return typeof value === 'undefined'
     }
-    static isArrayConstructor = <T extends Array<never>>(value: object): value is T => {
+    static isArrayConstructor = <T extends Array<never>>(
+        value: object
+    ): value is T => {
         return value.constructor && value.constructor === Array
     }
-    static isObjectConstructor = <T extends object>(value: object): value is T => {
+    static isObjectConstructor = <T extends object>(
+        value: object
+    ): value is T => {
         return value.constructor && value.constructor === Object
     }
     static isObject = (value: unknown): value is object => {
         return value !== null && typeof value === 'object'
     }
-    static isFunc = (value: unknown): value is Function => typeof value === 'function'
+    static isFunc = (value: unknown): value is Function =>
+        typeof value === 'function'
 }
 
 export { Guards }
