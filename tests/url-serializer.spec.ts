@@ -43,18 +43,10 @@ describe('Serializer', () => {
         const postLink = post.link({ ':userId': '10', ':postId': '20' })
         expect(postLink.path).toBe(root + '/users/10/posts/20')
 
-        const extendedLink = postLink
-            .extend()
-            .path('likes')
-            .param('likeId')
-            .path('user')
-            .build()
-            .link({
-                ':likeId': '30',
-            })
-        expect(extendedLink.path).toBe(
-            root + '/users/10/posts/20/likes/30/user'
-        )
+        const extendedLink = postLink.extend().path('likes').param('likeId').path('user').build().link({
+            ':likeId': '30',
+        })
+        expect(extendedLink.path).toBe(root + '/users/10/posts/20/likes/30/user')
     })
     test('unique exception', () => {
         try {
@@ -78,8 +70,7 @@ describe('Serializer', () => {
         const base = serializer.path('user').build().queries(queries)
 
         expect(base.path).toBe(
-            root +
-                '/user?regionId=12&cityId=121&departments[]=88&users.ids[]=12&users.registry=true'
+            root + '/user?regionId=12&cityId=121&departments[]=88&users.ids[]=12&users.registry=true'
         )
     })
 
@@ -100,8 +91,7 @@ describe('Serializer', () => {
         const basequeries = base.queries(queries)
 
         expect(basequeries.path).toBe(
-            root +
-                '/post?regionId=12&cityId=121&departments[]=88&users{ids}[]=12&users{registry}=true'
+            root + '/post?regionId=12&cityId=121&departments[]=88&users{ids}[]=12&users{registry}=true'
         )
 
         const extend2 = base.extend().build()

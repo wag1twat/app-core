@@ -1,10 +1,5 @@
 import { Record as RuntypesRecord, String as RuntypesString } from 'runtypes'
-import {
-    MappedVariables,
-    MappedVariablesContract,
-    MappedVariablesRuntypes,
-    RequiredEnvOptions,
-} from './types'
+import { MappedVariables, MappedVariablesContract, MappedVariablesRuntypes, RequiredEnvOptions } from './types'
 
 const defaultOptions: RequiredEnvOptions = {
     checkOnInitializeClass: true,

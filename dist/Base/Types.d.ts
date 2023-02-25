@@ -1,6 +1,12 @@
 export declare namespace Types {
     namespace Utility {
+        type IsAny<T> = unknown extends T & string ? true : false;
         type StringOrNumber = string | number;
+        type Primitive = string | number | bigint | boolean | undefined | symbol;
+        type JSONPath<T, Prefix = ''> = {
+            [K in keyof T]: T[K] extends Primitive | Array<any> ? `${string & Prefix}${string & K}` : `${string & Prefix}${string & K}` | (IsAny<T[K]> extends false ? JSONPath<T[K], `${string & Prefix}${string & K}.`> : never);
+        }[keyof T];
+        type JSONFind<T extends Record<string, any>, Path = JSONPath<T>> = Path extends keyof T ? T[Path] : Path extends `${infer Up}.${infer Down}` ? IsAny<T[Up]> extends false ? JSONFind<T[Up], Down> : never : never;
     }
     namespace String {
         type Split<S extends string, D extends string> = string extends S ? string[] : S extends '' ? [] : S extends `${infer T}${D}${infer U}` ? [T, ...Split<U, D>] : [S];
@@ -21,5 +27,37 @@ export declare namespace Types {
             '[]': readonly ["[", "]"];
             '{}': readonly ["{", "}"];
         };
+    }
+    namespace Array {
+        type Of<T extends any[]> = T extends (infer U)[] ? U : never;
+        namespace Sort {
+            type Order = 'ASC' | 'DESC' | 'default';
+            type FieldObject<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
+                xpath: XPath;
+                handler: (item: Utility.JSONFind<Of<T>, XPath> | undefined) => Utility.Primitive;
+            };
+            type Field<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = XPath | FieldObject<T, XPath>;
+            type State<T extends any[]> = {
+                _collection: T;
+                _order: Order;
+                _orders: Order[];
+                _field?: Field<T, Utility.JSONPath<Of<T>>>;
+            };
+            type Options<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
+                field?: Field<T, XPath>;
+                order?: Order;
+                orders?: Order[];
+                onUpdate?: (state: State<T>) => void;
+            };
+            type UpdateOptions<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
+                field?: Field<T, XPath>;
+                noUpdateOrderFalsyEqualXPath?: boolean;
+            };
+            const defaultOrders: Order[];
+            const defaultOrder: Order;
+            function compareStrings(isAsc: boolean, isL: boolean, isR: boolean, l: Utility.Primitive, r: Utility.Primitive): number | undefined;
+            function compareNumbers(isAsc: boolean, isL: boolean, isR: boolean, l: Utility.Primitive, r: Utility.Primitive): 1 | -1 | undefined;
+            function compareBooleans(isAsc: boolean, isL: boolean, isR: boolean, l: Utility.Primitive, r: Utility.Primitive): 1 | -1 | undefined;
+        }
     }
 }

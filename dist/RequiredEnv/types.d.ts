@@ -5,4 +5,4 @@ type MappedVariablesContract<V extends readonly string[]> = RuntypesRecord<Mappe
 type RequiredEnvOptions = {
     checkOnInitializeClass?: boolean;
 };
-export type { RequiredEnvOptions, MappedVariablesRuntypes, MappedVariables, MappedVariablesContract, };
+export type { RequiredEnvOptions, MappedVariablesRuntypes, MappedVariables, MappedVariablesContract };
