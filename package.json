@@ -1,61 +1,62 @@
 {
-  "name": "shulga-app-core",
-  "version": "1.0.183",
-  "description": "",
-  "main": "./dist/index.js",
-  "exports": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
-  "scripts": {
-    "test": "jest",
-    "build": "npx gulp cleanDist createDist",
-    "build-docs": "npx gulp cleanDocs createDocs",
-    "publish": "npm publish --access public",
-    "unpublish": "npm unpublish shulga-app-core@1.0.13"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wag1twat/app-core.git"
-  },
-  "keywords": [
-    "javascript",
-    "react",
-    "typescript"
-  ],
-  "author": "yury shulga",
-  "bugs": {
-    "url": "https://github.com/wag1twat/app-core/issues"
-  },
-  "homepage": "https://github.com/wag1twat/app-core#readme",
-  "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.21.0",
-    "@babel/preset-env": "^7.20.2",
-    "@babel/preset-typescript": "^7.21.0",
-    "@jest/globals": "^29.4.3",
-    "@types/gulp": "^4.0.10",
-    "@types/gulp-babel": "^6.1.30",
-    "@types/gulp-concat": "^0.0.33",
-    "@types/gulp-sourcemaps": "^0.0.35",
-    "@types/gulp-uglify": "^3.0.7",
-    "@types/jest": "^29.4.0",
-    "@types/merge-stream": "^1.1.2",
-    "@types/merge2": "^1.4.0",
-    "@types/node": "^18.14.0",
-    "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
-    "gulp-clean": "^0.4.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-sourcemaps": "^3.0.0",
-    "gulp-typescript": "^6.0.0-alpha.1",
-    "gulp-uglify": "^3.0.2",
-    "jest": "^29.4.3",
-    "merge2": "^1.4.1",
-    "typescript": "^4.9.5"
-  },
-  "dependencies": {
-    "@types/react": "^18.0.28",
-    "runtypes": "^6.6.0"
-  },
-  "files": [
-    "dist/"
-  ]
+    "name": "shulga-app-core",
+    "version": "1.0.184",
+    "description": "",
+    "main": "./dist/index.js",
+    "exports": "./dist/index.js",
+    "typings": "./dist/index.d.ts",
+    "scripts": {
+        "test": "jest",
+        "build-docs": "bash bin/build-docs.sh",
+        "build": "bash bin/build.sh",
+        "push": "bash bin/push.sh",
+        "revert": "bash bin/revert.sh"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wag1twat/app-core.git"
+    },
+    "keywords": [
+        "javascript",
+        "react",
+        "typescript"
+    ],
+    "author": "yury shulga",
+    "bugs": {
+        "url": "https://github.com/wag1twat/app-core/issues"
+    },
+    "homepage": "https://github.com/wag1twat/app-core#readme",
+    "devDependencies": {
+        "@babel/plugin-transform-runtime": "^7.21.0",
+        "@babel/preset-env": "^7.20.2",
+        "@babel/preset-typescript": "^7.21.0",
+        "@jest/globals": "^29.4.3",
+        "@types/gulp": "^4.0.10",
+        "@types/gulp-babel": "^6.1.30",
+        "@types/gulp-concat": "^0.0.33",
+        "@types/gulp-sourcemaps": "^0.0.35",
+        "@types/gulp-uglify": "^3.0.7",
+        "@types/jest": "^29.4.0",
+        "@types/merge-stream": "^1.1.2",
+        "@types/merge2": "^1.4.0",
+        "@types/node": "^18.14.0",
+        "gulp": "^4.0.2",
+        "gulp-babel": "^8.0.0",
+        "gulp-clean": "^0.4.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-sourcemaps": "^3.0.0",
+        "gulp-typescript": "^6.0.0-alpha.1",
+        "gulp-uglify": "^3.0.2",
+        "jest": "^29.4.3",
+        "merge2": "^1.4.1",
+        "typescript": "^4.9.5"
+    },
+    "dependencies": {
+        "@types/react": "^18.0.28",
+        "react": "^18.2.0",
+        "runtypes": "^6.6.0"
+    },
+    "files": [
+        "dist/"
+    ]
 }

@@ -1,4 +1,4 @@
-import { Types } from "./Types";
+import { Types } from './Types';
 declare namespace Base {
     function Object<O extends object>(obj: O): {
         get: <K extends string>(key: K | keyof O) => O[Exclude<K, K> | Exclude<keyof O, K>];

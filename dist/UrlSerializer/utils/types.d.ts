@@ -1,4 +1,4 @@
-import { Types } from "../../Base/Types";
+import { Types } from '../../Base/Types';
 type UrlSerializerParamKey<T extends string> = `:${T}`;
 type UrlSerializerParam = string;
 type UrlSerializerParams<T extends string> = {

@@ -1,8 +1,13 @@
-import { Record as RuntypesRecord, String as RuntypesString } from "runtypes"
-import { MappedVariables, MappedVariablesContract, MappedVariablesRuntypes, RequiredEnvOptions } from "./types"
+import { Record as RuntypesRecord, String as RuntypesString } from 'runtypes'
+import {
+    MappedVariables,
+    MappedVariablesContract,
+    MappedVariablesRuntypes,
+    RequiredEnvOptions,
+} from './types'
 
 const defaultOptions: RequiredEnvOptions = {
-    checkOnInitializeClass: true
+    checkOnInitializeClass: true,
 }
 
 class RequiredEnv<V extends readonly string[]> {
@@ -16,21 +21,29 @@ class RequiredEnv<V extends readonly string[]> {
 
         const { checkOnInitializeClass } = options
 
-        if(checkOnInitializeClass) {
+        if (checkOnInitializeClass) {
             this.check()
         }
     }
 
-    private createContract(){
-        return RuntypesRecord(this._variables.reduce<MappedVariablesRuntypes<V>>((a, c) => ({ ...a, [c]: RuntypesString }), {} as MappedVariablesRuntypes<V>))
+    private createContract() {
+        return RuntypesRecord(
+            this._variables.reduce<MappedVariablesRuntypes<V>>(
+                (a, c) => ({ ...a, [c]: RuntypesString }),
+                {} as MappedVariablesRuntypes<V>
+            )
+        )
     }
 
-    public check(){
+    public check() {
         this._contract.check(this.getVariables())
     }
 
     public getVariables(): MappedVariables<V> {
-        return this._variables.reduce<MappedVariables<V>>((a, v) => ({ ...a, [v]: process.env[v] }), {} as MappedVariables<V>)
+        return this._variables.reduce<MappedVariables<V>>(
+            (a, v) => ({ ...a, [v]: process.env[v] }),
+            {} as MappedVariables<V>
+        )
     }
 }
 

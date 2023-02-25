@@ -1,4 +1,4 @@
-import { Types } from "../Base";
+import { Types } from '../Base';
 import { UrlSerializerOptions, UrlSerializerParams } from './utils';
 declare class UrlSerializer<Path extends string, Params extends UrlSerializerParams<string>> {
     private _path;
