@@ -15,11 +15,11 @@
     "isolatedModules": false,
     "noEmit": false,
     "jsx": "react",
-    "baseUrl": "./lib",
-    "rootDir": "./lib",
+    "baseUrl": "./src",
+    "rootDir": "./src",
     "outDir": "./dist",
     "declaration": true
   },
-  "include": ["./lib/**/*.ts", "./lib/**/*.js"],
+  "include": ["./src/**/*.ts", "./src/**/*.js"],
   "exclude": ["node_modules", "**/__tests__/*"]
 }

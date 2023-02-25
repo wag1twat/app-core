@@ -1,6 +1,6 @@
 import { describe, test } from "@jest/globals";
-import { UniqueParamException } from "../lib/UrlSerializer/utils/exceptions";
-import { UrlSerializer } from "../lib/UrlSerializer";
+import { UniqueParamException } from "../src/UrlSerializer/utils/exceptions";
+import { UrlSerializer } from "../src/UrlSerializer";
 
 const root = 'https://anydomain.com' as const
 const queries = {

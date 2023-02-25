@@ -9,8 +9,8 @@ const typescript = require('typescript')
 const concat = require('gulp-concat');
 const config = require('./tsconfig.json')
 
-const libPath = __dirname + '/lib/**/*.ts'
-const docsPath = [__dirname + '/lib/.md', __dirname + '/lib/**/.md']
+const srcPath = __dirname + '/src/**/*.ts'
+const docsPath = [__dirname + '/src/.md', __dirname + '/src/**/.md']
 const distPath = __dirname + '/dist'
 
 function cleanup(path) {
@@ -33,7 +33,7 @@ gulp.task('cleanDist', () => {
 })
 
 gulp.task('createDist', () => {
-    const tsResult = gulp.src(libPath)
+    const tsResult = gulp.src(srcPath)
         .pipe(sourcemaps.init())
         .pipe(ts({
             typescript,
@@ -50,6 +50,6 @@ gulp.task('createDist', () => {
                         ]
                     }))
                     .pipe(uglify())
-                    .pipe(sourcemaps.write('.')).pipe(gulp.dest('dist'))
+                    .pipe(sourcemaps.write()).pipe(gulp.dest('dist'))
             ]);
 })
