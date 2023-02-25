@@ -1,21 +1,16 @@
 #!/usr/bin/env bash
 VERSION='';
-re="\"(version)\": \"([^\"]*)\"";
+NAME=''
+rversion="\"(version)\": \"([^\"]*)\"";
+rname="\"(name)\": \"([^\"]*)\"";
 
 while read -r l; do
-    if [[ $l =~ $re ]]; then
+    if [[ $l =~ $rversion ]]; then
         value="${BASH_REMATCH[2]}";
         VERSION="$value";
-    fi
-done < package.json;
-
-NAME='';
-re="\"(name)\": \"([^\"]*)\"";
-
-while read -r l; do
-    if [[ $l =~ $re ]]; then
+    elif [[ $l =~ $rname ]]; then
         value="${BASH_REMATCH[2]}";
-        name="$value";
+        NAME="$value";
     fi
 done < package.json;
 
