@@ -106,65 +106,6 @@ export namespace Types {
             export const defaultOrders: Order[] = ['ASC', 'DESC', 'default']
 
             export const defaultOrder: Order = 'default'
-
-            export function compareStrings(
-                isAsc: boolean,
-                isL: boolean,
-                isR: boolean,
-                l: Utility.Primitive,
-                r: Utility.Primitive
-            ) {
-                if (isL && isR) {
-                    return isAsc
-                        ? (r as string).localeCompare(l as string)
-                        : (l as string).localeCompare(r as string)
-                } else if (!isL || !isR) {
-                    return isAsc ? (isL ? 1 : -1) : -1
-                }
-                return undefined
-            }
-
-            export function compareNumbers(
-                isAsc: boolean,
-                isL: boolean,
-                isR: boolean,
-                l: Utility.Primitive,
-                r: Utility.Primitive
-            ) {
-                if (isL && isR) {
-                    return isAsc
-                        ? (r as number) < (l as number)
-                            ? 1
-                            : -1
-                        : (r as number) > (l as number)
-                        ? 1
-                        : -1
-                } else if (isL || isR) {
-                    return isAsc ? (isL ? 1 : -1) : -1
-                }
-                return undefined
-            }
-
-            export function compareBooleans(
-                isAsc: boolean,
-                isL: boolean,
-                isR: boolean,
-                l: Utility.Primitive,
-                r: Utility.Primitive
-            ) {
-                if (isL && isR) {
-                    return isAsc
-                        ? (r as boolean) < (l as boolean)
-                            ? 1
-                            : -1
-                        : (r as boolean) > (l as boolean)
-                        ? 1
-                        : -1
-                } else if (isL || isR) {
-                    return isAsc ? (isL ? 1 : -1) : -1
-                }
-                return undefined
-            }
         }
     }
 }

@@ -22,10 +22,9 @@ const createFake = (id: number) => {
     }
 }
 
-const users1000000 = Array.from(Array(1000000).keys()).map(i => createFake(i))
+const users1000000 = Array.from(Array(1000000).keys()).map((i) => createFake(i))
 
 describe('array-sort-perfomance', () => {
-
     const result = {}
 
     afterAll(() => {
@@ -36,24 +35,23 @@ describe('array-sort-perfomance', () => {
         let t0 = performance.now()
         users1000000.sort((a, b) => a.id - b.id)
         let t1 = performance.now()
-        result['1000000: a.id - b.id'] = t1 - t0
+        result['native sort: a.id - b.id'] = t1 - t0
 
         t0 = performance.now()
         users1000000.sort((a, b) => b.id - a.id)
         t1 = performance.now()
-        result['1000000: b.id - a.id'] = t1 - t0
+        result['native sort: b.id - a.id'] = t1 - t0
     })
     test('$Array sort 1000000', () => {
         let t0 = performance.now()
-        let order: Types.Array.Sort.Order = 'DESC';
+        let order: Types.Array.Sort.Order = 'DESC'
         const array = $Array(users1000000).sort({
             field: 'id',
             order,
             orders: ['ASC', 'DESC', 'default'],
-            onUpdate(state){
+            onUpdate(state) {
                 order = state._order
-                console.log(state._collection[0].id, state._collection[state._collection.length - 1].id)
-            }
+            },
         })
         let t1 = performance.now()
         result[`${order} $Array sort`] = `${Math.ceil(t1 - t0)} ms`

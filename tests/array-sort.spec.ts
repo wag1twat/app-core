@@ -66,11 +66,11 @@ describe('Array', () => {
         })
 
         expect(_order).toBe('ASC')
-        expect(_collection[0].company.name).toBe(undefined)
-        expect(_collection[1].company.name).toBe('Considine-Lockman')
-        expect(_collection[2].company.name).toBe('Deckow-Crist')
-        expect(_collection[3].company.name).toBe('Hoeger LLC')
-        expect(_collection[4].company.name).toBe('Johns Group')
+        expect(_collection[0].company.name).toBe('Considine-Lockman')
+        expect(_collection[1].company.name).toBe('Deckow-Crist')
+        expect(_collection[2].company.name).toBe('Hoeger LLC')
+        expect(_collection[3].company.name).toBe('Johns Group')
+        expect(_collection[4].company.name).toBe('Keebler LLC')
 
         update({
             field: {
@@ -125,17 +125,17 @@ describe('Array', () => {
         })
 
         expect(_order).toBe('ASC')
-        expect(_collection[0].company.name).toBe(undefined)
-        expect(_collection[1].company.name).toBe('Considine-Lockman')
-        expect(_collection[2].company.name).toBe('Deckow-Crist')
-        expect(_collection[3].company.name).toBe('Hoeger LLC')
-        expect(_collection[4].company.name).toBe('Johns Group')
+        expect(_collection[0].company.name).toBe('Considine-Lockman')
+        expect(_collection[1].company.name).toBe('Deckow-Crist')
+        expect(_collection[2].company.name).toBe('Hoeger LLC')
+        expect(_collection[3].company.name).toBe('Johns Group')
+        expect(_collection[4].company.name).toBe('Keebler LLC')
     })
 
     test('test init array of numbers', () => {
-        const array = [3, 54, 77, 91293, 1, undefined, 0, 111]
-        const asked = [undefined, 0, 1, 3, 54, 77, 111, 91293]
-        const desced = [91293, 111, 77, 54, 3, 1, 0, undefined]
+        const array = [3, 54, 77, null, 91293, 1, undefined, 0, 111]
+        const asked = [0, 1, 3, 54, 77, 111, 91293, null, undefined]
+        const desced = [91293, 111, 77, 54, 3, 1, 0, null, undefined]
         let _collection!: number[]
         let _order!: Types.Array.Sort.Order
         let _orders!: Types.Array.Sort.Order[]
@@ -154,7 +154,6 @@ describe('Array', () => {
         expect(_orders).toEqual(['ASC', 'DESC', 'default'])
 
         expect(_order).toBe('ASC')
-        console.log(_collection)
         expect(_collection).toEqual(asked)
 
         update()
@@ -186,6 +185,7 @@ describe('Array', () => {
             'Kamren',
             'Leopoldo_Corkery',
             'Elwyn.Skiles',
+            undefined,
             'Maxime_Nienow',
             'Delphine',
             'Moriah.Stanton',
@@ -202,6 +202,7 @@ describe('Array', () => {
             'Maxime_Nienow',
             'Moriah.Stanton',
             'Samantha',
+            undefined,
         ]
 
         const desced = [
@@ -215,6 +216,7 @@ describe('Array', () => {
             'Delphine',
             'Bret',
             'Antonette',
+            undefined,
         ]
 
         let _collection!: string[]
@@ -225,6 +227,7 @@ describe('Array', () => {
             orders: ['ASC', 'DESC', 'default'],
             order: 'ASC',
             onUpdate(state) {
+                // @ts-ignore
                 _collection = state._collection
                 _order = state._order
                 _orders = state._orders

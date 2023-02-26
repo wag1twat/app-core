@@ -55,9 +55,6 @@ export declare namespace Types {
             };
             const defaultOrders: Order[];
             const defaultOrder: Order;
-            function compareStrings(isAsc: boolean, isL: boolean, isR: boolean, l: Utility.Primitive, r: Utility.Primitive): number | undefined;
-            function compareNumbers(isAsc: boolean, isL: boolean, isR: boolean, l: Utility.Primitive, r: Utility.Primitive): 1 | -1 | undefined;
-            function compareBooleans(isAsc: boolean, isL: boolean, isR: boolean, l: Utility.Primitive, r: Utility.Primitive): 1 | -1 | undefined;
         }
     }
 }
