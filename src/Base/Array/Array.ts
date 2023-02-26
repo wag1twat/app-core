@@ -1,9 +1,10 @@
+import { Types } from 'Base/Types'
 import { createSort } from './create-sort'
 
 export function $Array<T extends any[]>(collection: T = [] as unknown as T) {
-    const sort = createSort(collection)
-
     return {
-        sort,
+        sort: <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(
+            options: Types.Array.Sort.Options<T, XPath>
+        ) => createSort(collection)(options),
     }
 }

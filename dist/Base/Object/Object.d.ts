@@ -1,5 +1,6 @@
+import { Types } from '../Types';
 export declare function $Object<O extends object>(obj: O): {
-    get: <K extends string>(key: K | keyof O) => O[Exclude<K, K> | Exclude<keyof O, K>] | undefined;
-    getXPath: <Path extends import("..").Types.Utility.JSONPath<O, "">>(path: Path) => import("..").Types.Utility.JSONFind<O, Path> | undefined;
-    toQueries: (options?: Partial<import("..").Types.Object.ToQueriesOptions>, prefix?: string | undefined) => string;
+    get: (key: string | keyof O) => O[Exclude<keyof O, string>] | undefined;
+    getXPath: (path: Types.Utility.JSONPath<O>) => Types.Utility.JSONFind<O, Types.Utility.JSONPath<O, "">> | undefined;
+    toQueries: (options?: Partial<Types.Object.ToQueriesOptions>) => string;
 };

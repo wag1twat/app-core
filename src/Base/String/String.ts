@@ -4,14 +4,16 @@ import _replaceAll from './replace-all'
 import _split from './split'
 
 export function $String<S extends string>(string: S) {
-    const hasQueryParams = _hasQueryParams(string)
-    const joinQueryString = _joinQueries(string)
-    const split = _split(string)
-    const replaceAll = _replaceAll(string)
     return {
-        split,
-        replaceAll,
-        hasQueryParams,
-        joinQueryString,
+        split: <Separator extends string | RegExp>(
+            separator: Separator,
+            limit?: number | undefined
+        ) => _split(string)(separator, limit),
+        replaceAll: <Separator extends string, P extends { [x: string]: any }>(
+            separator: Separator,
+            p: P
+        ) => _replaceAll(string)(separator, p),
+        hasQueryParams: () => _hasQueryParams(string),
+        joinQueryString: <Q extends string>(queries: Q) => _joinQueries(string)(queries),
     }
 }
