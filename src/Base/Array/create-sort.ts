@@ -1,6 +1,36 @@
 import { Types } from '../Types'
 import { Guards } from '../../Guards'
 import { $Object } from '../Object'
+import getXPath from '../Object/get-xpath'
+
+const createTypeMap  = (isAsc: boolean): Record<string, any> => {
+    return {
+        ['number:number']: (l: number, r: number) => {
+            console.log(l, r)
+            return isAsc ? l - r : r - l
+        },
+        ['undefined:number']: (l: undefined, r: number) => {
+            console.log(l, r)
+            return isAsc ? -1 : 1
+        },
+        ['number:undefined']: (l: number, r: undefined) => {
+            console.log(l, r)
+            return isAsc ? -1 : 1
+        },
+        ['string:string']: (l: string, r: string) => {
+            return isAsc ? l.localeCompare(r) : r.localeCompare(l)
+        },
+        ['undefined:string']: (l: undefined, r: string) => {
+            return isAsc ? -1 : 1
+        },
+        ['string:undefined']: (l: string, r: undefined) => {
+            return isAsc ? 1 : -1
+        },
+        ['boolean:boolean']: (l: boolean, r: boolean) => {
+            return isAsc ? l > r : r > l
+        }
+    }
+}
 
 const createSort =
     <T extends any[]>(collection: T) =>
@@ -12,10 +42,10 @@ const createSort =
         const { field, order, orders, onUpdate } = options
 
         const state: Types.Array.Sort.State<T> = {
-            _collection: [] as unknown as T,
-            _order: Types.Array.Sort.defaultOrder,
-            _orders: Types.Array.Sort.defaultOrders,
-            _field: undefined,
+            _collection: collection,
+            _order: order ? order : Types.Array.Sort.defaultOrder,
+            _orders: orders ? orders : Types.Array.Sort.defaultOrders,
+            _field: field ? field : undefined,
         }
 
         const onUpdateCallback = () => {
@@ -28,7 +58,7 @@ const createSort =
             state._field = field ? field : undefined
             state._order = order ? order : Types.Array.Sort.defaultOrder
             state._orders = orders ? orders : Types.Array.Sort.defaultOrders
-            state._collection = [...collection] as T
+            state._collection = collection
             onUpdateCallback()
         }
 
@@ -81,7 +111,7 @@ const createSort =
 
         const onDefaultOrder = () => {
             if (state._order === 'default') {
-                state._collection = [...collection] as T
+                state._collection = collection
 
                 onUpdateCallback()
 
@@ -104,69 +134,72 @@ const createSort =
                 const isStringField = Guards.isString(state._field)
                 const isObjectField = Guards.isObject(state._field)
 
-                state._collection = ([...state._collection] as T).sort((l, r) => {
+                const getter = (item: any) => {
+                    if(isStringField) {
+                        return item[state._field]
+                    }
+                    if(isObjectField) {
+                        return (state._field as Types.Array.Sort.FieldObject<T, XPath>).handler(getXPath(item)((state._field as Types.Array.Sort.FieldObject<T, XPath>).xpath))
+                    }
+                    return item
+                }
+
+                const typeMap = createTypeMap(isAsc)
+
+                state._collection = state._collection.sort((l, r) => {
                     let n = 0
 
-                    if (isStringField) {
-                        l = l[state._field]
-                        r = r[state._field]
-                    } else if (isObjectField) {
-                        l = (state._field as Types.Array.Sort.FieldObject<T, XPath>).handler(
-                            $Object(l).getXPath(
-                                (state._field as Types.Array.Sort.FieldObject<T, XPath>).xpath
-                            )
-                        )
-                        r = (state._field as Types.Array.Sort.FieldObject<T, XPath>).handler(
-                            $Object(r).getXPath(
-                                (state._field as Types.Array.Sort.FieldObject<T, XPath>).xpath
-                            )
-                        )
-                    }
-
-                    const stringsComparation = Types.Array.Sort.compareStrings(
-                        isAsc,
-                        Guards.isString(l),
-                        Guards.isString(r),
-                        l,
-                        r
-                    )
-
-                    if (Guards.isNumber(stringsComparation)) {
-                        n = stringsComparation
-                    }
-
-                    const numbersComparation = Types.Array.Sort.compareNumbers(
-                        isAsc,
-                        Guards.isNumber(l),
-                        Guards.isNumber(r),
-                        l,
-                        r
-                    )
-
-                    if (Guards.isNumber(numbersComparation)) {
-                        n = numbersComparation
-                    }
-
-                    const booleanComparation = Types.Array.Sort.compareBooleans(
-                        isAsc,
-                        Guards.isBoolean(l),
-                        Guards.isBoolean(r),
-                        l,
-                        r
-                    )
-
-                    if (Guards.isNumber(booleanComparation)) {
-                        n = booleanComparation
-                    }
+                    l = getter(l)
+                    r = getter(r)
+                    
+                    n = typeMap[`${typeof l}:${typeof r}`](l, r)
 
                     return n
+
+                    // const stringsComparation = Types.Array.Sort.compareStrings(
+                    //     isAsc,
+                    //     Guards.isString(l),
+                    //     Guards.isString(r),
+                    //     l,
+                    //     r
+                    // )
+
+                    // if (Guards.isNumber(stringsComparation)) {
+                    //     n = stringsComparation
+                    // }
+
+                    // const numbersComparation = Types.Array.Sort.compareNumbers(
+                    //     isAsc,
+                    //     Guards.isNumber(l),
+                    //     Guards.isNumber(r),
+                    //     l,
+                    //     r
+                    // )
+
+                    // if (Guards.isNumber(numbersComparation)) {
+                    //     n = numbersComparation
+                    // }
+
+                    // const booleanComparation = Types.Array.Sort.compareBooleans(
+                    //     isAsc,
+                    //     Guards.isBoolean(l),
+                    //     Guards.isBoolean(r),
+                    //     l,
+                    //     r
+                    // )
+
+                    // if (Guards.isNumber(booleanComparation)) {
+                    //     n = booleanComparation
+                    // }
+
+                    // return n
                 })
 
                 onUpdateCallback()
             }
         }
 
-        install()
+        // install()
 
         if (!called) {
             update({

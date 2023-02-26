@@ -67,10 +67,10 @@ describe('Array', () => {
 
         expect(_order).toBe('ASC')
         expect(_collection[0].company.name).toBe(undefined)
-        expect(_collection[1].company.name).toBe('Yost and Sons')
-        expect(_collection[2].company.name).toBe('Romaguera-Jacobson')
-        expect(_collection[3].company.name).toBe('Romaguera-Crona')
-        expect(_collection[4].company.name).toBe('Robel-Corkery')
+        expect(_collection[1].company.name).toBe('Considine-Lockman')
+        expect(_collection[2].company.name).toBe('Deckow-Crist')
+        expect(_collection[3].company.name).toBe('Hoeger LLC')
+        expect(_collection[4].company.name).toBe('Johns Group')
 
         update({
             field: {
@@ -80,10 +80,10 @@ describe('Array', () => {
         })
 
         expect(_order).toBe('DESC')
-        expect(_collection[0].company.name).toBe('Considine-Lockman')
-        expect(_collection[1].company.name).toBe('Deckow-Crist')
-        expect(_collection[2].company.name).toBe('Hoeger LLC')
-        expect(_collection[3].company.name).toBe('Johns Group')
+        expect(_collection[0].company.name).toBe('Yost and Sons')
+        expect(_collection[1].company.name).toBe('Romaguera-Jacobson')
+        expect(_collection[2].company.name).toBe('Romaguera-Crona')
+        expect(_collection[3].company.name).toBe('Robel-Corkery')
         expect(_collection[4].company.name).toBe('Keebler LLC')
 
         update({
@@ -95,11 +95,11 @@ describe('Array', () => {
         })
 
         expect(_order).toBe('DESC')
-        expect(_collection[0].username).toBe('Antonette')
-        expect(_collection[1].username).toBe('Bret')
-        expect(_collection[2].username).toBe('Delphine')
-        expect(_collection[3].username).toBe('Elwyn.Skiles')
-        expect(_collection[4].username).toBe('Kamren')
+        expect(_collection[0].username).toBe('Samantha')
+        expect(_collection[1].username).toBe('Moriah.Stanton')
+        expect(_collection[2].username).toBe('Maxime_Nienow')
+        expect(_collection[3].username).toBe('Leopoldo_Corkery')
+        expect(_collection[4].username).toBe('Karianne')
 
         update({
             field: {
@@ -110,11 +110,11 @@ describe('Array', () => {
         })
 
         expect(_order).toBe('ASC')
-        expect(_collection[0].username).toBe('Samantha')
-        expect(_collection[1].username).toBe('Moriah.Stanton')
-        expect(_collection[2].username).toBe('Maxime_Nienow')
-        expect(_collection[3].username).toBe('Leopoldo_Corkery')
-        expect(_collection[4].username).toBe('Karianne')
+        expect(_collection[0].username).toBe('Antonette')
+        expect(_collection[1].username).toBe('Bret')
+        expect(_collection[2].username).toBe('Delphine')
+        expect(_collection[3].username).toBe('Elwyn.Skiles')
+        expect(_collection[4].username).toBe('Kamren')
 
         update({
             field: {
@@ -126,16 +126,16 @@ describe('Array', () => {
 
         expect(_order).toBe('ASC')
         expect(_collection[0].company.name).toBe(undefined)
-        expect(_collection[1].company.name).toBe('Yost and Sons')
-        expect(_collection[2].company.name).toBe('Romaguera-Jacobson')
-        expect(_collection[3].company.name).toBe('Romaguera-Crona')
-        expect(_collection[4].company.name).toBe('Robel-Corkery')
+        expect(_collection[1].company.name).toBe('Considine-Lockman')
+        expect(_collection[2].company.name).toBe('Deckow-Crist')
+        expect(_collection[3].company.name).toBe('Hoeger LLC')
+        expect(_collection[4].company.name).toBe('Johns Group')
     })
 
     test('test init array of numbers', () => {
-        const array = [3, 54, 77, 91293, 1, 0, 111]
-        const asked = [0, 1, 3, 54, 77, 111, 91293]
-        const desced = [91293, 111, 77, 54, 3, 1, 0]
+        const array = [3, 54, 77, 91293, 1, undefined, 0, 111]
+        const asked = [undefined, 0, 1, 3, 54, 77, 111, 91293]
+        const desced = [91293, 111, 77, 54, 3, 1, 0, undefined]
         let _collection!: number[]
         let _order!: Types.Array.Sort.Order
         let _orders!: Types.Array.Sort.Order[]
@@ -144,6 +144,7 @@ describe('Array', () => {
             orders: ['ASC', 'DESC', 'default'],
             order: 'ASC',
             onUpdate(state) {
+                // @ts-ignore
                 _collection = state._collection
                 _order = state._order
                 _orders = state._orders
@@ -153,6 +154,7 @@ describe('Array', () => {
         expect(_orders).toEqual(['ASC', 'DESC', 'default'])
 
         expect(_order).toBe('ASC')
+        console.log(_collection)
         expect(_collection).toEqual(asked)
 
         update()
@@ -190,29 +192,29 @@ describe('Array', () => {
         ]
 
         const asced = [
-            'Samantha',
-            'Moriah.Stanton',
-            'Maxime_Nienow',
-            'Leopoldo_Corkery',
-            'Karianne',
-            'Kamren',
-            'Elwyn.Skiles',
-            'Delphine',
-            'Bret',
             'Antonette',
+            'Bret',
+            'Delphine',
+            'Elwyn.Skiles',
+            'Kamren',
+            'Karianne',
+            'Leopoldo_Corkery',
+            'Maxime_Nienow',
+            'Moriah.Stanton',
+            'Samantha',
         ]
 
         const desced = [
-            'Antonette',
-            'Bret',
-            'Delphine',
-            'Elwyn.Skiles',
-            'Kamren',
-            'Karianne',
-            'Leopoldo_Corkery',
-            'Maxime_Nienow',
-            'Moriah.Stanton',
             'Samantha',
+            'Moriah.Stanton',
+            'Maxime_Nienow',
+            'Leopoldo_Corkery',
+            'Karianne',
+            'Kamren',
+            'Elwyn.Skiles',
+            'Delphine',
+            'Bret',
+            'Antonette',
         ]
 
         let _collection!: string[]

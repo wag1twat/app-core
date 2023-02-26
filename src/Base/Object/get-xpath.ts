@@ -1,33 +1,37 @@
 import { Types } from '../Types'
-import { Guards } from '../../Guards'
-import get from './get'
-import { $String } from '../String'
+import split from '../String/split'
 
-const getXPath =
-    <O extends object>(obj: O) =>
-    <Path extends Types.Utility.JSONPath<O>>(
+const memoizePath = () => {
+    const cache: Record<string, string[]> = {}
+    return <O extends object>(path: Types.Utility.JSONPath<O>) => {
+        if(cache[path]) {
+            return cache[path]
+        }
+        cache[path] = split(path)('.')
+        return cache[path]
+    }
+}
+
+const getPath = memoizePath()
+
+const getXPath = <O extends object>(obj: O) => {
+    return <Path extends Types.Utility.JSONPath<O>>(
         path: Path
     ): Types.Utility.JSONFind<O, Path> | undefined => {
-        const parts = $String(`${path}`).split('.')
+        const keys = getPath<O>(path)
 
-        const part = parts.shift()
+        let index = 0, 
+            length = keys.length,
+            res: any = obj
 
-        if (part) {
-            const prop = get(obj)(part)
-
-            if (parts.length === 0) {
-                return prop as any
-            }
-
-            if (!Guards.isUndefined(prop)) {
-                if (Guards.isObject(prop)) {
-                    return getXPath(prop)(parts.join('.') as any) as any
-                }
-                return undefined
-            }
-            return undefined
+        while (res != null && index < length) {
+            res = res[keys[index++]];
         }
-        return undefined
+
+        return (index && index == length) ? res : undefined as any; 
     }
+}
+
+
 
 export default getXPath

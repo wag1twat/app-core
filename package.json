@@ -1,6 +1,6 @@
 {
     "name": "shulga-app-core",
-    "version": "1.0.189",
+    "version": "1.0.190",
     "description": "",
     "main": "./dist/index.js",
     "exports": "./dist/index.js",
@@ -37,6 +37,7 @@
         "@types/gulp-sourcemaps": "^0.0.35",
         "@types/gulp-uglify": "^3.0.7",
         "@types/jest": "^29.4.0",
+        "@types/lodash.get": "^4.4.7",
         "@types/merge-stream": "^1.1.2",
         "@types/merge2": "^1.4.0",
         "@types/node": "^18.14.0",
@@ -53,6 +54,7 @@
     },
     "dependencies": {
         "@types/react": "^18.0.28",
+        "lodash.get": "^4.4.2",
         "react": "^18.2.0",
         "runtypes": "^6.6.0"
     },
