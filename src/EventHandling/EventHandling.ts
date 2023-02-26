@@ -1,9 +1,5 @@
 import { Guards } from '../Guards'
-import {
-    MutableRefObject,
-    UIEvent as ReactUIEvent,
-    UIEventHandler,
-} from 'react'
+import { MutableRefObject, UIEvent as ReactUIEvent, UIEventHandler } from 'react'
 
 class EventHandling {
     static toScrollBottom = <E extends Element>(
@@ -11,10 +7,7 @@ class EventHandling {
         options?: ScrollToOptions
     ) => {
         if (ref.current) {
-            if (
-                Guards.isFunc(ref.current.scrollTo) &&
-                Guards.isNumber(ref.current.scrollHeight)
-            ) {
+            if (Guards.isFunc(ref.current.scrollTo) && Guards.isNumber(ref.current.scrollHeight)) {
                 ref.current.scrollTo({
                     left: 0,
                     top: ref.current.scrollHeight,
@@ -32,19 +25,12 @@ class EventHandling {
         return (event) => {
             if (enabled) {
                 if (event.currentTarget) {
-                    let isScrollHeight = Guards.isNumber(
-                        event.currentTarget.scrollHeight
-                    )
-                    let isScrollTop = Guards.isNumber(
-                        event.currentTarget.scrollTop
-                    )
-                    let isClientHeight = Guards.isNumber(
-                        event.currentTarget.clientHeight
-                    )
+                    let isScrollHeight = Guards.isNumber(event.currentTarget.scrollHeight)
+                    let isScrollTop = Guards.isNumber(event.currentTarget.scrollTop)
+                    let isClientHeight = Guards.isNumber(event.currentTarget.clientHeight)
                     if (isScrollHeight && isScrollTop && isClientHeight) {
                         const bottom =
-                            event.currentTarget.scrollHeight -
-                                event.currentTarget.scrollTop ===
+                            event.currentTarget.scrollHeight - event.currentTarget.scrollTop ===
                             event.currentTarget.clientHeight
 
                         if (bottom) {

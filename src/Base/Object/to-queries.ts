@@ -6,8 +6,7 @@ import getProp from './get'
 const toQueries =
     <O extends object>(obj: O) =>
     (
-        options: Partial<Types.Object.ToQueriesOptions> = Types.Object
-            .defaultToQueriesOptions,
+        options: Partial<Types.Object.ToQueriesOptions> = Types.Object.defaultToQueriesOptions,
         prefix?: string
     ): string => {
         const { skipNull, skipUndefined } = options
@@ -38,9 +37,7 @@ const toQueries =
                         options.objectAccsessor ||
                             Types.Object.defaultToQueriesOptions.objectAccsessor
                     ]
-                accsessor = prefix
-                    ? `${prefix}${pre}${accsessor}${post}`
-                    : accsessor
+                accsessor = prefix ? `${prefix}${pre}${accsessor}${post}` : accsessor
             }
 
             if (Guards.isObject(value)) {

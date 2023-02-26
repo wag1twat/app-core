@@ -53,9 +53,7 @@ describe('Serializer', () => {
             .link({
                 ':likeId': '30',
             })
-        expect(extendedLink.path).toBe(
-            root + '/users/10/posts/20/likes/30/user'
-        )
+        expect(extendedLink.path).toBe(root + '/users/10/posts/20/likes/30/user')
     })
     test('unique exception', () => {
         try {
