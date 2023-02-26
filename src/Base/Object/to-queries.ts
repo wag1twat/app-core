@@ -1,7 +1,7 @@
 import { nonEmptyString } from '../rules'
 import { Types } from '../Types'
 import { Guards } from '../../Guards'
-import getProp from './get'
+import get from './get'
 
 const toQueries =
     <O extends object>(obj: O) =>
@@ -14,7 +14,7 @@ const toQueries =
         let result: string[] = []
 
         for (let key in obj) {
-            const value = getProp(obj)(key)
+            const value = get(obj)(key)
 
             if (skipNull === true && Guards.isNull(value)) {
                 continue
