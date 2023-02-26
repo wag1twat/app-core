@@ -33,20 +33,20 @@ describe('array-sort-perfomance', () => {
 
     test('default sort 1000000', () => {
         let t0 = performance.now()
-        users1000000.sort((a, b) => a.id - b.id)
+        users1000000.sort((a, b) => a.address.geo.lat.localeCompare(b.address.geo.lat))
         let t1 = performance.now()
-        result['native sort: a.id - b.id'] = t1 - t0
+        result['native sort: 1'] = t1 - t0
 
         t0 = performance.now()
-        users1000000.sort((a, b) => b.id - a.id)
+        users1000000.sort((a, b) => b.address.geo.lat.localeCompare(a.address.geo.lat))
         t1 = performance.now()
-        result['native sort: b.id - a.id'] = t1 - t0
+        result['native sort: 2'] = t1 - t0
     })
     test('$Array sort 1000000', () => {
         let t0 = performance.now()
         let order: Types.Array.Sort.Order = 'DESC'
         const array = $Array(users1000000).sort({
-            field: 'id',
+            field: 'address.geo.lat',
             order,
             orders: ['ASC', 'DESC', 'default'],
             onUpdate(state) {

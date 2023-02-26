@@ -28,7 +28,7 @@ const createSort =
         // utilities
         const getValue = (item: Types.Array.Of<T>) => {
             if (Guards.isString(state._field)) {
-                return item[state._field]
+                return getXPath(item)(state._field)
             }
             if (Guards.isObject(state._field)) {
                 return state._field.handler(getXPath(item)(state._field.xpath))
