@@ -13,7 +13,7 @@ const createSort =
         const { field, order, orders, onUpdate } = options
 
         const state: Types.Array.Sort.State<T> = {
-            _collection: [...collection] as T,
+            _collection: collection.slice() as T,
             _order: order ? order : Types.Array.Sort.defaultOrder,
             _orders: orders ? orders : Types.Array.Sort.defaultOrders,
             _field: field ? field : undefined,
@@ -40,7 +40,7 @@ const createSort =
             state._field = field ? field : undefined
             state._order = order ? order : Types.Array.Sort.defaultOrder
             state._orders = orders ? orders : Types.Array.Sort.defaultOrders
-            state._collection = [...collection] as T
+            state._collection = collection.slice() as T
             onUpdateCallback()
         }
 
@@ -101,10 +101,10 @@ const createSort =
             setField(field)
 
             if (state._order === 'default') {
-                state._collection = [...collection] as T
+                state._collection = collection.slice() as T
                 onUpdateCallback()
             } else {
-                state._collection = state._collection.sort((l, r) =>
+                state._collection = (state._collection.slice() as T).sort((l, r) =>
                     getCompareFunction(
                         state._order as Exclude<Types.Array.Sort.Order, 'default'>,
                         getValue(l),
