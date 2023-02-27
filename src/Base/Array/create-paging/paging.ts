@@ -26,8 +26,8 @@ export const paging = (options: Types.Array.Paging.Options) => {
 
         const paginPages = []
 
-        for (let i = 0; i < Math.ceil(ofCount.length / pageSize); i++) {
-            paginPages[i] = ofCount.slice(i * pageSize, i * pageSize + pageSize)
+        for (let i = 0; i < Math.ceil(ofCount.length / paginationSize); i++) {
+            paginPages[i] = ofCount.slice(i * paginationSize, i * paginationSize + paginationSize)
         }
 
         state._pagingPages = paginPages
