@@ -21,16 +21,19 @@ export const paging = (options: Types.Array.Paging.Options) => {
         return getCount(itemsCount, pageSize)
     }
 
-    const getVisiblePaginationPages = () => {
-        return state._pagingPages.slice(
-            (state._pagingPage - 1) * paginationSize,
-            state._pagingPage * paginationSize
-        )
+    const generatePagingPages = () => {
+        const ofCount = Array.from(Array(getItemsPagesCount()).keys()).map((page) => page + 1)
+
+        const paginPages = []
+
+        for (let i = 0; i < Math.ceil(ofCount.length / pageSize); i++) {
+            paginPages[i] = ofCount.slice(i * pageSize, i * pageSize + pageSize)
+        }
+
+        state._pagingPages = paginPages
     }
 
-    state._pagingPages = Array.from(Array(getItemsPagesCount()).keys()).map((page) => page + 1)
-
-    state.pages = getVisiblePaginationPages()
+    generatePagingPages()
 
     const onPagingUpdateCallback = () => {
         if (Guards.isFunc(onPagingUpdate)) {
@@ -39,7 +42,7 @@ export const paging = (options: Types.Array.Paging.Options) => {
     }
 
     const getPaginationPagesCount = () => {
-        return getCount(state._pagingPages.length, paginationSize)
+        return state._pagingPages.length
     }
 
     const getIsFirstPaginationPage = () => {
@@ -47,12 +50,6 @@ export const paging = (options: Types.Array.Paging.Options) => {
     }
     const getIsLastPaginationPage = () => {
         return state._pagingPage === getPaginationPagesCount()
-    }
-    const getFirstVisiblePaginationPage = () => {
-        return state.pages[0]
-    }
-    const getLastVisiblePaginationPage = () => {
-        return state.pages[state.pages.length - 1]
     }
     const getIsFirstItemsPage = () => {
         return state.page === 1
@@ -68,7 +65,6 @@ export const paging = (options: Types.Array.Paging.Options) => {
             state._pagingPage = pagingPage
             state.isFirstPagingPage = getIsFirstPaginationPage()
             state.isLastPagingPage = getIsLastPaginationPage()
-            state.pages = getVisiblePaginationPages()
         }
         onPagingUpdateCallback()
     }
@@ -84,21 +80,18 @@ export const paging = (options: Types.Array.Paging.Options) => {
     const updatePage = (page: number) => {
         const count = getItemsPagesCount()
         const canUpdate = page >= 1 && count >= page
+
         if (canUpdate) {
             state.page = page
             state.isFirstPage = getIsFirstItemsPage()
             state.isLastPage = getIsLastItemsPage()
-        }
-
-        const firstVisiblePaginationPage = getFirstVisiblePaginationPage()
-
-        const lastVisiblePaginationPage = getLastVisiblePaginationPage()
-
-        if (page < firstVisiblePaginationPage) {
-            prevPaginationPage()
-        }
-        if (page > lastVisiblePaginationPage) {
-            nextPaginationPage()
+            if (!state.pages.includes(page)) {
+                const pagesIndex = state._pagingPages.findIndex((x) => x.includes(state.page))
+                state._pagingPage = pagesIndex + 1
+                state.pages = state._pagingPages[pagesIndex]
+                state.isFirstPagingPage = getIsFirstPaginationPage()
+                state.isLastPagingPage = getIsLastPaginationPage()
+            }
         }
         onPagingUpdateCallback()
     }

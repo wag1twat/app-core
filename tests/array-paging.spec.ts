@@ -4,7 +4,7 @@ import todos from './mocks/200-todos'
 
 describe('Array paging', () => {
     test('init test', () => {
-        const pageSize = 21
+        const pageSize = 9
         let state!: Types.Array.PagingCollection.State<typeof todos>
 
         const { updatePage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = $Array(
@@ -84,8 +84,8 @@ describe('Array paging', () => {
         nextPage()
         expect(state.isFirstPage).toBeFalsy()
         expect(state.isLastPage).toBeFalsy()
-        expect(state.isFirstPagingPage).toBeFalsy()
-        expect(state.isLastPagingPage).toBeTruthy()
+        expect(state.isFirstPagingPage).toBeTruthy()
+        expect(state.isLastPagingPage).toBeFalsy()
         expect(state.collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
@@ -93,8 +93,8 @@ describe('Array paging', () => {
         nextPage()
         expect(state.isFirstPage).toBeFalsy()
         expect(state.isLastPage).toBeFalsy()
-        expect(state.isFirstPagingPage).toBeFalsy()
-        expect(state.isLastPagingPage).toBeTruthy()
+        expect(state.isFirstPagingPage).toBeTruthy()
+        expect(state.isLastPagingPage).toBeFalsy()
         expect(state.collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
@@ -102,8 +102,8 @@ describe('Array paging', () => {
         prevPage()
         expect(state.isFirstPage).toBeFalsy()
         expect(state.isLastPage).toBeFalsy()
-        expect(state.isFirstPagingPage).toBeFalsy()
-        expect(state.isLastPagingPage).toBeTruthy()
+        expect(state.isFirstPagingPage).toBeTruthy()
+        expect(state.isLastPagingPage).toBeFalsy()
         expect(state.collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )

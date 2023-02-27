@@ -115,7 +115,7 @@ export namespace Types {
                 _pagingPage: number
                 isFirstPagingPage: boolean
                 isLastPagingPage: boolean
-                _pagingPages: number[]
+                _pagingPages: number[][]
                 pages: number[]
             }
 
