@@ -3,9 +3,8 @@ import { Guards } from '../../../Guards'
 import getXPath from '../../Object/get-xpath'
 import getCompareFunction from './get-compare-function'
 
-const createSort =
-    <T extends any[]>(collection: T) =>
-    <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(
+const createSort = <T extends any[]>(collection: T) => {
+    return <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(
         options: Types.Array.Sort.Options<T, XPath>
     ) => {
         let called: boolean = false
@@ -127,5 +126,6 @@ const createSort =
             update,
         }
     }
+}
 
 export { createSort }

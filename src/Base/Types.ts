@@ -107,5 +107,38 @@ export namespace Types {
 
             export const defaultOrder: Order = 'default'
         }
+        export namespace Paging {
+            export type State = {
+                _page: number
+                _isFirstPage: boolean
+                _isLastPage: boolean
+                _paginationPage: number
+                _isFirstPaginationPage: boolean
+                _isLastPaginationPage: boolean
+                _paginationPages: number[]
+                _visiblePaginationPages: number[]
+            }
+            export type Options = {
+                itemsCount: number
+                pageSize: number
+                paginationSize: number
+                onPagingUpdate?: (state: State) => void
+            }
+        }
+        export namespace PagingCollection {
+            export type State<T extends any[]> = Pick<
+                Paging.State,
+                | '_page'
+                | '_isFirstPage'
+                | '_isLastPage'
+                | '_isFirstPaginationPage'
+                | '_isLastPaginationPage'
+            > & {
+                _collection: T
+            }
+            export type Options<T extends any[]> = {
+                onUpdate: (state: State<T>) => void
+            } & Pick<Paging.Options, 'pageSize' | 'paginationSize'>
+        }
     }
 }

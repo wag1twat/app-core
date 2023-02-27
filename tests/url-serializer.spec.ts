@@ -15,7 +15,7 @@ const queries = {
     nullProperty: null,
 }
 
-describe('Serializer', () => {
+describe('UrlSerializer', () => {
     test('creation', () => {
         const serializer = new UrlSerializer(root)
 

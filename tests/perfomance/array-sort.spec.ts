@@ -1,30 +1,10 @@
-import { describe, test, expect } from '@jest/globals'
+import { describe, test } from '@jest/globals'
 import { $Array, Types } from '../../src/Base'
-import users from '../mocks/users'
+import { createFakeUser } from '../mocks/create-fake-user'
 
-const createFake = (id: number) => {
-    return {
-        id,
-        isRegistry: false,
-        name: 'Nicholas Runolfsdottir V',
-        username: 'Maxime_Nienow',
-        email: 'Sherwood@rosamond.me',
-        address: {
-            street: 'Ellsworth Summit',
-            suite: 'Suite 729',
-            city: 'Aliyaview',
-            zipcode: '45169',
-            geo: {
-                lat: '-14.3990',
-                lng: '-120.7677',
-            },
-        },
-    }
-}
+const users1000000 = Array.from(Array(1000000).keys()).map((i) => createFakeUser(i + 1))
 
-const users1000000 = Array.from(Array(1000000).keys()).map((i) => createFake(i))
-
-describe('array-sort-perfomance', () => {
+describe('Array sort perfomance', () => {
     const result = {}
 
     afterAll(() => {
