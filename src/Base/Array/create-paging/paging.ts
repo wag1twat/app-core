@@ -63,7 +63,7 @@ export const paging = (options: Types.Array.Paging.Options) => {
         const canUpdate = pagingPage >= 1 && count >= pagingPage
         if (canUpdate) {
             state._pagingPage = pagingPage
-            state.pages = state._pagingPages[state._pagingPage]
+            state.pages = state._pagingPages[state._pagingPage - 1]
             state.isFirstPagingPage = getIsFirstPaginationPage()
             state.isLastPagingPage = getIsLastPaginationPage()
         }
