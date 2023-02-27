@@ -5,9 +5,10 @@ export const createPaging = <T extends any[]>(collection: T) => {
     let cache: Record<string, T> = {}
 
     return (options: Types.Array.PagingCollection.Options<T>) => {
-        const { pageSize, paginationSize, onUpdate } = options
+        const { page, pageSize, paginationSize, onUpdate } = options
         return paging({
             itemsCount: collection.length,
+            page,
             pageSize,
             paginationSize,
             onPagingUpdate(state) {

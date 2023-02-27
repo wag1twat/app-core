@@ -18,6 +18,7 @@ describe('Array paging perfomance', () => {
         const { updatePage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = $Array(
             users1000000
         ).paging({
+            page: 1,
             pageSize,
             paginationSize: 6,
             onUpdate() {},

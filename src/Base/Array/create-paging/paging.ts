@@ -4,7 +4,7 @@ import { Types } from '../../Types'
 const getCount = (itemsLength: number, pageSize: number) => Math.ceil(itemsLength / pageSize)
 
 export const paging = (options: Types.Array.Paging.Options) => {
-    const { itemsCount, pageSize, paginationSize, onPagingUpdate } = options
+    const { itemsCount, page, pageSize, paginationSize, onPagingUpdate } = options
 
     const state: Types.Array.Paging.State = {
         page: 1,
@@ -17,15 +17,6 @@ export const paging = (options: Types.Array.Paging.Options) => {
         pages: [],
     }
 
-    const onPagingUpdateCallback = () => {
-        if (Guards.isFunc(onPagingUpdate)) {
-            onPagingUpdate(state)
-        }
-    }
-
-    const getPaginationPagesCount = () => {
-        return getCount(state._pagingPages.length, paginationSize)
-    }
     const getItemsPagesCount = () => {
         return getCount(itemsCount, pageSize)
     }
@@ -37,9 +28,18 @@ export const paging = (options: Types.Array.Paging.Options) => {
         )
     }
 
-    const install = () => {
-        state._pagingPages = Array.from(Array(getItemsPagesCount()).keys()).map((page) => page + 1)
-        state.pages = getVisiblePaginationPages()
+    state._pagingPages = Array.from(Array(getItemsPagesCount()).keys()).map((page) => page + 1)
+
+    state.pages = getVisiblePaginationPages()
+
+    const onPagingUpdateCallback = () => {
+        if (Guards.isFunc(onPagingUpdate)) {
+            onPagingUpdate(state)
+        }
+    }
+
+    const getPaginationPagesCount = () => {
+        return getCount(state._pagingPages.length, paginationSize)
     }
 
     const getIsFirstPaginationPage = () => {
@@ -143,7 +143,7 @@ export const paging = (options: Types.Array.Paging.Options) => {
         onPagingUpdateCallback()
     }
 
-    install()
+    updatePage(page)
 
     onPagingUpdateCallback()
 

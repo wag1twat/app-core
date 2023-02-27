@@ -11,6 +11,7 @@ describe('Paging', () => {
         const paginationSize = 5
         const { updatePage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = paging({
             itemsCount,
+            page: 1,
             pageSize,
             paginationSize,
             onPagingUpdate: (_state) => {
