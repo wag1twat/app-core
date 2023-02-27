@@ -7,7 +7,7 @@ describe('Array paging', () => {
         const pageSize = 21
         let state!: Types.Array.PagingCollection.State<typeof todos>
 
-        const { setPage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = $Array(
+        const { updatePage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = $Array(
             todos
         ).paging({
             pageSize,
@@ -17,112 +17,112 @@ describe('Array paging', () => {
             },
         })
 
-        expect(state._page).toBe(1)
-        expect(state._isFirstPage).toBeTruthy()
-        expect(state._isLastPage).toBeFalsy()
-        expect(state._isFirstPaginationPage).toBeTruthy()
-        expect(state._isLastPaginationPage).toBeFalsy()
-        expect(state._collection).toStrictEqual(
-            todos.slice(pageSize * (state._page - 1), pageSize * state._page)
+        expect(state.page).toBe(1)
+        expect(state.isFirstPage).toBeTruthy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeTruthy()
+        expect(state.isLastPagingPage).toBeFalsy()
+        expect(state.collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
         prevPage()
-        expect(state._isFirstPage).toBeTruthy()
-        expect(state._isLastPage).toBeFalsy()
-        expect(state._isFirstPaginationPage).toBeTruthy()
-        expect(state._isLastPaginationPage).toBeFalsy()
-        expect(state._collection).toStrictEqual(
-            todos.slice(pageSize * (state._page - 1), pageSize * state._page)
+        expect(state.isFirstPage).toBeTruthy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeTruthy()
+        expect(state.isLastPagingPage).toBeFalsy()
+        expect(state.collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
-        setPage(2)
-        expect(state._isFirstPage).toBeFalsy()
-        expect(state._isLastPage).toBeFalsy()
-        expect(state._isFirstPaginationPage).toBeTruthy()
-        expect(state._isLastPaginationPage).toBeFalsy()
-        expect(state._collection).toStrictEqual(
-            todos.slice(pageSize * (state._page - 1), pageSize * state._page)
-        )
-
-        nextPage()
-        expect(state._isFirstPage).toBeFalsy()
-        expect(state._isLastPage).toBeFalsy()
-        expect(state._isFirstPaginationPage).toBeTruthy()
-        expect(state._isLastPaginationPage).toBeFalsy()
-        expect(state._collection).toStrictEqual(
-            todos.slice(pageSize * (state._page - 1), pageSize * state._page)
+        updatePage(2)
+        expect(state.isFirstPage).toBeFalsy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeTruthy()
+        expect(state.isLastPagingPage).toBeFalsy()
+        expect(state.collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
         nextPage()
-        expect(state._isFirstPage).toBeFalsy()
-        expect(state._isLastPage).toBeFalsy()
-        expect(state._isFirstPaginationPage).toBeTruthy()
-        expect(state._isLastPaginationPage).toBeFalsy()
-        expect(state._collection).toStrictEqual(
-            todos.slice(pageSize * (state._page - 1), pageSize * state._page)
+        expect(state.isFirstPage).toBeFalsy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeTruthy()
+        expect(state.isLastPagingPage).toBeFalsy()
+        expect(state.collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
         nextPage()
-        expect(state._isFirstPage).toBeFalsy()
-        expect(state._isLastPage).toBeFalsy()
-        expect(state._isFirstPaginationPage).toBeTruthy()
-        expect(state._isLastPaginationPage).toBeFalsy()
-        expect(state._collection).toStrictEqual(
-            todos.slice(pageSize * (state._page - 1), pageSize * state._page)
+        expect(state.isFirstPage).toBeFalsy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeTruthy()
+        expect(state.isLastPagingPage).toBeFalsy()
+        expect(state.collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
         nextPage()
-        expect(state._isFirstPage).toBeFalsy()
-        expect(state._isLastPage).toBeFalsy()
-        expect(state._isFirstPaginationPage).toBeTruthy()
-        expect(state._isLastPaginationPage).toBeFalsy()
-        expect(state._collection).toStrictEqual(
-            todos.slice(pageSize * (state._page - 1), pageSize * state._page)
+        expect(state.isFirstPage).toBeFalsy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeTruthy()
+        expect(state.isLastPagingPage).toBeFalsy()
+        expect(state.collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
         nextPage()
-        expect(state._isFirstPage).toBeFalsy()
-        expect(state._isLastPage).toBeFalsy()
-        expect(state._isFirstPaginationPage).toBeFalsy()
-        expect(state._isLastPaginationPage).toBeTruthy()
-        expect(state._collection).toStrictEqual(
-            todos.slice(pageSize * (state._page - 1), pageSize * state._page)
+        expect(state.isFirstPage).toBeFalsy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeTruthy()
+        expect(state.isLastPagingPage).toBeFalsy()
+        expect(state.collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
         nextPage()
-        expect(state._isFirstPage).toBeFalsy()
-        expect(state._isLastPage).toBeFalsy()
-        expect(state._isFirstPaginationPage).toBeFalsy()
-        expect(state._isLastPaginationPage).toBeTruthy()
-        expect(state._collection).toStrictEqual(
-            todos.slice(pageSize * (state._page - 1), pageSize * state._page)
+        expect(state.isFirstPage).toBeFalsy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeFalsy()
+        expect(state.isLastPagingPage).toBeTruthy()
+        expect(state.collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
+        )
+
+        nextPage()
+        expect(state.isFirstPage).toBeFalsy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeFalsy()
+        expect(state.isLastPagingPage).toBeTruthy()
+        expect(state.collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
         prevPage()
-        expect(state._isFirstPage).toBeFalsy()
-        expect(state._isLastPage).toBeFalsy()
-        expect(state._isFirstPaginationPage).toBeFalsy()
-        expect(state._isLastPaginationPage).toBeTruthy()
-        expect(state._collection).toStrictEqual(
-            todos.slice(pageSize * (state._page - 1), pageSize * state._page)
+        expect(state.isFirstPage).toBeFalsy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeFalsy()
+        expect(state.isLastPagingPage).toBeTruthy()
+        expect(state.collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
         prevPage()
-        expect(state._isFirstPage).toBeFalsy()
-        expect(state._isLastPage).toBeFalsy()
-        expect(state._isFirstPaginationPage).toBeTruthy()
-        expect(state._isLastPaginationPage).toBeFalsy()
-        expect(state._collection).toStrictEqual(
-            todos.slice(pageSize * (state._page - 1), pageSize * state._page)
+        expect(state.isFirstPage).toBeFalsy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeTruthy()
+        expect(state.isLastPagingPage).toBeFalsy()
+        expect(state.collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
         prevPage()
-        expect(state._isFirstPage).toBeFalsy()
-        expect(state._isLastPage).toBeFalsy()
-        expect(state._isFirstPaginationPage).toBeTruthy()
-        expect(state._isLastPaginationPage).toBeFalsy()
-        expect(state._collection).toStrictEqual(
-            todos.slice(pageSize * (state._page - 1), pageSize * state._page)
+        expect(state.isFirstPage).toBeFalsy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeTruthy()
+        expect(state.isLastPagingPage).toBeFalsy()
+        expect(state.collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
     })
 })

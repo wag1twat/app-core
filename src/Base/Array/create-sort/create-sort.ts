@@ -12,10 +12,10 @@ const createSort = <T extends any[]>(collection: T) => {
         const { field, order, orders, onUpdate } = options
 
         const state: Types.Array.Sort.State<T> = {
-            _collection: collection.slice() as T,
-            _order: order ? order : Types.Array.Sort.defaultOrder,
-            _orders: orders ? orders : Types.Array.Sort.defaultOrders,
-            _field: field ? field : undefined,
+            collection: collection.slice() as T,
+            order: order ? order : Types.Array.Sort.defaultOrder,
+            orders: orders ? orders : Types.Array.Sort.defaultOrders,
+            field: field ? field : undefined,
         }
 
         //callbacks
@@ -26,20 +26,20 @@ const createSort = <T extends any[]>(collection: T) => {
         }
         // utilities
         const getValue = (item: Types.Array.Of<T>) => {
-            if (Guards.isString(state._field)) {
-                return getXPath(item)(state._field)
+            if (Guards.isString(state.field)) {
+                return getXPath(item)(state.field)
             }
-            if (Guards.isObject(state._field)) {
-                return state._field.handler(getXPath(item)(state._field.xpath))
+            if (Guards.isObject(state.field)) {
+                return state.field.handler(getXPath(item)(state.field.xpath))
             }
             return item
         }
 
         const cleanup = () => {
-            state._field = field ? field : undefined
-            state._order = order ? order : Types.Array.Sort.defaultOrder
-            state._orders = orders ? orders : Types.Array.Sort.defaultOrders
-            state._collection = collection.slice() as T
+            state.field = field ? field : undefined
+            state.order = order ? order : Types.Array.Sort.defaultOrder
+            state.orders = orders ? orders : Types.Array.Sort.defaultOrders
+            state.collection = collection.slice() as T
             onUpdateCallback()
         }
 
@@ -47,7 +47,7 @@ const createSort = <T extends any[]>(collection: T) => {
             field: Types.Array.Sort.Field<T, XPath> | undefined
         ) => {
             if (!Guards.isUndefined(field)) {
-                state._field = field
+                state.field = field
             }
         }
 
@@ -58,20 +58,20 @@ const createSort = <T extends any[]>(collection: T) => {
             let is: boolean = false
 
             if (noUpdateOrderFalsyEqualXPath) {
-                if (Guards.isString(state._field) && Guards.isString(field)) {
-                    if (state._field === field) {
+                if (Guards.isString(state.field) && Guards.isString(field)) {
+                    if (state.field === field) {
                         is = true && called
                     }
-                } else if (Guards.isString(state._field) && Guards.isObject(field)) {
-                    if (state._field === field.xpath) {
+                } else if (Guards.isString(state.field) && Guards.isObject(field)) {
+                    if (state.field === field.xpath) {
                         is = true && called
                     }
-                } else if (Guards.isObject(state._field) && Guards.isString(field)) {
-                    if (state._field.xpath === field) {
+                } else if (Guards.isObject(state.field) && Guards.isString(field)) {
+                    if (state.field.xpath === field) {
                         is = true && called
                     }
-                } else if (Guards.isObject(state._field) && Guards.isObject(field)) {
-                    if (state._field.xpath === field.xpath) {
+                } else if (Guards.isObject(state.field) && Guards.isObject(field)) {
+                    if (state.field.xpath === field.xpath) {
                         is = true && called
                     }
                 }
@@ -80,13 +80,13 @@ const createSort = <T extends any[]>(collection: T) => {
             }
 
             if (is) {
-                const lastOrderIndex = state._orders.length - 1
-                const currentOrderIndex = state._orders.indexOf(state._order)
+                const lastOrderIndex = state.orders.length - 1
+                const currentOrderIndex = state.orders.indexOf(state.order)
                 const nextOrderIndex = currentOrderIndex + 1
-                state._order =
+                state.order =
                     nextOrderIndex <= lastOrderIndex
-                        ? state._orders[nextOrderIndex]
-                        : state._orders[0]
+                        ? state.orders[nextOrderIndex]
+                        : state.orders[0]
             }
         }
 
@@ -99,13 +99,13 @@ const createSort = <T extends any[]>(collection: T) => {
 
             setField(field)
 
-            if (state._order === 'default') {
-                state._collection = collection.slice() as T
+            if (state.order === 'default') {
+                state.collection = collection.slice() as T
                 onUpdateCallback()
             } else {
-                state._collection = (state._collection.slice() as T).sort((l, r) =>
+                state.collection = (state.collection.slice() as T).sort((l, r) =>
                     getCompareFunction(
-                        state._order as Exclude<Types.Array.Sort.Order, 'default'>,
+                        state.order as Exclude<Types.Array.Sort.Order, 'default'>,
                         getValue(l),
                         getValue(r)
                     )

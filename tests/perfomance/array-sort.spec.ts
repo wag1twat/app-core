@@ -30,7 +30,7 @@ describe('Array sort perfomance', () => {
             order: 'ASC',
             orders: ['ASC', 'DESC', 'default'],
             onUpdate(state) {
-                order = state._order
+                order = state.order
             },
         })
         let t1 = performance.now()

@@ -5,7 +5,7 @@ export declare function $Array<T extends any[]>(collection?: T): {
         update: <XPath_1 extends Types.Utility.JSONPath<Types.Array.Of<T>, "">>(options?: Types.Array.Sort.UpdateOptions<T, XPath_1>) => void;
     };
     paging: (options: Types.Array.PagingCollection.Options<T>) => {
-        setPage: (page: number) => void;
+        updatePage: (page: number) => void;
         nextPage: () => void;
         prevPage: () => void;
         nextPaginationPage: () => void;

@@ -7,14 +7,14 @@ export const paging = (options: Types.Array.Paging.Options) => {
     const { itemsCount, pageSize, paginationSize, onPagingUpdate } = options
 
     const state: Types.Array.Paging.State = {
-        _page: 1,
-        _isFirstPage: true,
-        _isLastPage: false,
-        _paginationPage: 1,
-        _isFirstPaginationPage: true,
-        _isLastPaginationPage: false,
-        _paginationPages: [],
-        _visiblePaginationPages: [],
+        page: 1,
+        isFirstPage: true,
+        isLastPage: false,
+        _pagingPage: 1,
+        isFirstPagingPage: true,
+        isLastPagingPage: false,
+        _pagingPages: [],
+        pages: [],
     }
 
     const onPagingUpdateCallback = () => {
@@ -24,79 +24,76 @@ export const paging = (options: Types.Array.Paging.Options) => {
     }
 
     const getPaginationPagesCount = () => {
-        return getCount(state._paginationPages.length, paginationSize)
+        return getCount(state._pagingPages.length, paginationSize)
     }
     const getItemsPagesCount = () => {
         return getCount(itemsCount, pageSize)
     }
 
     const getVisiblePaginationPages = () => {
-        return state._paginationPages.slice(
-            (state._paginationPage - 1) * paginationSize,
-            state._paginationPage * paginationSize
+        return state._pagingPages.slice(
+            (state._pagingPage - 1) * paginationSize,
+            state._pagingPage * paginationSize
         )
     }
 
     const install = () => {
-        state._paginationPages = Array.from(Array(getItemsPagesCount()).keys()).map(
-            (page) => page + 1
-        )
-        state._visiblePaginationPages = getVisiblePaginationPages()
+        state._pagingPages = Array.from(Array(getItemsPagesCount()).keys()).map((page) => page + 1)
+        state.pages = getVisiblePaginationPages()
     }
 
     const getIsFirstPaginationPage = () => {
-        return state._paginationPage === 1
+        return state._pagingPage === 1
     }
     const getIsLastPaginationPage = () => {
-        return state._paginationPage === getPaginationPagesCount()
+        return state._pagingPage === getPaginationPagesCount()
     }
     const getFirstVisiblePaginationPage = () => {
-        return state._visiblePaginationPages[0]
+        return state.pages[0]
     }
     const getLastVisiblePaginationPage = () => {
-        return state._visiblePaginationPages[state._visiblePaginationPages.length - 1]
+        return state.pages[state.pages.length - 1]
     }
     const getIsFirstItemsPage = () => {
-        return state._page === 1
+        return state.page === 1
     }
     const getIsLastItemsPage = () => {
-        return state._page === getItemsPagesCount()
+        return state.page === getItemsPagesCount()
     }
 
     const nextPaginationPage = () => {
         const count = getPaginationPagesCount()
-        const nextPaginationPage = state._paginationPage + 1
+        const nextPaginationPage = state._pagingPage + 1
         const canUpdate = count >= nextPaginationPage
         if (canUpdate) {
-            state._paginationPage = nextPaginationPage
-            state._isFirstPaginationPage = getIsFirstPaginationPage()
-            state._isLastPaginationPage = getIsLastPaginationPage()
-            state._visiblePaginationPages = getVisiblePaginationPages()
+            state._pagingPage = nextPaginationPage
+            state.isFirstPagingPage = getIsFirstPaginationPage()
+            state.isLastPagingPage = getIsLastPaginationPage()
+            state.pages = getVisiblePaginationPages()
             onPagingUpdateCallback()
         }
     }
 
     const prevPaginationPage = () => {
-        const prevPaginationPage = state._paginationPage - 1
+        const prevPaginationPage = state._pagingPage - 1
         const canUpdate = prevPaginationPage >= 1
         if (canUpdate) {
-            state._paginationPage = prevPaginationPage
-            state._isFirstPaginationPage = getIsFirstPaginationPage()
-            state._isLastPaginationPage = getIsLastPaginationPage()
-            state._visiblePaginationPages = getVisiblePaginationPages()
+            state._pagingPage = prevPaginationPage
+            state.isFirstPagingPage = getIsFirstPaginationPage()
+            state.isLastPagingPage = getIsLastPaginationPage()
+            state.pages = getVisiblePaginationPages()
             onPagingUpdateCallback()
         }
     }
 
-    const setPage = (page: number) => {
+    const updatePage = (page: number) => {
         const count = getItemsPagesCount()
         const canUpdate = page >= 1 && count >= page
         if (canUpdate) {
-            state._page = page
-            state._isFirstPage = getIsFirstItemsPage()
-            state._isLastPage = getIsLastItemsPage()
-            state._isLastPaginationPage = getIsLastPaginationPage()
-            state._visiblePaginationPages = getVisiblePaginationPages()
+            state.page = page
+            state.isFirstPage = getIsFirstItemsPage()
+            state.isLastPage = getIsLastItemsPage()
+            // state.pages = getVisiblePaginationPages()
             onPagingUpdateCallback()
         }
 
@@ -114,12 +111,12 @@ export const paging = (options: Types.Array.Paging.Options) => {
 
     const nextPage = () => {
         const count = getItemsPagesCount()
-        const nextPage = state._page + 1
+        const nextPage = state.page + 1
         const canUpdate = count >= nextPage
         if (canUpdate) {
-            state._page = nextPage
-            state._isFirstPage = getIsFirstItemsPage()
-            state._isLastPage = getIsLastItemsPage()
+            state.page = nextPage
+            state.isFirstPage = getIsFirstItemsPage()
+            state.isLastPage = getIsLastItemsPage()
             onPagingUpdateCallback()
         }
 
@@ -131,12 +128,12 @@ export const paging = (options: Types.Array.Paging.Options) => {
     }
 
     const prevPage = () => {
-        const prevPage = state._page - 1
+        const prevPage = state.page - 1
         const canUpdate = prevPage >= 1
         if (canUpdate) {
-            state._page = prevPage
-            state._isFirstPage = getIsFirstItemsPage()
-            state._isLastPage = getIsLastItemsPage()
+            state.page = prevPage
+            state.isFirstPage = getIsFirstItemsPage()
+            state.isLastPage = getIsLastItemsPage()
             onPagingUpdateCallback()
         }
 
@@ -152,7 +149,7 @@ export const paging = (options: Types.Array.Paging.Options) => {
     onPagingUpdateCallback()
 
     return {
-        setPage,
+        updatePage,
         nextPage,
         prevPage,
         nextPaginationPage,

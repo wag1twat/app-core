@@ -15,7 +15,7 @@ describe('Array paging perfomance', () => {
         const pageSize = 21
 
         let t0 = performance.now()
-        const { setPage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = $Array(
+        const { updatePage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = $Array(
             users1000000
         ).paging({
             pageSize,
@@ -26,7 +26,7 @@ describe('Array paging perfomance', () => {
         result['creation'] = `${t1 - t0} ms`
 
         t0 = performance.now()
-        setPage(2)
+        updatePage(2)
         t1 = performance.now()
         result['1'] = `${t1 - t0} ms`
 

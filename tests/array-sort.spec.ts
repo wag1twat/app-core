@@ -21,11 +21,11 @@ describe('Array sort', () => {
         order: order,
         orders: ['ASC', 'DESC'],
         onUpdate: (state) => {
-            _collection = state._collection
+            _collection = state.collection
             // @ts-ignore
-            _field = state._field
-            _order = state._order
-            _orders = state._orders
+            _field = state.field
+            _order = state.order
+            _orders = state.orders
         },
     })
     test('init test', () => {
@@ -145,9 +145,9 @@ describe('Array sort', () => {
             order: 'ASC',
             onUpdate(state) {
                 // @ts-ignore
-                _collection = state._collection
-                _order = state._order
-                _orders = state._orders
+                _collection = state.collection
+                _order = state.order
+                _orders = state.orders
             },
         })
 
@@ -228,9 +228,9 @@ describe('Array sort', () => {
             order: 'ASC',
             onUpdate(state) {
                 // @ts-ignore
-                _collection = state._collection
-                _order = state._order
-                _orders = state._orders
+                _collection = state.collection
+                _order = state.order
+                _orders = state.orders
             },
         })
 

@@ -85,17 +85,17 @@ export namespace Types {
                 | FieldObject<T, XPath>
 
             export type State<T extends any[]> = {
-                _collection: T
-                _order: Order
-                _orders: Order[]
-                _field?: Field<T, Utility.JSONPath<Of<T>>>
+                collection: T
+                order: Order
+                orders: Order[]
+                field?: Field<T, Utility.JSONPath<Of<T>>>
             }
 
             export type Options<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
                 field?: Field<T, XPath>
                 order?: Order
                 orders?: Order[]
-                onUpdate?: (state: State<T>) => void
+                onUpdate: (state: State<T>) => void
             }
 
             export type UpdateOptions<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
@@ -109,15 +109,16 @@ export namespace Types {
         }
         export namespace Paging {
             export type State = {
-                _page: number
-                _isFirstPage: boolean
-                _isLastPage: boolean
-                _paginationPage: number
-                _isFirstPaginationPage: boolean
-                _isLastPaginationPage: boolean
-                _paginationPages: number[]
-                _visiblePaginationPages: number[]
+                page: number
+                isFirstPage: boolean
+                isLastPage: boolean
+                _pagingPage: number
+                isFirstPagingPage: boolean
+                isLastPagingPage: boolean
+                _pagingPages: number[]
+                pages: number[]
             }
+
             export type Options = {
                 itemsCount: number
                 pageSize: number
@@ -126,19 +127,14 @@ export namespace Types {
             }
         }
         export namespace PagingCollection {
-            export type State<T extends any[]> = Pick<
-                Paging.State,
-                | '_page'
-                | '_isFirstPage'
-                | '_isLastPage'
-                | '_isFirstPaginationPage'
-                | '_isLastPaginationPage'
-            > & {
-                _collection: T
+            export type State<T extends any[]> = Paging.State & {
+                collection: T
             }
             export type Options<T extends any[]> = {
+                pageSize: number
+                paginationSize: number
                 onUpdate: (state: State<T>) => void
-            } & Pick<Paging.Options, 'pageSize' | 'paginationSize'>
+            }
         }
     }
 }
