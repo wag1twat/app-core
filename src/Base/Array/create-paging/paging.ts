@@ -17,7 +17,7 @@ export const paging = (options: Types.Array.Paging.Options): Types.Array.Paging.
     let _pagingPages: number[][] = []
 
     const state: Types.Array.Paging.State = {
-        page: 1,
+        page: startsWith || 1,
         isFirstPage: true,
         isLastPage: false,
         isFirstPagingPage: true,
@@ -114,7 +114,7 @@ export const paging = (options: Types.Array.Paging.Options): Types.Array.Paging.
     }
 
     if (onMount) {
-        updatePage(startsWith || 1)
+        updatePage(state.page)
         onPagingUpdateCallback()
     }
 

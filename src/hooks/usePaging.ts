@@ -1,4 +1,3 @@
-import { Guards } from 'Guards'
 import React from 'react'
 import { deepEqual, Types } from '../Base'
 import { paging } from '../Base/Array/create-paging'
