@@ -1,17 +1,39 @@
 import { describe, test, expect } from '@jest/globals'
-import { act, renderHook } from '@testing-library/react-hooks'
+import { act, renderHook, WrapperComponent } from '@testing-library/react-hooks'
 import todos from '../mocks/200-todos'
 import { useArrayPaging, ArrayPagingProps } from '../../src/hooks'
+import React from 'react'
+
+const wrapper = (props: any) => {
+    const [counter, updateCounter] = React.useState(0)
+
+    React.useEffect(() => {
+        const interval = setInterval(() => {
+            updateCounter(x => x + 1)
+        }, 50)
+
+        return () => {
+            clearInterval(interval)
+        }
+    }, [])
+
+    return React.createElement('div', props)
+}
 
 describe('use array paging', () => {
-    const hook = renderHook((props: ArrayPagingProps<any>) => {
-        return useArrayPaging({
-            pageSize: 6,
-            paginationSize: 5,
-            items: todos,
-            ...(props as object),
-        })
-    })
+    const hook = renderHook(
+        (props: ArrayPagingProps<any>) => {
+            return useArrayPaging({
+                pageSize: 6,
+                paginationSize: 5,
+                items: todos,
+                ...(props as object),
+            })
+        },
+        {
+            wrapper
+        }
+    )
 
     beforeEach(() => {
         hook.rerender({

@@ -33,7 +33,7 @@ const useArrayPaging = <T extends any>(props: ArrayPagingProps<T>): ArrayPaging<
             paginationSize,
             onUpdate: (properties) => {
                 if (!deepEqual(state, properties)) {
-                    setState(() => properties)
+                    setState(properties)
                 }
             },
         })
