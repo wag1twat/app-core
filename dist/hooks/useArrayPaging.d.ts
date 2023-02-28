@@ -1,9 +1,10 @@
 import { Types } from '../Base';
-interface ArrayPagingProps<T extends any> extends Pick<Types.Array.Paging.Options, 'page' | 'pageSize' | 'paginationSize' | 'onMount'> {
-    items: T[] | undefined;
-}
-interface ArrayPaging<T extends any> extends Types.Array.CreatePaging.State<T[]>, Types.Array.Paging.PagingMethods {
-}
-declare const useArrayPaging: <T extends unknown>(props: ArrayPagingProps<T>) => ArrayPaging<T>;
+type ArrayPagingProps<T extends any[]> = Omit<Types.Array.CreatePaging.Options<T>, 'onPagingUpdate' | 'onCollectionUpdate'> & {
+    collection: T;
+};
+type ArrayPaging<T extends any[]> = Types.Array.Paging.PagingMethods & Partial<Types.Array.Paging.State & {
+    collection: T;
+}>;
+declare const useArrayPaging: <T extends any[]>(options: ArrayPagingProps<T>) => ArrayPaging<T>;
 export type { ArrayPagingProps, ArrayPaging };
 export { useArrayPaging };

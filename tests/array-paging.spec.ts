@@ -5,7 +5,8 @@ import todos from './mocks/200-todos'
 describe('Array paging', () => {
     test('init test', () => {
         const pageSize = 9
-        let state!: Types.Array.CreatePaging.State<typeof todos>
+        let state!: Types.Array.CreatePaging.State
+        let collection!: typeof todos
 
         const { updatePage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = $Array(
             todos
@@ -16,6 +17,9 @@ describe('Array paging', () => {
             onPagingUpdate(_state) {
                 state = _state
             },
+            onCollectionUpdate(_collection) {
+                collection = _collection
+            },
         })
 
         expect(state.page).toBe(1)
@@ -23,7 +27,7 @@ describe('Array paging', () => {
         expect(state.isLastPage).toBeFalsy()
         expect(state.isFirstPagingPage).toBeTruthy()
         expect(state.isLastPagingPage).toBeFalsy()
-        expect(state.collection).toStrictEqual(
+        expect(collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
@@ -32,7 +36,7 @@ describe('Array paging', () => {
         expect(state.isLastPage).toBeFalsy()
         expect(state.isFirstPagingPage).toBeTruthy()
         expect(state.isLastPagingPage).toBeFalsy()
-        expect(state.collection).toStrictEqual(
+        expect(collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
@@ -41,7 +45,7 @@ describe('Array paging', () => {
         expect(state.isLastPage).toBeFalsy()
         expect(state.isFirstPagingPage).toBeTruthy()
         expect(state.isLastPagingPage).toBeFalsy()
-        expect(state.collection).toStrictEqual(
+        expect(collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
@@ -50,7 +54,7 @@ describe('Array paging', () => {
         expect(state.isLastPage).toBeFalsy()
         expect(state.isFirstPagingPage).toBeTruthy()
         expect(state.isLastPagingPage).toBeFalsy()
-        expect(state.collection).toStrictEqual(
+        expect(collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
@@ -59,7 +63,7 @@ describe('Array paging', () => {
         expect(state.isLastPage).toBeFalsy()
         expect(state.isFirstPagingPage).toBeTruthy()
         expect(state.isLastPagingPage).toBeFalsy()
-        expect(state.collection).toStrictEqual(
+        expect(collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
@@ -68,7 +72,7 @@ describe('Array paging', () => {
         expect(state.isLastPage).toBeFalsy()
         expect(state.isFirstPagingPage).toBeTruthy()
         expect(state.isLastPagingPage).toBeFalsy()
-        expect(state.collection).toStrictEqual(
+        expect(collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
@@ -77,16 +81,7 @@ describe('Array paging', () => {
         expect(state.isLastPage).toBeFalsy()
         expect(state.isFirstPagingPage).toBeTruthy()
         expect(state.isLastPagingPage).toBeFalsy()
-        expect(state.collection).toStrictEqual(
-            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
-        )
-
-        nextPage()
-        expect(state.isFirstPage).toBeFalsy()
-        expect(state.isLastPage).toBeFalsy()
-        expect(state.isFirstPagingPage).toBeFalsy()
-        expect(state.isLastPagingPage).toBeFalsy()
-        expect(state.collection).toStrictEqual(
+        expect(collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
@@ -95,7 +90,16 @@ describe('Array paging', () => {
         expect(state.isLastPage).toBeFalsy()
         expect(state.isFirstPagingPage).toBeFalsy()
         expect(state.isLastPagingPage).toBeFalsy()
-        expect(state.collection).toStrictEqual(
+        expect(collection).toStrictEqual(
+            todos.slice(pageSize * (state.page - 1), pageSize * state.page)
+        )
+
+        nextPage()
+        expect(state.isFirstPage).toBeFalsy()
+        expect(state.isLastPage).toBeFalsy()
+        expect(state.isFirstPagingPage).toBeFalsy()
+        expect(state.isLastPagingPage).toBeFalsy()
+        expect(collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
@@ -104,7 +108,7 @@ describe('Array paging', () => {
         expect(state.isLastPage).toBeFalsy()
         expect(state.isFirstPagingPage).toBeFalsy()
         expect(state.isLastPagingPage).toBeFalsy()
-        expect(state.collection).toStrictEqual(
+        expect(collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
@@ -113,7 +117,7 @@ describe('Array paging', () => {
         expect(state.isLastPage).toBeFalsy()
         expect(state.isFirstPagingPage).toBeTruthy()
         expect(state.isLastPagingPage).toBeFalsy()
-        expect(state.collection).toStrictEqual(
+        expect(collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
 
@@ -122,7 +126,7 @@ describe('Array paging', () => {
         expect(state.isLastPage).toBeFalsy()
         expect(state.isFirstPagingPage).toBeTruthy()
         expect(state.isLastPagingPage).toBeFalsy()
-        expect(state.collection).toStrictEqual(
+        expect(collection).toStrictEqual(
             todos.slice(pageSize * (state.page - 1), pageSize * state.page)
         )
     })

@@ -137,12 +137,9 @@ export namespace Types {
             }
         }
         export namespace CreatePaging {
-            export type State<T extends any[]> = Paging.State & {
-                collection: T
-            }
-            export interface Options<T extends any[]>
-                extends Pick<Paging.Options, 'page' | 'pageSize' | 'paginationSize' | 'onMount'> {
-                onPagingUpdate: (state: State<T>) => void
+            export type State = Paging.State
+            export interface Options<T extends any[]> extends Omit<Paging.Options, 'itemsCount'> {
+                onCollectionUpdate: (collection: T) => void
             }
         }
     }

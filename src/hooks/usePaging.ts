@@ -2,33 +2,35 @@ import React from 'react'
 import { deepEqual, Types } from '../Base'
 import { paging } from '../Base/Array/create-paging'
 
-interface PagingProps
-    extends Pick<
-        Types.Array.Paging.Options,
-        'page' | 'pageSize' | 'paginationSize' | 'onMount' | 'itemsCount'
-    > {}
+type PagingProps = Omit<Types.Array.Paging.Options, 'onPagingUpdate'>
+type Paging = Types.Array.Paging.PagingMethods & Partial<Types.Array.Paging.State>
 
-interface Pagign extends Types.Array.Paging.State, Types.Array.Paging.PagingMethods {}
+const usePaging = (options: PagingProps): Paging => {
+    const { pageSize, paginationSize, page, itemsCount, onMount } = options
 
-const usePaging = (options: PagingProps): Pagign => {
-    const [state, setState] = React.useState<Types.Array.Paging.State>()
+    const [pagingState, onPagingUpdate] = React.useState<Types.Array.Paging.State>()
 
     const functions = React.useMemo(
         () =>
             paging({
-                ...options,
-                page: state?.page,
-                onPagingUpdate(nextState) {
-                    setState((prevState) =>
+                pageSize,
+                paginationSize,
+                page: pagingState?.page || page,
+                itemsCount,
+                onMount,
+                onPagingUpdate: (nextState) =>
+                    onPagingUpdate((prevState) =>
                         !deepEqual(prevState, nextState) ? nextState : prevState
-                    )
-                },
+                    ),
             }),
-        [options.itemsCount, options.pageSize, options.paginationSize]
+        [pageSize, paginationSize, pagingState?.page, page, itemsCount, onMount]
     )
 
-    return Object.assign(state || ({} as Types.Array.Paging.State), functions)
+    return {
+        ...pagingState,
+        ...functions,
+    }
 }
 
-export type { PagingProps, Pagign }
+export type { PagingProps, Paging }
 export { usePaging }

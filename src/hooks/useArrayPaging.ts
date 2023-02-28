@@ -1,39 +1,54 @@
 import React from 'react'
 import { deepEqual, $Array, Types } from '../Base'
 
-interface ArrayPagingProps<T extends any>
-    extends Pick<Types.Array.Paging.Options, 'page' | 'pageSize' | 'paginationSize' | 'onMount'> {
-    items: T[] | undefined
+type ArrayPagingProps<T extends any[]> = Omit<
+    Types.Array.CreatePaging.Options<T>,
+    'onPagingUpdate' | 'onCollectionUpdate'
+> & {
+    collection: T
 }
+type ArrayPaging<T extends any[]> = Types.Array.Paging.PagingMethods &
+    Partial<
+        Types.Array.Paging.State & {
+            collection: T
+        }
+    >
 
-interface ArrayPaging<T extends any>
-    extends Types.Array.CreatePaging.State<T[]>,
-        Types.Array.Paging.PagingMethods {}
+const useArrayPaging = <T extends any[]>(options: ArrayPagingProps<T>): ArrayPaging<T> => {
+    const { page, pageSize, paginationSize, onMount, collection } = options
 
-// TODO: onMount props
-const useArrayPaging = <T extends any>(props: ArrayPagingProps<T>): ArrayPaging<T> => {
-    const { pageSize, paginationSize, onMount = true, items = [] } = props
+    const collectionRef = React.useRef(collection)
 
-    const itemsRef = React.useRef<T[]>(items)
-    const [state, setState] = React.useState<Types.Array.CreatePaging.State<T[]>>()
+    const [pagingState, onPagingUpdate] = React.useState<Types.Array.Paging.State>()
 
-    if (!deepEqual(itemsRef.current, items)) {
-        itemsRef.current = items
+    const [nextCollection, onCollectionUpdate] = React.useState<T>()
+
+    if (!deepEqual(collectionRef.current, collection)) {
+        collectionRef.current = collection
     }
 
     const functions = React.useMemo(() => {
-        return $Array(itemsRef.current).paging({
-            page: state?.page,
+        return $Array(collectionRef.current).paging({
+            page: pagingState?.page || page,
             pageSize,
             paginationSize,
             onMount,
-            onPagingUpdate: (nextState) => {
-                setState((prevState) => (!deepEqual(prevState, nextState) ? nextState : prevState))
-            },
+            onPagingUpdate: (nextState) =>
+                onPagingUpdate((prevState) =>
+                    !deepEqual(prevState, nextState) ? nextState : prevState
+                ),
+            onCollectionUpdate: (nextCollection) =>
+                onCollectionUpdate((prevCollection) =>
+                    !deepEqual(prevCollection, nextCollection) ? nextCollection : prevCollection
+                ),
         })
-    }, [pageSize, paginationSize, itemsRef.current])
+    }, [collectionRef.current, pagingState?.page, page, pageSize, paginationSize, onMount])
 
-    return Object.assign(state || ({} as Types.Array.CreatePaging.State<T[]>), functions)
+    return {
+        ...pagingState,
+        ...functions,
+        collection: nextCollection,
+    }
 }
 
 export type { ArrayPagingProps, ArrayPaging }

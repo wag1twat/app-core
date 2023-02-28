@@ -22,6 +22,7 @@ describe('Array paging perfomance', () => {
             pageSize,
             paginationSize: 6,
             onPagingUpdate() {},
+            onCollectionUpdate() {},
         })
         let t1 = performance.now()
         result['creation'] = `${t1 - t0} ms`
