@@ -267,7 +267,7 @@ describe('use array paging', () => {
         const hook = renderHook(
             (props) => {
                 const result = useArrayPaging({
-                    page: 3,
+                    startsWith: 3,
                     pageSize: 6,
                     paginationSize: 5,
                     collection: todos,

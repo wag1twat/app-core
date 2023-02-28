@@ -11,7 +11,7 @@ describe('Array paging', () => {
         const { updatePage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = $Array(
             todos
         ).paging({
-            page: 1,
+            startsWith: 1,
             pageSize,
             paginationSize: 6,
             onPagingUpdate(_state) {

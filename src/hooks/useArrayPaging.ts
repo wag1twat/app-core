@@ -15,7 +15,7 @@ type ArrayPaging<T extends any[]> = Types.Array.Paging.PagingMethods &
     >
 
 const useArrayPaging = <T extends any[]>(options: ArrayPagingProps<T>): ArrayPaging<T> => {
-    const { page, pageSize, paginationSize, onMount, collection } = options
+    const { startsWith, pageSize, paginationSize, onMount, collection } = options
 
     const collectionRef = React.useRef(collection)
 
@@ -29,7 +29,7 @@ const useArrayPaging = <T extends any[]>(options: ArrayPagingProps<T>): ArrayPag
 
     const functions = React.useMemo(() => {
         return $Array(collectionRef.current).paging({
-            page: page || pagingState?.page,
+            startsWith,
             pageSize,
             paginationSize,
             onMount,
@@ -42,7 +42,7 @@ const useArrayPaging = <T extends any[]>(options: ArrayPagingProps<T>): ArrayPag
                     !deepEqual(prevCollection, nextCollection) ? nextCollection : prevCollection
                 ),
         })
-    }, [collectionRef.current, pagingState?.page, page, pageSize, paginationSize, onMount])
+    }, [collectionRef.current, startsWith, pageSize, paginationSize, onMount])
 
     return {
         ...pagingState,

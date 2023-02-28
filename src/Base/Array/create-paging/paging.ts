@@ -6,7 +6,7 @@ const getCount = (itemsLength: number, pageSize: number) => Math.ceil(itemsLengt
 export const paging = (options: Types.Array.Paging.Options): Types.Array.Paging.PagingMethods => {
     const {
         itemsCount,
-        page = 1,
+        startsWith,
         pageSize,
         paginationSize,
         onMount = true,
@@ -113,7 +113,7 @@ export const paging = (options: Types.Array.Paging.Options): Types.Array.Paging.
     }
 
     if (onMount) {
-        updatePage(page)
+        updatePage(startsWith || 1)
         onPagingUpdateCallback()
     }
 

@@ -34,11 +34,11 @@ describe('use array paging', () => {
     )
 
     beforeEach(() => {
-        // hook.rerender({
-        //     pageSize: 5,
-        //     paginationSize: 6,
-        //     itemsCount: 53,
-        // })
+        hook.rerender({
+            pageSize: 5,
+            paginationSize: 6,
+            itemsCount: 53,
+        })
     })
 
     test('rerender page 1', () => {

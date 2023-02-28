@@ -6,7 +6,7 @@ type PagingProps = Omit<Types.Array.Paging.Options, 'onPagingUpdate'>
 type Paging = Types.Array.Paging.PagingMethods & Partial<Types.Array.Paging.State>
 
 const usePaging = (options: PagingProps): Paging => {
-    const { pageSize, paginationSize, page, itemsCount, onMount } = options
+    const { pageSize, paginationSize, startsWith, itemsCount, onMount } = options
 
     const [pagingState, onPagingUpdate] = React.useState<Types.Array.Paging.State>()
 
@@ -15,7 +15,7 @@ const usePaging = (options: PagingProps): Paging => {
             paging({
                 pageSize,
                 paginationSize,
-                page: page || pagingState?.page,
+                startsWith,
                 itemsCount,
                 onMount,
                 onPagingUpdate: (nextState) =>
@@ -23,7 +23,7 @@ const usePaging = (options: PagingProps): Paging => {
                         !deepEqual(prevState, nextState) ? nextState : prevState
                     ),
             }),
-        [pageSize, paginationSize, pagingState?.page, page, itemsCount, onMount]
+        [pageSize, paginationSize, startsWith, itemsCount, onMount]
     )
 
     return {
