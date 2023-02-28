@@ -29,7 +29,7 @@ const useArrayPaging = <T extends any[]>(options: ArrayPagingProps<T>): ArrayPag
 
     const functions = React.useMemo(() => {
         return $Array(collectionRef.current).paging({
-            page: pagingState?.page || page,
+            page: page || pagingState?.page,
             pageSize,
             paginationSize,
             onMount,

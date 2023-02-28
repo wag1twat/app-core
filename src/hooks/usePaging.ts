@@ -15,7 +15,7 @@ const usePaging = (options: PagingProps): Paging => {
             paging({
                 pageSize,
                 paginationSize,
-                page: pagingState?.page || page,
+                page: page || pagingState?.page,
                 itemsCount,
                 onMount,
                 onPagingUpdate: (nextState) =>

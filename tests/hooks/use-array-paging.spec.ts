@@ -195,7 +195,7 @@ describe('use array paging', () => {
         expect(hook.result.current?.isLastPagingPage).toBeFalsy()
         expect(hook.result.current?.pages?.length).toBe(5)
     })
-    test('on mount', () => {
+    test('on mount false', () => {
         const hook = renderHook(
             (props) => {
                 const result = useArrayPaging({
@@ -231,6 +231,61 @@ describe('use array paging', () => {
         expect(hook.result.current?._pagingPage).toBe(1)
         expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeTruthy()
+        expect(hook.result.current?.isLastPage).toBeFalsy()
+        expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
+        expect(hook.result.current?.isLastPagingPage).toBeFalsy()
+        expect(hook.result.current?.pages?.length).toBe(5)
+    })
+    test('on mount true', () => {
+        const hook = renderHook(
+            (props) => {
+                const result = useArrayPaging({
+                    pageSize: 6,
+                    paginationSize: 5,
+                    collection: todos,
+                    onMount: true,
+                })
+
+                return result
+            },
+            {
+                wrapper,
+            }
+        )
+
+        expect(hook.result.current?.page).toBe(1)
+        expect(hook.result.current?.collection?.length).toBe(6)
+        expect(hook.result.current?._pagingPage).toBe(1)
+        expect(hook.result.current?._pagingPages?.length).toBe(7)
+        expect(hook.result.current?.isFirstPage).toBeTruthy()
+        expect(hook.result.current?.isLastPage).toBeFalsy()
+        expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
+        expect(hook.result.current?.isLastPagingPage).toBeFalsy()
+        expect(hook.result.current?.pages?.length).toBe(5)
+    })
+    test('on mount true controlled page', () => {
+        const hook = renderHook(
+            (props) => {
+                const result = useArrayPaging({
+                    page: 3,
+                    pageSize: 6,
+                    paginationSize: 5,
+                    collection: todos,
+                    onMount: true,
+                })
+
+                return result
+            },
+            {
+                wrapper,
+            }
+        )
+
+        expect(hook.result.current?.page).toBe(3)
+        expect(hook.result.current?.collection?.length).toBe(6)
+        expect(hook.result.current?._pagingPage).toBe(1)
+        expect(hook.result.current?._pagingPages?.length).toBe(7)
+        expect(hook.result.current?.isFirstPage).toBeFalsy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
         expect(hook.result.current?.isLastPagingPage).toBeFalsy()
