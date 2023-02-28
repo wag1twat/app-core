@@ -19,7 +19,7 @@ const wrapper = (props: any) => {
     return React.createElement('div', props)
 }
 
-describe('use array paging', () => {
+describe('use paging', () => {
     const hook = renderHook(
         (props: PagingProps) => {
             return usePaging({
@@ -33,15 +33,6 @@ describe('use array paging', () => {
             wrapper,
         }
     )
-
-    beforeEach(() => {
-        hook.rerender({
-            pageSize: 5,
-            paginationSize: 6,
-            itemsCount: 53,
-            onMount: true,
-        })
-    })
 
     test('rerender page 1', () => {
         expect(hook.result.current?.page).toBe(1)
@@ -156,6 +147,33 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(1)
         expect(hook.result.current?.isFirstPage).toBeTruthy()
+        expect(hook.result.current?.isLastPage).toBeFalsy()
+        expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
+        expect(hook.result.current?.isLastPagingPage).toBeFalsy()
+        expect(hook.result.current?.pages?.length).toBe(6)
+
+        act(() => {
+            hook.result.current.updatePage(5)
+        })
+
+        expect(hook.result.current?.page).toBe(5)
+        expect(hook.result.current?.isFirstPage).toBeFalsy()
+        expect(hook.result.current?.isLastPage).toBeFalsy()
+        expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
+        expect(hook.result.current?.isLastPagingPage).toBeFalsy()
+        expect(hook.result.current?.pages?.length).toBe(6)
+
+        act(() => {
+            hook.rerender({
+                pageSize: 10,
+                paginationSize: 6,
+                itemsCount: 56,
+                onMount: true,
+            })
+        })
+
+        expect(hook.result.current?.page).toBe(5)
+        expect(hook.result.current?.isFirstPage).toBeFalsy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
         expect(hook.result.current?.isLastPagingPage).toBeFalsy()

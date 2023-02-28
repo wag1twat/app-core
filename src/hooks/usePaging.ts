@@ -15,7 +15,7 @@ const usePaging = (options: PagingProps): Paging => {
             paging({
                 pageSize,
                 paginationSize,
-                startsWith,
+                startsWith: pagingState?.page,
                 itemsCount,
                 onMount,
                 onPagingUpdate: (nextState) =>
@@ -25,7 +25,7 @@ const usePaging = (options: PagingProps): Paging => {
                             : prevState
                     ),
             }),
-        [pageSize, paginationSize, startsWith, itemsCount, onMount]
+        [pageSize, paginationSize, pagingState?.page, itemsCount, onMount]
     )
 
     return {

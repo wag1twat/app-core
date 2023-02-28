@@ -1,3 +1,4 @@
+import { Guards } from '../Guards'
 import React from 'react'
 import { deepEqual, $Array, Types } from '../Base'
 
@@ -13,7 +14,6 @@ type ArrayPaging<T extends any[]> = Types.Array.Paging.PagingMethods &
             collection: T
         }
     >
-//! PROBLEM: save page after change reference array
 
 const useArrayPaging = <T extends any[]>(options: ArrayPagingProps<T>): ArrayPaging<T> => {
     const { startsWith, pageSize, paginationSize, onMount, collection } = options
@@ -30,7 +30,7 @@ const useArrayPaging = <T extends any[]>(options: ArrayPagingProps<T>): ArrayPag
 
     const functions = React.useMemo(() => {
         return $Array(collectionRef.current).paging({
-            startsWith,
+            startsWith: pagingState?.page,
             pageSize,
             paginationSize,
             onMount,
@@ -43,8 +43,13 @@ const useArrayPaging = <T extends any[]>(options: ArrayPagingProps<T>): ArrayPag
                     !deepEqual(prevCollection, nextCollection) ? nextCollection : prevCollection
                 ),
         })
-    }, [collectionRef.current, startsWith, pageSize, paginationSize, onMount])
+    }, [collectionRef.current, pagingState?.page, pageSize, paginationSize, onMount])
 
+    React.useEffect(() => {
+        if (onMount && Guards.isNumber(startsWith)) {
+            functions.updatePage(startsWith)
+        }
+    }, [startsWith, onMount])
     return {
         ...pagingState,
         ...functions,
