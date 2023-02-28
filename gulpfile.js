@@ -10,7 +10,9 @@ const concat = require('gulp-concat')
 const config = require('./tsconfig.json')
 
 const srcPath = __dirname + '/src/**/*.ts'
-const docsPath = [__dirname + '/src/.md', __dirname + '/src/**/.md']
+const classesDocsPath = [__dirname + '/src/**/class.md']
+const hooksDocsPath = [__dirname + '/src/**/hook.md']
+const descDocsPath = [__dirname + '/src/.md', __dirname + '/src/**/.md']
 const distPath = __dirname + '/dist'
 
 function cleanup(path) {
@@ -22,7 +24,12 @@ gulp.task('cleanDocs', () => {
 })
 
 gulp.task('createDocs', () => {
-    return gulp.src(docsPath).pipe(concat('README.md')).pipe(gulp.dest('./'))
+    return gulp
+        .src(descDocsPath)
+        .pipe(gulp.src(classesDocsPath))
+        .pipe(gulp.src(hooksDocsPath))
+        .pipe(concat('README.md'))
+        .pipe(gulp.dest('./'))
 })
 
 gulp.task('cleanDist', () => {

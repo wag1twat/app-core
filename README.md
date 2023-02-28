@@ -2,7 +2,7 @@
 
 ---
 
-## RequiredEnv
+## Class: RequiredEnv
 
 ##### What problem are we solving?
 
@@ -34,7 +34,7 @@ const env2 = new RequiredEnv(["https://anydomain.com"] as const, { checkOnInitia
 
 ---
 
-## UrlSerializer
+## Class: UrlSerializer
 
 ##### What problem are we solving?
 

@@ -1,4 +1,4 @@
-## UrlSerializer
+## Class: UrlSerializer
 
 ##### What problem are we solving?
 

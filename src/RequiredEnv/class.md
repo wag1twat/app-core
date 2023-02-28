@@ -1,4 +1,4 @@
-## RequiredEnv
+## Class: RequiredEnv
 
 ##### What problem are we solving?
 
