@@ -4,7 +4,7 @@ interface ArrayPagingProps<T extends any> {
     paginationSize: number;
     items: T[] | undefined;
 }
-interface ArrayPaging<T extends any> extends Types.Array.PagingCollection.State<T[]> {
+interface ArrayPaging<T extends any> extends Types.Array.CreatePaging.State<T[]> {
     updatePage: (page: number) => void;
     nextPage: () => void;
     prevPage: () => void;

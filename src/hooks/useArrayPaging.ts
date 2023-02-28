@@ -7,7 +7,7 @@ interface ArrayPagingProps<T extends any> {
     items: T[] | undefined
 }
 
-interface ArrayPaging<T extends any> extends Types.Array.PagingCollection.State<T[]> {
+interface ArrayPaging<T extends any> extends Types.Array.CreatePaging.State<T[]> {
     updatePage: (page: number) => void
     nextPage: () => void
     prevPage: () => void
@@ -20,7 +20,7 @@ const useArrayPaging = <T extends any>(props: ArrayPagingProps<T>): ArrayPaging<
     const { pageSize, paginationSize, items = [] } = props
 
     const itemsRef = React.useRef<T[]>(items)
-    const [state, setState] = React.useState<Types.Array.PagingCollection.State<T[]>>()
+    const [state, setState] = React.useState<Types.Array.CreatePaging.State<T[]>>()
 
     if (!deepEqual(itemsRef.current, items)) {
         itemsRef.current = items
@@ -31,13 +31,13 @@ const useArrayPaging = <T extends any>(props: ArrayPagingProps<T>): ArrayPaging<
             page: state?.page,
             pageSize,
             paginationSize,
-            onUpdate: (nextState) => {
+            onPagingUpdate: (nextState) => {
                 setState((prevState) => (!deepEqual(prevState, nextState) ? nextState : prevState))
             },
         })
     }, [pageSize, paginationSize, itemsRef.current])
 
-    return Object.assign(state || ({} as Types.Array.PagingCollection.State<T[]>), functions)
+    return Object.assign(state || ({} as Types.Array.CreatePaging.State<T[]>), functions)
 }
 
 export type { ArrayPagingProps, ArrayPaging }

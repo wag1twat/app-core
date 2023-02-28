@@ -5,7 +5,7 @@ import todos from './mocks/200-todos'
 describe('Array paging', () => {
     test('init test', () => {
         const pageSize = 9
-        let state!: Types.Array.PagingCollection.State<typeof todos>
+        let state!: Types.Array.CreatePaging.State<typeof todos>
 
         const { updatePage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = $Array(
             todos
@@ -13,7 +13,7 @@ describe('Array paging', () => {
             page: 1,
             pageSize,
             paginationSize: 6,
-            onUpdate(_state) {
+            onPagingUpdate(_state) {
                 state = _state
             },
         })

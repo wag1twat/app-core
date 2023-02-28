@@ -72,19 +72,17 @@ export declare namespace Types {
                 page?: number;
                 pageSize: number;
                 paginationSize: number;
+                onMount?: boolean;
                 onPagingUpdate?: (state: State) => void;
             };
         }
-        namespace PagingCollection {
+        namespace CreatePaging {
             type State<T extends any[]> = Paging.State & {
                 collection: T;
             };
-            type Options<T extends any[]> = {
-                page?: number;
-                pageSize: number;
-                paginationSize: number;
-                onUpdate: (state: State<T>) => void;
-            };
+            interface Options<T extends any[]> extends Pick<Paging.Options, 'page' | 'pageSize' | 'paginationSize' | 'onMount'> {
+                onPagingUpdate: (state: State<T>) => void;
+            }
         }
     }
 }

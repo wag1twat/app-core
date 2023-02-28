@@ -7,7 +7,6 @@ export function $Array<T extends any[]>(collection: T) {
         sort: <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(
             options: Types.Array.Sort.Options<T, XPath>
         ) => createSort<T>(collection)<XPath>(options),
-        paging: (options: Types.Array.PagingCollection.Options<T>) =>
-            createPaging(collection)(options),
+        paging: (options: Types.Array.CreatePaging.Options<T>) => createPaging(collection)(options),
     }
 }

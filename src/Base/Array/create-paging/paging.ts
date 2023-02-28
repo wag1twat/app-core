@@ -4,7 +4,14 @@ import { Types } from '../../Types'
 const getCount = (itemsLength: number, pageSize: number) => Math.ceil(itemsLength / pageSize)
 
 export const paging = (options: Types.Array.Paging.Options) => {
-    const { itemsCount, page = 1, pageSize, paginationSize, onPagingUpdate } = options
+    const {
+        itemsCount,
+        page = 1,
+        pageSize,
+        paginationSize,
+        onMount = true,
+        onPagingUpdate,
+    } = options
 
     const state: Types.Array.Paging.State = {
         page: 1,
@@ -105,9 +112,10 @@ export const paging = (options: Types.Array.Paging.Options) => {
         updatePage(state.page - 1)
     }
 
-    updatePage(page)
-
-    onPagingUpdateCallback()
+    if (onMount) {
+        updatePage(page)
+        onPagingUpdateCallback()
+    }
 
     return {
         updatePage,
