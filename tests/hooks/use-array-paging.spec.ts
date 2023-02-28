@@ -9,7 +9,7 @@ const wrapper = (props: any) => {
 
     React.useEffect(() => {
         const interval = setInterval(() => {
-            updateCounter(x => x + 1)
+            updateCounter((x) => x + 1)
         }, 50)
 
         return () => {
@@ -31,7 +31,7 @@ describe('use array paging', () => {
             })
         },
         {
-            wrapper
+            wrapper,
         }
     )
 

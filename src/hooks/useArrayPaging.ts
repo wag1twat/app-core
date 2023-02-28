@@ -19,7 +19,6 @@ const useArrayPaging = <T extends any>(props: ArrayPagingProps<T>): ArrayPaging<
     const { pageSize, paginationSize, items = [] } = props
 
     const itemsRef = React.useRef<T[]>(items)
-
     const [state, setState] = React.useState<Types.Array.PagingCollection.State<T[]>>()
 
     if (!deepEqual(itemsRef.current, items)) {
@@ -31,13 +30,11 @@ const useArrayPaging = <T extends any>(props: ArrayPagingProps<T>): ArrayPaging<
             page: state?.page,
             pageSize,
             paginationSize,
-            onUpdate: (properties) => {
-                if (!deepEqual(state, properties)) {
-                    setState(properties)
-                }
+            onUpdate: (nextState) => {
+                setState((prevState) => (!deepEqual(prevState, nextState) ? nextState : prevState))
             },
         })
-    }, [itemsRef.current, state?.page])
+    }, [pageSize, paginationSize, itemsRef.current])
 
     return Object.assign(state || ({} as Types.Array.PagingCollection.State<T[]>), functions)
 }
