@@ -15,6 +15,7 @@ interface ArrayPaging<T extends any> extends Types.Array.PagingCollection.State<
     prevPaginationPage: () => void
 }
 
+// TODO: onMount props
 const useArrayPaging = <T extends any>(props: ArrayPagingProps<T>): ArrayPaging<T> => {
     const { pageSize, paginationSize, items = [] } = props
 
