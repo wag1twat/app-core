@@ -20,7 +20,9 @@ const useArrayPaging = <T extends any[]>(options: ArrayPagingProps<T>): ArrayPag
 
     const collectionRef = React.useRef(collection)
 
-    const [pagingState, onPagingUpdate] = React.useState<Types.Array.Paging.State>()
+    const [pagingState, onPagingUpdate] = React.useState<Partial<Types.Array.Paging.State>>({
+        page: startsWith || 1,
+    })
 
     const [nextCollection, onCollectionUpdate] = React.useState<T>()
 
@@ -45,11 +47,6 @@ const useArrayPaging = <T extends any[]>(options: ArrayPagingProps<T>): ArrayPag
         })
     }, [collectionRef.current, pagingState?.page, pageSize, paginationSize, onMount])
 
-    React.useEffect(() => {
-        if (onMount && Guards.isNumber(startsWith)) {
-            functions.updatePage(startsWith)
-        }
-    }, [startsWith, onMount])
     return {
         ...pagingState,
         ...functions,
