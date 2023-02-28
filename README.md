@@ -18,7 +18,7 @@ process.env = {
   REACT_APP_CI_TOKEN: "hash",
 };
 
-const env1 = new RequiredEnv(["https://anydomain.com"] as const, { checkOnInitializeClass: true }); // it's ok, no error
+const env1 = new RequiredEnv(["REACT_APP_API"] as const, { checkOnInitializeClass: true }); // it's ok, no error
 
 const values1 = env1.getVariables(); // Record<https://anydomain.com, string | undefined>
 
