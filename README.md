@@ -1,7 +1,5 @@
 # Not realease version.
 
----
-
 ## Class: RequiredEnv
 
 ##### What problem are we solving?
