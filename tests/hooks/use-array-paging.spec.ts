@@ -47,8 +47,6 @@ describe('use array paging', () => {
     test('rerender page 1', () => {
         expect(hook.result.current?.page).toBe(1)
         expect(hook.result.current?.collection?.length).toBe(6)
-        expect(hook.result.current?._pagingPage).toBe(1)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeTruthy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
@@ -61,8 +59,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(2)
         expect(hook.result.current?.collection?.length).toBe(6)
-        expect(hook.result.current?._pagingPage).toBe(1)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeFalsy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
@@ -75,8 +71,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(3)
         expect(hook.result.current?.collection?.length).toBe(6)
-        expect(hook.result.current?._pagingPage).toBe(1)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeFalsy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
@@ -89,8 +83,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(4)
         expect(hook.result.current?.collection?.length).toBe(6)
-        expect(hook.result.current?._pagingPage).toBe(1)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeFalsy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
@@ -103,8 +95,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(5)
         expect(hook.result.current?.collection?.length).toBe(6)
-        expect(hook.result.current?._pagingPage).toBe(1)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeFalsy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
@@ -117,8 +107,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(6)
         expect(hook.result.current?.collection?.length).toBe(6)
-        expect(hook.result.current?._pagingPage).toBe(2)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeFalsy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeFalsy()
@@ -131,8 +119,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(5)
         expect(hook.result.current?.collection?.length).toBe(6)
-        expect(hook.result.current?._pagingPage).toBe(1)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeFalsy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
@@ -145,8 +131,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(6)
         expect(hook.result.current?.collection?.length).toBe(6)
-        expect(hook.result.current?._pagingPage).toBe(2)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeFalsy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeFalsy()
@@ -159,8 +143,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(34)
         expect(hook.result.current?.collection?.length).toBe(2)
-        expect(hook.result.current?._pagingPage).toBe(7)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeFalsy()
         expect(hook.result.current?.isLastPage).toBeTruthy()
         expect(hook.result.current?.isFirstPagingPage).toBeFalsy()
@@ -173,8 +155,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(34)
         expect(hook.result.current?.collection?.length).toBe(2)
-        expect(hook.result.current?._pagingPage).toBe(7)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeFalsy()
         expect(hook.result.current?.isLastPage).toBeTruthy()
         expect(hook.result.current?.isFirstPagingPage).toBeFalsy()
@@ -187,8 +167,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(1)
         expect(hook.result.current?.collection?.length).toBe(6)
-        expect(hook.result.current?._pagingPage).toBe(1)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeTruthy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
@@ -214,8 +192,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBeUndefined
         expect(hook.result.current?.collection).toBeUndefined()
-        expect(hook.result.current?._pagingPage).toBeUndefined()
-        expect(hook.result.current?._pagingPages).toBeUndefined()
         expect(hook.result.current?.isFirstPage).toBeUndefined()
         expect(hook.result.current?.isLastPage).toBeUndefined()
         expect(hook.result.current?.isFirstPagingPage).toBeUndefined()
@@ -228,8 +204,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(1)
         expect(hook.result.current?.collection?.length).toBe(6)
-        expect(hook.result.current?._pagingPage).toBe(1)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeTruthy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
@@ -255,8 +229,6 @@ describe('use array paging', () => {
 
         expect(hook.result.current?.page).toBe(1)
         expect(hook.result.current?.collection?.length).toBe(6)
-        expect(hook.result.current?._pagingPage).toBe(1)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
         expect(hook.result.current?.isFirstPage).toBeTruthy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
@@ -270,7 +242,7 @@ describe('use array paging', () => {
                     startsWith: 3,
                     pageSize: 6,
                     paginationSize: 5,
-                    collection: todos,
+                    collection: props,
                     onMount: true,
                 })
 
@@ -281,10 +253,36 @@ describe('use array paging', () => {
             }
         )
 
+        act(() => {
+            hook.rerender(todos)
+        })
+
         expect(hook.result.current?.page).toBe(3)
         expect(hook.result.current?.collection?.length).toBe(6)
-        expect(hook.result.current?._pagingPage).toBe(1)
-        expect(hook.result.current?._pagingPages?.length).toBe(7)
+        expect(hook.result.current?.isFirstPage).toBeFalsy()
+        expect(hook.result.current?.isLastPage).toBeFalsy()
+        expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
+        expect(hook.result.current?.isLastPagingPage).toBeFalsy()
+        expect(hook.result.current?.pages?.length).toBe(5)
+
+        act(() => {
+            hook.result.current.updatePage(4)
+        })
+
+        expect(hook.result.current?.page).toBe(4)
+        expect(hook.result.current?.collection?.length).toBe(6)
+        expect(hook.result.current?.isFirstPage).toBeFalsy()
+        expect(hook.result.current?.isLastPage).toBeFalsy()
+        expect(hook.result.current?.isFirstPagingPage).toBeTruthy()
+        expect(hook.result.current?.isLastPagingPage).toBeFalsy()
+        expect(hook.result.current?.pages?.length).toBe(5)
+
+        act(() => {
+            hook.rerender(todos.slice().reverse())
+        })
+
+        expect(hook.result.current?.page).toBe(4)
+        expect(hook.result.current?.collection?.length).toBe(6)
         expect(hook.result.current?.isFirstPage).toBeFalsy()
         expect(hook.result.current?.isLastPage).toBeFalsy()
         expect(hook.result.current?.isFirstPagingPage).toBeTruthy()

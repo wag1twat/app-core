@@ -13,14 +13,15 @@ export const paging = (options: Types.Array.Paging.Options): Types.Array.Paging.
         onPagingUpdate,
     } = options
 
+    let _pagingPage: number = 1
+    let _pagingPages: number[][] = []
+
     const state: Types.Array.Paging.State = {
         page: 1,
         isFirstPage: true,
         isLastPage: false,
-        _pagingPage: 1,
         isFirstPagingPage: true,
         isLastPagingPage: false,
-        _pagingPages: [],
         pages: [],
     }
 
@@ -37,7 +38,7 @@ export const paging = (options: Types.Array.Paging.Options): Types.Array.Paging.
             paginPages[i] = ofCount.slice(i * paginationSize, i * paginationSize + paginationSize)
         }
 
-        state._pagingPages = paginPages
+        _pagingPages = paginPages
     }
 
     generatePagingPages()
@@ -49,14 +50,14 @@ export const paging = (options: Types.Array.Paging.Options): Types.Array.Paging.
     }
 
     const getPaginationPagesCount = () => {
-        return state._pagingPages.length
+        return _pagingPages.length
     }
 
     const getIsFirstPaginationPage = () => {
-        return state._pagingPage === 1
+        return _pagingPage === 1
     }
     const getIsLastPaginationPage = () => {
-        return state._pagingPage === getPaginationPagesCount()
+        return _pagingPage === getPaginationPagesCount()
     }
     const getIsFirstItemsPage = () => {
         return state.page === 1
@@ -69,8 +70,8 @@ export const paging = (options: Types.Array.Paging.Options): Types.Array.Paging.
         const count = getPaginationPagesCount()
         const canUpdate = pagingPage >= 1 && count >= pagingPage
         if (canUpdate) {
-            state._pagingPage = pagingPage
-            state.pages = state._pagingPages[state._pagingPage - 1]
+            _pagingPage = pagingPage
+            state.pages = _pagingPages[_pagingPage - 1]
             state.isFirstPagingPage = getIsFirstPaginationPage()
             state.isLastPagingPage = getIsLastPaginationPage()
         }
@@ -78,11 +79,11 @@ export const paging = (options: Types.Array.Paging.Options): Types.Array.Paging.
     }
 
     const nextPaginationPage = () => {
-        updatePaginationPage(state._pagingPage + 1)
+        updatePaginationPage(_pagingPage + 1)
     }
 
     const prevPaginationPage = () => {
-        updatePaginationPage(state._pagingPage - 1)
+        updatePaginationPage(_pagingPage - 1)
     }
 
     const updatePage = (page: number) => {
@@ -94,9 +95,9 @@ export const paging = (options: Types.Array.Paging.Options): Types.Array.Paging.
             state.isFirstPage = getIsFirstItemsPage()
             state.isLastPage = getIsLastItemsPage()
             if (!state.pages.includes(page)) {
-                const pagesIndex = state._pagingPages.findIndex((x) => x.includes(state.page))
-                state._pagingPage = pagesIndex + 1
-                state.pages = state._pagingPages[pagesIndex]
+                const pagesIndex = _pagingPages.findIndex((x) => x.includes(state.page))
+                _pagingPage = pagesIndex + 1
+                state.pages = _pagingPages[pagesIndex]
                 state.isFirstPagingPage = getIsFirstPaginationPage()
                 state.isLastPagingPage = getIsLastPaginationPage()
             }

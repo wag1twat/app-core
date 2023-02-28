@@ -61,10 +61,8 @@ export declare namespace Types {
                 page: number;
                 isFirstPage: boolean;
                 isLastPage: boolean;
-                _pagingPage: number;
                 isFirstPagingPage: boolean;
                 isLastPagingPage: boolean;
-                _pagingPages: number[][];
                 pages: number[];
             };
             type Options = {
