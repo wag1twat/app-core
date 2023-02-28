@@ -69,7 +69,7 @@ export declare namespace Types {
             };
             type Options = {
                 itemsCount: number;
-                page: number;
+                page?: number;
                 pageSize: number;
                 paginationSize: number;
                 onPagingUpdate?: (state: State) => void;
@@ -80,7 +80,7 @@ export declare namespace Types {
                 collection: T;
             };
             type Options<T extends any[]> = {
-                page: number;
+                page?: number;
                 pageSize: number;
                 paginationSize: number;
                 onUpdate: (state: State<T>) => void;

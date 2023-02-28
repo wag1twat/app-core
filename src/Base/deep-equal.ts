@@ -1,6 +1,6 @@
 // TODO: compare variables types ???
 export function deepEqual(a: any, b: any) {
-    if(a === b) {
+    if (a === b) {
         return true
     }
     if (a && b && typeof a == 'object' && typeof b == 'object') {

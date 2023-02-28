@@ -1,51 +1,15 @@
 import { describe, test, expect } from '@jest/globals'
-import React from 'react'
 import { act, renderHook } from '@testing-library/react-hooks'
-import { $Array } from '../../src/Base/Array'
-import { deepEqual } from '../../src/Base'
-import { Types } from '../../src/Base/Types'
-
 import todos from '../mocks/200-todos'
-
-interface UseArrayPagingProps<T extends any>  {
-    pageSize: number,
-    paginationSize: number,
-    items: T[] | undefined
-}
-
-const useArrayPaging = <T extends any>(props: UseArrayPagingProps<T>) => {
-    const { pageSize, paginationSize, items = [] } = props
-
-    const itemsRef = React.useRef<T[]>(items)
-    const [state, setState] = React.useState<Types.Array.PagingCollection.State<T[]>>()
-
-    if (!deepEqual(itemsRef.current, items)) {
-        itemsRef.current = items
-    }
-
-    const functions = React.useMemo(() => {
-        return $Array(itemsRef.current).paging({
-            page: state?.page,
-            pageSize,
-            paginationSize,
-            onUpdate: (properties) => {
-                if(!deepEqual(state, properties)) {
-                    setState(() => properties)
-                }
-            },
-        })
-    }, [itemsRef.current, state?.page])
-
-    return Object.assign(state || ({} as Types.Array.PagingCollection.State<T[]>), functions)
-}
+import { useArrayPaging, ArrayPagingProps } from '../../src/hooks'
 
 describe('use array paging', () => {
-    const hook = renderHook((props: UseArrayPagingProps<any>) => {
+    const hook = renderHook((props: ArrayPagingProps<any>) => {
         return useArrayPaging({
             pageSize: 6,
             paginationSize: 5,
             items: todos,
-            ...props as object
+            ...(props as object),
         })
     })
 
@@ -53,7 +17,7 @@ describe('use array paging', () => {
         hook.rerender({
             pageSize: 6,
             paginationSize: 5,
-            items: [...todos]
+            items: [...todos],
         })
     })
 

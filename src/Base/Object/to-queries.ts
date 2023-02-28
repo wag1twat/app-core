@@ -1,4 +1,4 @@
-import { nonEmptyString } from '../rules'
+import { noEmptyString } from '../rules'
 import { Types } from '../Types'
 import { Guards } from '../../Guards'
 import get from './get'
@@ -47,7 +47,7 @@ const toQueries =
             }
         }
 
-        result = result.filter(nonEmptyString)
+        result = result.filter(noEmptyString)
 
         result = ([] as string[]).concat.apply([] as string[], result)
 
