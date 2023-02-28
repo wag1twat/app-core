@@ -26,6 +26,7 @@ describe('use array paging', () => {
                 pageSize: 5,
                 paginationSize: 6,
                 itemsCount: 53,
+                onMount: true,
             })
         },
         {
@@ -38,6 +39,7 @@ describe('use array paging', () => {
             pageSize: 5,
             paginationSize: 6,
             itemsCount: 53,
+            onMount: true,
         })
     })
 
@@ -52,8 +54,6 @@ describe('use array paging', () => {
         act(() => {
             hook.result.current.updatePage(2)
         })
-
-        console.log(hook.result.current)
 
         expect(hook.result.current?.page).toBe(2)
         expect(hook.result.current?.isFirstPage).toBeFalsy()

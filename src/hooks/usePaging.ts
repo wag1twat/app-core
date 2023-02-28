@@ -20,7 +20,9 @@ const usePaging = (options: PagingProps): Paging => {
                 onMount,
                 onPagingUpdate: (nextState) =>
                     onPagingUpdate((prevState) =>
-                        !deepEqual(prevState, nextState) ? nextState : prevState
+                        !deepEqual(prevState, nextState)
+                            ? { ...prevState, ...nextState }
+                            : prevState
                     ),
             }),
         [pageSize, paginationSize, startsWith, itemsCount, onMount]

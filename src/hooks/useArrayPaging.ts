@@ -13,6 +13,7 @@ type ArrayPaging<T extends any[]> = Types.Array.Paging.PagingMethods &
             collection: T
         }
     >
+//! PROBLEM: save page after change reference array
 
 const useArrayPaging = <T extends any[]>(options: ArrayPagingProps<T>): ArrayPaging<T> => {
     const { startsWith, pageSize, paginationSize, onMount, collection } = options
@@ -35,7 +36,7 @@ const useArrayPaging = <T extends any[]>(options: ArrayPagingProps<T>): ArrayPag
             onMount,
             onPagingUpdate: (nextState) =>
                 onPagingUpdate((prevState) =>
-                    !deepEqual(prevState, nextState) ? nextState : prevState
+                    !deepEqual(prevState, nextState) ? { ...prevState, ...nextState } : prevState
                 ),
             onCollectionUpdate: (nextCollection) =>
                 onCollectionUpdate((prevCollection) =>
