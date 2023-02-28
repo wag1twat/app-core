@@ -75,6 +75,13 @@ export declare namespace Types {
                 onMount?: boolean;
                 onPagingUpdate?: (state: State) => void;
             };
+            type PagingMethods = {
+                updatePage: (page: number) => void;
+                nextPage: () => void;
+                prevPage: () => void;
+                nextPaginationPage: () => void;
+                prevPaginationPage: () => void;
+            };
         }
         namespace CreatePaging {
             type State<T extends any[]> = Paging.State & {

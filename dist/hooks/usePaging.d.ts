@@ -1,15 +1,7 @@
 import { Types } from '../Base';
-interface PagingProps {
-    pageSize: number;
-    paginationSize: number;
-    itemsCount: number;
+interface PagingProps extends Pick<Types.Array.Paging.Options, 'page' | 'pageSize' | 'paginationSize' | 'onMount' | 'itemsCount'> {
 }
-interface Pagign extends Types.Array.Paging.State {
-    updatePage: (page: number) => void;
-    nextPage: () => void;
-    prevPage: () => void;
-    nextPaginationPage: () => void;
-    prevPaginationPage: () => void;
+interface Pagign extends Types.Array.Paging.State, Types.Array.Paging.PagingMethods {
 }
 declare const usePaging: (options: PagingProps) => Pagign;
 export type { PagingProps, Pagign };

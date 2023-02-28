@@ -2,19 +2,13 @@ import React from 'react'
 import { deepEqual, Types } from '../Base'
 import { paging } from '../Base/Array/create-paging'
 
-interface PagingProps {
-    pageSize: number
-    paginationSize: number
-    itemsCount: number
-}
+interface PagingProps
+    extends Pick<
+        Types.Array.Paging.Options,
+        'page' | 'pageSize' | 'paginationSize' | 'onMount' | 'itemsCount'
+    > {}
 
-interface Pagign extends Types.Array.Paging.State {
-    updatePage: (page: number) => void
-    nextPage: () => void
-    prevPage: () => void
-    nextPaginationPage: () => void
-    prevPaginationPage: () => void
-}
+interface Pagign extends Types.Array.Paging.State, Types.Array.Paging.PagingMethods {}
 
 const usePaging = (options: PagingProps): Pagign => {
     const [state, setState] = React.useState<Types.Array.Paging.State>()

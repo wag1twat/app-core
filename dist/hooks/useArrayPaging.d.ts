@@ -1,15 +1,8 @@
 import { Types } from '../Base';
-interface ArrayPagingProps<T extends any> {
-    pageSize: number;
-    paginationSize: number;
+interface ArrayPagingProps<T extends any> extends Pick<Types.Array.Paging.Options, 'page' | 'pageSize' | 'paginationSize' | 'onMount'> {
     items: T[] | undefined;
 }
-interface ArrayPaging<T extends any> extends Types.Array.CreatePaging.State<T[]> {
-    updatePage: (page: number) => void;
-    nextPage: () => void;
-    prevPage: () => void;
-    nextPaginationPage: () => void;
-    prevPaginationPage: () => void;
+interface ArrayPaging<T extends any> extends Types.Array.CreatePaging.State<T[]>, Types.Array.Paging.PagingMethods {
 }
 declare const useArrayPaging: <T extends unknown>(props: ArrayPagingProps<T>) => ArrayPaging<T>;
 export type { ArrayPagingProps, ArrayPaging };

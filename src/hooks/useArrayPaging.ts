@@ -1,23 +1,18 @@
 import React from 'react'
 import { deepEqual, $Array, Types } from '../Base'
 
-interface ArrayPagingProps<T extends any> {
-    pageSize: number
-    paginationSize: number
+interface ArrayPagingProps<T extends any>
+    extends Pick<Types.Array.Paging.Options, 'page' | 'pageSize' | 'paginationSize' | 'onMount'> {
     items: T[] | undefined
 }
 
-interface ArrayPaging<T extends any> extends Types.Array.CreatePaging.State<T[]> {
-    updatePage: (page: number) => void
-    nextPage: () => void
-    prevPage: () => void
-    nextPaginationPage: () => void
-    prevPaginationPage: () => void
-}
+interface ArrayPaging<T extends any>
+    extends Types.Array.CreatePaging.State<T[]>,
+        Types.Array.Paging.PagingMethods {}
 
 // TODO: onMount props
 const useArrayPaging = <T extends any>(props: ArrayPagingProps<T>): ArrayPaging<T> => {
-    const { pageSize, paginationSize, items = [] } = props
+    const { pageSize, paginationSize, onMount = true, items = [] } = props
 
     const itemsRef = React.useRef<T[]>(items)
     const [state, setState] = React.useState<Types.Array.CreatePaging.State<T[]>>()
@@ -31,6 +26,7 @@ const useArrayPaging = <T extends any>(props: ArrayPagingProps<T>): ArrayPaging<
             page: state?.page,
             pageSize,
             paginationSize,
+            onMount,
             onPagingUpdate: (nextState) => {
                 setState((prevState) => (!deepEqual(prevState, nextState) ? nextState : prevState))
             },

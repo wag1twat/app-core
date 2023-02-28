@@ -3,7 +3,7 @@ import { Types } from '../../Types'
 
 const getCount = (itemsLength: number, pageSize: number) => Math.ceil(itemsLength / pageSize)
 
-export const paging = (options: Types.Array.Paging.Options) => {
+export const paging = (options: Types.Array.Paging.Options): Types.Array.Paging.PagingMethods => {
     const {
         itemsCount,
         page = 1,
