@@ -22,25 +22,24 @@ Performance lags slightly behind the default [].sort() method up to 1 million ob
 
 ```javascript
 const arrayOfObjects = useArraySort({
-        collection: todos,
-        order: "ASC",
-        orders: ["ASC", "DESC", "default"],
-        field: "id"
-});
+    collection: todos,
+    order: 'ASC',
+    orders: ['ASC', 'DESC', 'default'],
+    field: 'id',
+})
 
 const arrayOfPrimitievs = useArraySort({
-        collection: [1, 2, 3, 4, 5, 6, 7],
-        order: "ASC",
-        orders: ["ASC", "DESC", "default"],
-});
+    collection: [1, 2, 3, 4, 5, 6, 7],
+    order: 'ASC',
+    orders: ['ASC', 'DESC', 'default'],
+})
 
-arrayOfObjects.cleanup > reset to initial state
-arrayOfObjects.collection > sorted collection
-arrayOfObjects.field > current field
-arrayOfObjects.order > current order
-arrayOfObjects.orders > current orders
-arrayOfObjects.update > update fn
-
+arrayOfObjects.cleanup // > reset to initial state
+arrayOfObjects.collection // > sorted collection
+arrayOfObjects.field // > current field
+arrayOfObjects.order // > current order
+arrayOfObjects.orders // > current orders
+arrayOfObjects.update // > update fn
 ```
 
 ---

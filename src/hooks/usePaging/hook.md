@@ -16,17 +16,17 @@ const pagingProps = usePaging({
     itemsCount: 10,
 })
 
-pagingProps.isFirstPage > boolean (first page of pages list)
-pagingProps.isLastPage > boolean (last page of pages list)
-pagingProps.isFirstPagingPage > boolean (first page of pagination list)
-pagingProps.isLastPagingPage > boolean (last page of pagination list)
-pagingProps.nextPage() > go page + 1
-pagingProps.prevPage() > go page - 1
-pagingProps.updatePage(10) > set page 10
-pagingProps.nextPaginationPage() > go next page of pagination list
-pagingProps.prevPaginationPage() > go prev page of pagination list
-pagingProps.page > current page
-pagingProps.pages > visible pages of pagination list
+pagingProps.isFirstPage // > boolean (first page of pages list)
+pagingProps.isLastPage // > boolean (last page of pages list)
+pagingProps.isFirstPagingPage // > boolean (first page of pagination list)
+pagingProps.isLastPagingPage // > boolean (last page of pagination list)
+pagingProps.nextPage() // > go page + 1
+pagingProps.prevPage() // > go page - 1
+pagingProps.updatePage(10) // > set page 10
+pagingProps.nextPaginationPage() // > go next page of pagination list
+pagingProps.prevPaginationPage() // > go prev page of pagination list
+pagingProps.page // > current page
+pagingProps.pages // > visible pages of pagination list
 
 // Ugly example for usage
 const getTodos = React.useCallback((page: number) => {

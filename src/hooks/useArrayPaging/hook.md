@@ -18,18 +18,18 @@ const pagingProps = useArrayPaging({
     onMount: true
 });
 
-pagingProps.collection > array of page items
-pagingProps.isFirstPage > boolean (first page of pages list)
-pagingProps.isLastPage > boolean (last page of pages list)
-pagingProps.isFirstPagingPage > boolean (first page of pagination list)
-pagingProps.isLastPagingPage > boolean (last page of pagination list)
-pagingProps.nextPage() > go page + 1
-pagingProps.prevPage() > go page - 1
-pagingProps.updatePage(10) > set page 10
-pagingProps.nextPaginationPage() > go next page of pagination list
-pagingProps.prevPaginationPage() > go prev page of pagination list
-pagingProps.page > current page
-pagingProps.pages > visible pages of pagination list
+pagingProps.collection // > array of page items
+pagingProps.isFirstPage // > boolean (first page of pages list)
+pagingProps.isLastPage // > boolean (last page of pages list)
+pagingProps.isFirstPagingPage // > boolean (first page of pagination list)
+pagingProps.isLastPagingPage // > boolean (last page of pagination list)
+pagingProps.nextPage() // > go page + 1
+pagingProps.prevPage() // > go page - 1
+pagingProps.updatePage(10) // > set page 10
+pagingProps.nextPaginationPage() // > go next page of pagination list
+pagingProps.prevPaginationPage() // > go prev page of pagination list
+pagingProps.page // > current page
+pagingProps.pages // > visible pages of pagination list
 
 ```
 
