@@ -121,7 +121,7 @@ export namespace Types {
 
             export type Options = {
                 itemsCount: number
-                page: number
+                page?: number
                 pageSize: number
                 paginationSize: number
                 onPagingUpdate?: (state: State) => void
@@ -132,7 +132,7 @@ export namespace Types {
                 collection: T
             }
             export type Options<T extends any[]> = {
-                page: number
+                page?: number
                 pageSize: number
                 paginationSize: number
                 onUpdate: (state: State<T>) => void
