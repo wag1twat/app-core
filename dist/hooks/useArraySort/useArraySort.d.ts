@@ -1,4 +1,4 @@
-import { Types } from '../Base';
+import { Types } from '../../Base';
 interface ArraySortProps<T extends any[], XPath extends Types.Utility.JSONPath<Types.Array.Of<T>> = Types.Utility.JSONPath<Types.Array.Of<T>>> extends Omit<Types.Array.Sort.Options<T, XPath>, 'onSortUpdate'> {
     collection: T;
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { deepEqual, $Array, Types } from '../Base'
+import { deepEqual, $Array, Types } from '../../Base'
 
 type ArrayPagingProps<T extends any[]> = Omit<
     Types.Array.CreatePaging.Options<T>,

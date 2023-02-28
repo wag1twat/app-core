@@ -1,7 +1,7 @@
 import { describe, test, expect } from '@jest/globals'
 import { act, renderHook } from '@testing-library/react-hooks'
 import React from 'react'
-import { usePaging, PagingProps } from '../../src/hooks/usePaging'
+import { usePaging, PagingProps } from '../../src/hooks/usePaging/usePaging'
 
 const wrapper = (props: any) => {
     const [counter, updateCounter] = React.useState(0)

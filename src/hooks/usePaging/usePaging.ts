@@ -1,6 +1,6 @@
 import React from 'react'
-import { deepEqual, Types } from '../Base'
-import { paging } from '../Base/Array/create-paging'
+import { deepEqual, Types } from '../../Base'
+import { paging } from '../../Base/Array/create-paging'
 
 type PagingProps = Omit<Types.Array.Paging.Options, 'onPagingUpdate'>
 type Paging = Types.Array.Paging.PagingMethods & Partial<Types.Array.Paging.State>

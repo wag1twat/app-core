@@ -1,5 +1,5 @@
 import React from 'react'
-import { $Array, deepEqual, Types } from '../Base'
+import { $Array, deepEqual, Types } from '../../Base'
 
 interface ArraySortProps<
     T extends any[],
