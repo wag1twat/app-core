@@ -1,12 +1,22 @@
 {
     "name": "shulga-app-core",
-    "version": "1.0.214",
+    "version": "1.0.227",
     "description": "",
     "exports": {
-        "./base": "./dist/index.js",
-        "./hooks": "./dist/hooks/index.js"
+        ".": "./dist/index.js",
+        "./hooks": "./dist/hooks/index.js",
+        "./package.json": "./package.json"
     },
-    "typings": "./dist/index.d.ts",
+    "typesVersions": {
+        "*": {
+            "*": [
+                "dist/index.d.ts"
+            ],
+            "hooks": [
+                "dist/hooks/index.d.ts"
+            ]
+        }
+    },
     "scripts": {
         "test": "jest",
         "build-docs": "bash bin/build-docs.sh",
