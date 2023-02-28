@@ -7,8 +7,14 @@ export const createPaging = <T extends any[]>(collection: T) => {
     // let cache: Record<string, T> = {}
 
     return (options: Types.Array.CreatePaging.Options<T>) => {
-        const { startsWith, pageSize, paginationSize, onMount, onPagingUpdate, onCollectionUpdate } =
-            options
+        const {
+            startsWith,
+            pageSize,
+            paginationSize,
+            onMount,
+            onPagingUpdate,
+            onCollectionUpdate,
+        } = options
         const onUpdate = (state: Types.Array.Paging.State) => {
             if (Guards.isFunc(onPagingUpdate)) {
                 onPagingUpdate(state)

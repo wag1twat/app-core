@@ -69,7 +69,7 @@ export declare namespace Types {
             };
             type Options = {
                 itemsCount: number;
-                page?: number;
+                startsWith?: number;
                 pageSize: number;
                 paginationSize: number;
                 onMount?: boolean;
