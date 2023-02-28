@@ -95,7 +95,15 @@ export namespace Types {
                 field?: Field<T, XPath>
                 order?: Order
                 orders?: Order[]
-                onUpdate: (state: State<T>) => void
+                onMount?: boolean
+                onSortUpdate: (state: State<T>) => void
+            }
+
+            export type SortMethods<T extends any[]> = {
+                cleanup(): void
+                update: <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(
+                    options?: Types.Array.Sort.UpdateOptions<T, XPath>
+                ) => void
             }
 
             export type UpdateOptions<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {

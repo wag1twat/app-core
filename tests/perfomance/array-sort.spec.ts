@@ -29,7 +29,7 @@ describe('Array sort perfomance', () => {
             field: 'address.geo.lat',
             order: 'ASC',
             orders: ['ASC', 'DESC', 'default'],
-            onUpdate(state) {
+            onSortUpdate(state) {
                 order = state.order
             },
         })

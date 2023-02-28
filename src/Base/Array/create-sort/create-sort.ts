@@ -9,7 +9,7 @@ const createSort = <T extends any[]>(collection: T) => {
     ) => {
         let called: boolean = false
 
-        const { field, order, orders, onUpdate } = options
+        const { field, order, orders, onMount = true, onSortUpdate } = options
 
         const state: Types.Array.Sort.State<T> = {
             collection: collection.slice() as T,
@@ -19,9 +19,9 @@ const createSort = <T extends any[]>(collection: T) => {
         }
 
         //callbacks
-        const onUpdateCallback = () => {
-            if (Guards.isFunc(onUpdate)) {
-                onUpdate(state)
+        const onSortUpdateCallback = () => {
+            if (Guards.isFunc(onSortUpdate)) {
+                onSortUpdate(state)
             }
         }
         // utilities
@@ -40,7 +40,7 @@ const createSort = <T extends any[]>(collection: T) => {
             state.order = order ? order : Types.Array.Sort.defaultOrder
             state.orders = orders ? orders : Types.Array.Sort.defaultOrders
             state.collection = collection.slice() as T
-            onUpdateCallback()
+            onSortUpdateCallback()
         }
 
         const setField = <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(
@@ -101,7 +101,7 @@ const createSort = <T extends any[]>(collection: T) => {
 
             if (state.order === 'default') {
                 state.collection = collection.slice() as T
-                onUpdateCallback()
+                onSortUpdateCallback()
             } else {
                 state.collection = (state.collection.slice() as T).sort((l, r) =>
                     getCompareFunction(
@@ -110,11 +110,11 @@ const createSort = <T extends any[]>(collection: T) => {
                         getValue(r)
                     )
                 )
-                onUpdateCallback()
+                onSortUpdateCallback()
             }
         }
 
-        if (!called) {
+        if (!called && onMount) {
             update({
                 field,
             })

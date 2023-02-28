@@ -20,7 +20,7 @@ describe('Array sort', () => {
         },
         order: order,
         orders: ['ASC', 'DESC'],
-        onUpdate: (state) => {
+        onSortUpdate: (state) => {
             _collection = state.collection
             // @ts-ignore
             _field = state.field
@@ -143,7 +143,7 @@ describe('Array sort', () => {
         const { update, cleanup } = $Array(array).sort({
             orders: ['ASC', 'DESC', 'default'],
             order: 'ASC',
-            onUpdate(state) {
+            onSortUpdate(state) {
                 // @ts-ignore
                 _collection = state.collection
                 _order = state.order
@@ -226,7 +226,7 @@ describe('Array sort', () => {
         const { update, cleanup } = $Array(array).sort({
             orders: ['ASC', 'DESC', 'default'],
             order: 'ASC',
-            onUpdate(state) {
+            onSortUpdate(state) {
                 // @ts-ignore
                 _collection = state.collection
                 _order = state.order
