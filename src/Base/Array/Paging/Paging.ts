@@ -80,7 +80,7 @@ class Paging implements PublicPagingMethods {
         this.updatePagingPage(this.pagingPage + 1)
     }
     public prevPagingPage() {
-        this.updatePagingPage(this.pagingPage + 1)
+        this.updatePagingPage(this.pagingPage - 1)
     }
 
     public updatePage(page: number) {
