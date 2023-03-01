@@ -1,3 +1,3 @@
-import { Types } from '../Types';
-declare const getXPath: <O extends object>(obj: O) => <Path extends Types.Utility.JSONPath<O, "">>(path: Path) => Types.Utility.JSONFind<O, Path> | undefined;
+import { JSONFind, JSONPath } from '../types';
+declare const getXPath: <O extends object>(obj: O) => <Path extends JSONPath<O, "">>(path: Path) => JSONFind<O, Path> | undefined;
 export default getXPath;

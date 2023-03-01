@@ -1,2 +1,1 @@
-import { Types } from '../../Base/Types';
-export declare const defaultSerializeOptions: Types.Object.ToQueriesOptions;
+export declare const defaultSerializeOptions: import("../../Base/Object/to-queries").ToQueriesOptions;

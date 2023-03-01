@@ -1,2 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.createPaging=void 0;const Guards_1=require("../../../Guards"),paging_1=require("./paging"),createPaging=o=>e=>{const{startsWith:a,pageSize:t,paginationSize:i,onMount:n,onPagingUpdate:g,onCollectionUpdate:r}=e;return(0,paging_1.paging)({itemsCount:o.length,startsWith:a,pageSize:t,paginationSize:i,onMount:n,onPagingUpdate:e=>{Guards_1.Guards.isFunc(g)&&(g(e),r(o.slice((e.page-1)*t,e.page*t)))}})};exports.createPaging=createPaging;
-//# sourceMappingURL=create-paging.js.map

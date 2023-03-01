@@ -1,96 +1,12 @@
-export declare namespace Types {
-    namespace Utility {
-        type IsAny<T> = unknown extends T & string ? true : false;
-        type StringOrNumber = string | number;
-        type Primitive = string | number | bigint | boolean | undefined | symbol;
-        type JSONPath<T, Prefix = ''> = {
-            [K in keyof T]: T[K] extends Primitive | Array<any> ? `${string & Prefix}${string & K}` : `${string & Prefix}${string & K}` | (IsAny<T[K]> extends false ? JSONPath<T[K], `${string & Prefix}${string & K}.`> : never);
-        }[keyof T];
-        type JSONFind<T extends Record<string, any>, Path = JSONPath<T>> = Path extends keyof T ? T[Path] : Path extends `${infer Up}.${infer Down}` ? IsAny<T[Up]> extends false ? JSONFind<T[Up], Down> : never : never;
-    }
-    namespace String {
-        type Split<S extends string, D extends string> = string extends S ? string[] : S extends '' ? [] : S extends `${infer T}${D}${infer U}` ? [T, ...Split<U, D>] : [S];
-        type ReplaceAll<T extends string, M extends {
-            [k: string]: string;
-        }, A extends string = ''> = T extends `${Extract<keyof M, string>}${infer R}` ? T extends `${infer K}${R}` ? ReplaceAll<R, M, `${A}${M[Extract<K, keyof M>]}`> : never : T extends `${infer F}${infer R}` ? ReplaceAll<R, M, `${A}${F}`> : A;
-    }
-    namespace Object {
-        interface ToQueriesOptions {
-            objectAccsessor: '.' | '{}' | '[]';
-            arrayAccsessor: '.' | '{}' | '[]';
-            skipUndefined: boolean;
-            skipNull: boolean;
-        }
-        const defaultToQueriesOptions: ToQueriesOptions;
-        const toQueriesAccsessors: {
-            '.': readonly [".", ""];
-            '[]': readonly ["[", "]"];
-            '{}': readonly ["{", "}"];
-        };
-    }
-    namespace Array {
-        type Of<T extends any[]> = T extends (infer U)[] ? U : never;
-        namespace Sort {
-            type Order = 'ASC' | 'DESC' | 'default';
-            type FieldObject<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
-                xpath: XPath;
-                handler: (item: Utility.JSONFind<Of<T>, XPath> | undefined) => Utility.Primitive;
-            };
-            type Field<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = XPath | FieldObject<T, XPath>;
-            type State<T extends any[]> = {
-                collection: T;
-                order: Order;
-                orders: Order[];
-                field?: Field<T, Utility.JSONPath<Of<T>>>;
-            };
-            type Options<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
-                field?: Field<T, XPath>;
-                order?: Order;
-                orders?: Order[];
-                onMount?: boolean;
-                onSortUpdate: (state: State<T>) => void;
-            };
-            type SortMethods<T extends any[]> = {
-                cleanup(): void;
-                update: <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(options?: Types.Array.Sort.UpdateOptions<T, XPath>) => void;
-            };
-            type UpdateOptions<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
-                field?: Field<T, XPath>;
-                noUpdateOrderFalsyEqualXPath?: boolean;
-            };
-            const defaultOrders: Order[];
-            const defaultOrder: Order;
-        }
-        namespace Paging {
-            type State = {
-                page: number;
-                isFirstPage: boolean;
-                isLastPage: boolean;
-                isFirstPagingPage: boolean;
-                isLastPagingPage: boolean;
-                pages: number[];
-            };
-            type Options = {
-                itemsCount: number;
-                startsWith?: number;
-                pageSize: number;
-                paginationSize: number;
-                onMount?: boolean;
-                onPagingUpdate?: (state: State) => void;
-            };
-            type PagingMethods = {
-                updatePage: (page: number) => void;
-                nextPage: () => void;
-                prevPage: () => void;
-                nextPaginationPage: () => void;
-                prevPaginationPage: () => void;
-            };
-        }
-        namespace CreatePaging {
-            type State = Paging.State;
-            interface Options<T extends any[]> extends Omit<Paging.Options, 'itemsCount'> {
-                onCollectionUpdate: (collection: T) => void;
-            }
-        }
-    }
-}
+export type ArrayOf<T extends any[]> = T extends (infer U)[] ? U : never;
+export type IsAny<T> = unknown extends T & string ? true : false;
+export type Primitive = string | number | bigint | boolean | undefined | symbol;
+export type StringOrNumber = string | number;
+export type JSONPath<T, Prefix = ''> = {
+    [K in keyof T]: T[K] extends Primitive | Array<any> ? `${string & Prefix}${string & K}` : `${string & Prefix}${string & K}` | (IsAny<T[K]> extends false ? JSONPath<T[K], `${string & Prefix}${string & K}.`> : never);
+}[keyof T];
+export type JSONFind<T extends Record<string, any>, Path = JSONPath<T>> = Path extends keyof T ? T[Path] : Path extends `${infer Up}.${infer Down}` ? IsAny<T[Up]> extends false ? JSONFind<T[Up], Down> : never : never;
+export type Split<S extends string, D extends string> = string extends S ? string[] : S extends '' ? [] : S extends `${infer T}${D}${infer U}` ? [T, ...Split<U, D>] : [S];
+export type ReplaceAll<T extends string, M extends {
+    [k: string]: string;
+}, A extends string = ''> = T extends `${Extract<keyof M, string>}${infer R}` ? T extends `${infer K}${R}` ? ReplaceAll<R, M, `${A}${M[Extract<K, keyof M>]}`> : never : T extends `${infer F}${infer R}` ? ReplaceAll<R, M, `${A}${F}`> : A;

@@ -1,4 +1,4 @@
-import { Types } from '../Base';
+import { ReplaceAll } from '../Base';
 import { UrlSerializerOptions, UrlSerializerParams } from './utils';
 declare class UrlSerializer<Path extends string, Params extends UrlSerializerParams<string>> {
     private _path;
@@ -15,11 +15,11 @@ declare class UrlSerializer<Path extends string, Params extends UrlSerializerPar
         path: Path;
         extend: () => UrlSerializer<Path, Params>;
         link: <P extends Params>(params: P) => {
-            path: Types.String.ReplaceAll<Path, P, "">;
-            extend: () => UrlSerializer<Types.String.ReplaceAll<Path, P, "">, Omit<Params, keyof P>>;
+            path: ReplaceAll<Path, P, "">;
+            extend: () => UrlSerializer<ReplaceAll<Path, P, "">, Omit<Params, keyof P>>;
         };
         queries: <Queries extends {
-            [x: string]: boolean | Types.Utility.StringOrNumber | (Types.Utility.StringOrNumber | null | undefined)[] | any | null | undefined;
+            [x: string]: boolean | import("../Base").StringOrNumber | (import("../Base").StringOrNumber | null | undefined)[] | any | null | undefined;
         }>(queriesObject: Queries, options?: Partial<UrlSerializerOptions> | undefined) => {
             path: Path extends `${string}?${string}` ? `${Path}&${string}` : `${Path}?${string}`;
             extend: () => UrlSerializer<Path extends `${string}?${string}` ? `${Path}&${string}` : `${Path}?${string}`, Params>;
