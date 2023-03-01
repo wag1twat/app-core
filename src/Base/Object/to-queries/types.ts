@@ -1,8 +1,6 @@
 export interface ToQueriesOptions {
-            objectAccsessor: '.' | '{}' | '[]'
-            arrayAccsessor: '.' | '{}' | '[]'
-            skipUndefined: boolean
-            skipNull: boolean
-        }
-
-       
+    objectAccsessor: '.' | '{}' | '[]'
+    arrayAccsessor: '.' | '{}' | '[]'
+    skipUndefined: boolean
+    skipNull: boolean
+}

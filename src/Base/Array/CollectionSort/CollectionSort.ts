@@ -2,7 +2,14 @@ import { ArrayOf, JSONPath } from '../../types'
 import { Guards } from '../../../Guards'
 import getXPath from '../../Object/get-xpath'
 import getCompareFunction from './get-compare-function'
-import { PublicSortMethods, SortField, SortOptions, SortOrder, SortState, SortUpdateOptions } from './types'
+import {
+    PublicSortMethods,
+    SortField,
+    SortOptions,
+    SortOrder,
+    SortState,
+    SortUpdateOptions,
+} from './types'
 
 class CollectionSort<T extends any[], XPath extends JSONPath<ArrayOf<T>>>
     implements PublicSortMethods<T>
@@ -60,8 +67,7 @@ class CollectionSort<T extends any[], XPath extends JSONPath<ArrayOf<T>>>
                 this.update()
                 this.haveBeenInitialize = true
             }
-        } 
-        else if(!this.haveBeenInitialize) {
+        } else if (!this.haveBeenInitialize) {
             this.update()
             this.haveBeenInitialize = true
         }
@@ -75,8 +81,7 @@ class CollectionSort<T extends any[], XPath extends JSONPath<ArrayOf<T>>>
         }
     }
 
-    private setOrder = (
-    ) => {
+    private setOrder = () => {
         const canUpdate = this.haveBeenInitialize
 
         if (canUpdate) {
@@ -102,9 +107,7 @@ class CollectionSort<T extends any[], XPath extends JSONPath<ArrayOf<T>>>
         return item
     }
 
-    public update<XPath extends JSONPath<ArrayOf<T>>>(
-        options: SortUpdateOptions<T, XPath> = {}
-    ) {
+    public update<XPath extends JSONPath<ArrayOf<T>>>(options: SortUpdateOptions<T, XPath> = {}) {
         const { field } = options
 
         this.setOrder()

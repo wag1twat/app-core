@@ -1,5 +1,5 @@
-import { StringOrNumber } from "../../Base"
-import { ToQueriesOptions } from "../../Base/Object/to-queries"
+import { StringOrNumber } from '../../Base'
+import { ToQueriesOptions } from '../../Base/Object/to-queries'
 
 type UrlSerializerParamKey<T extends string> = `:${T}`
 

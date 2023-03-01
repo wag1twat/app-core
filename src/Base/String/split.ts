@@ -1,4 +1,4 @@
-import { Split } from "../types"
+import { Split } from '../types'
 
 const split =
     <S extends string>(string: S) =>

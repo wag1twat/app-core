@@ -4,9 +4,7 @@ type SortOrder = 'ASC' | 'DESC' | 'default'
 
 type SortFieldObject<T extends any[], XPath extends JSONPath<ArrayOf<T>>> = {
     xpath: XPath
-    handler: (
-        item: JSONFind<ArrayOf<T>, XPath> | undefined
-    ) => Primitive
+    handler: (item: JSONFind<ArrayOf<T>, XPath> | undefined) => Primitive
 }
 
 type SortField<T extends any[], XPath extends JSONPath<ArrayOf<T>>> =
@@ -32,9 +30,7 @@ interface SortUpdateOptions<T extends any[], XPath extends JSONPath<ArrayOf<T>>>
     field?: SortField<T, XPath>
 }
 interface PublicSortMethods<T extends any[]> {
-    update<XPath extends JSONPath<ArrayOf<T>>>(
-        options?: SortUpdateOptions<T, XPath>
-    ): void
+    update<XPath extends JSONPath<ArrayOf<T>>>(options?: SortUpdateOptions<T, XPath>): void
     cleanup(): void
 }
 

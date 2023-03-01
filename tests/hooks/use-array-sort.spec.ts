@@ -149,7 +149,6 @@ describe('use array sort', () => {
         expect(hook.result.current.collection?.[3].company.name).toBe('Robel-Corkery')
         expect(hook.result.current.collection?.[4].company.name).toBe('Keebler LLC')
 
-
         act(() => {
             hook.result.current.update({
                 field: {

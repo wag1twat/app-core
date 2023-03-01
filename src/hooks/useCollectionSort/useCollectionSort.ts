@@ -2,12 +2,7 @@ import React from 'react'
 import { $Array, ArrayOf, deepEqual, JSONPath, SortState } from '../../Base'
 import { CollectionSortProps, CollectionSortResult } from './types'
 
-
-
-const useCollectionSort = <
-    T extends any[],
-    XPath extends JSONPath<ArrayOf<T>>
->(
+const useCollectionSort = <T extends any[], XPath extends JSONPath<ArrayOf<T>>>(
     options: CollectionSortProps<T, XPath>
 ): CollectionSortResult<T> => {
     const { collection, order, orders, field } = options
