@@ -14,6 +14,6 @@ export function $String<S extends string>(string: S) {
             p: P
         ) => _replaceAll(string)(separator, p),
         hasQueryParams: () => _hasQueryParams(string),
-        joinQueryString: <Q extends string>(queries: Q) => _joinQueries(string)(queries),
+        joinQueries: <Q extends string>(queries: Q) => _joinQueries(string)(queries),
     }
 }

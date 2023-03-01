@@ -89,7 +89,7 @@ class UrlSerializer<Path extends string, Params extends UrlSerializerParams<stri
         queriesObject: Queries,
         options?: Partial<UrlSerializerOptions>
     ) {
-        const path = $String(this._path).joinQueryString(
+        const path = $String(this._path).joinQueries(
             $Object(queriesObject).toQueries({
                 ...this._options,
                 ...options,
