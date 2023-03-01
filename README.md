@@ -94,19 +94,20 @@ const extendedLink = postLink
 
 ---
 
-## Hooks: useArrayPaging
+## Hooks: useCollectionPaging
 
 ##### What problem are we solving?
 
 It happens that we do not have server-side pagination and we need to implement it on the front.
 
-This pagination supports page listing, navigation through increment or decrement of page number or hard setting of page number. There is support for switching pagination pages via function calls [nextPaginationPage | prevPaginationPage].
+This pagination supports page listing, navigation through increment or decrement of page number or hard setting of page number. There is support for switching pagination pages via function calls [nextPagingPage | prevPagingPage].
 
-useArrayPaging also returns other useful properties for your web applications.
+useCollectionPaging also returns other useful properties for your web applications.
 
 ```javascript
+import { useCollectionPaging } from 'shulga-app-core/hooks'
 
-const pagingProps = useArrayPaging({
+const pagingProps = useCollectionPaging({
     startsWith: 1,
     pageSize: 15,
     paginationSize: 6,
@@ -122,8 +123,8 @@ pagingProps.isLastPagingPage // > boolean (last page of pagination list)
 pagingProps.nextPage() // > go page + 1
 pagingProps.prevPage() // > go page - 1
 pagingProps.updatePage(10) // > set page 10
-pagingProps.nextPaginationPage() // > go next page of pagination list
-pagingProps.prevPaginationPage() // > go prev page of pagination list
+pagingProps.nextPagingPage() // > go next page of pagination list
+pagingProps.prevPagingPage() // > go prev page of pagination list
 pagingProps.page // > current page
 pagingProps.pages // > visible pages of pagination list
 
@@ -131,7 +132,7 @@ pagingProps.pages // > visible pages of pagination list
 
 ---
 
-## Hooks: useArraySort
+## Hooks: useCollectionSort
 
 ##### What problem are we solving?
 
@@ -154,14 +155,16 @@ The order is determined by the [orders] property. Available 'ASC' | 'DESC' | 'de
 Performance lags slightly behind the default [].sort() method up to 1 million objects in the sorted array
 
 ```javascript
-const arrayOfObjects = useArraySort({
+import { useCollectionSort } from 'shulga-app-core/hooks'
+
+const arrayOfObjects = useCollectionSort({
     collection: todos,
     order: 'ASC',
     orders: ['ASC', 'DESC', 'default'],
     field: 'id',
 })
 
-const arrayOfPrimitievs = useArraySort({
+const arrayOfPrimitievs = useCollectionSort({
     collection: [1, 2, 3, 4, 5, 6, 7],
     order: 'ASC',
     orders: ['ASC', 'DESC', 'default'],
@@ -183,11 +186,13 @@ arrayOfObjects.update // > update fn
 
 usePaging is for server pagination.
 
-This pagination supports page listing, navigation through increment or decrement of page number or hard setting of page number. There is support for switching pagination pages via function calls [nextPaginationPage | prevPaginationPage].
+This pagination supports page listing, navigation through increment or decrement of page number or hard setting of page number. There is support for switching pagination pages via function calls [nextPagingPage | prevPagingPage].
 
 usePaging also returns other useful properties for your web applications.
 
 ```javascript
+import { usePaging } from 'shulga-app-core/hooks'
+
 const pagingProps = usePaging({
     startsWith: 1,
     pageSize: 6,
@@ -202,8 +207,8 @@ pagingProps.isLastPagingPage // > boolean (last page of pagination list)
 pagingProps.nextPage() // > go page + 1
 pagingProps.prevPage() // > go page - 1
 pagingProps.updatePage(10) // > set page 10
-pagingProps.nextPaginationPage() // > go next page of pagination list
-pagingProps.prevPaginationPage() // > go prev page of pagination list
+pagingProps.nextPagingPage() // > go next page of pagination list
+pagingProps.prevPagingPage() // > go prev page of pagination list
 pagingProps.page // > current page
 pagingProps.pages // > visible pages of pagination list
 

@@ -9,6 +9,7 @@ This pagination supports page listing, navigation through increment or decrement
 useCollectionPaging also returns other useful properties for your web applications.
 
 ```javascript
+import { useCollectionPaging } from 'shulga-app-core/hooks'
 
 const pagingProps = useCollectionPaging({
     startsWith: 1,

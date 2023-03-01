@@ -21,6 +21,8 @@ The order is determined by the [orders] property. Available 'ASC' | 'DESC' | 'de
 Performance lags slightly behind the default [].sort() method up to 1 million objects in the sorted array
 
 ```javascript
+import { useCollectionSort } from 'shulga-app-core/hooks'
+
 const arrayOfObjects = useCollectionSort({
     collection: todos,
     order: 'ASC',
