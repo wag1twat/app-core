@@ -1,13 +1,8 @@
-export namespace Types {
-    export namespace Utility {
-        export type IsAny<T> = unknown extends T & string ? true : false
-
-        export type StringOrNumber = string | number
-
-        export type Primitive = string | number | bigint | boolean | undefined | symbol
-
-        // TODO: array path
-        export type JSONPath<T, Prefix = ''> = {
+export type ArrayOf<T extends any[]> = T extends (infer U)[] ? U : never
+export type IsAny<T> = unknown extends T & string ? true : false
+export type Primitive = string | number | bigint | boolean | undefined | symbol
+export type StringOrNumber = string | number
+export type JSONPath<T, Prefix = ''> = {
             [K in keyof T]: T[K] extends Primitive | Array<any>
                 ? `${string & Prefix}${string & K}`
                 :
@@ -27,9 +22,7 @@ export namespace Types {
                 ? JSONFind<T[Up], Down>
                 : never
             : never
-    }
-    export namespace String {
-        export type Split<S extends string, D extends string> = string extends S
+            export type Split<S extends string, D extends string> = string extends S
             ? string[]
             : S extends ''
             ? []
@@ -48,105 +41,3 @@ export namespace Types {
             : T extends `${infer F}${infer R}`
             ? ReplaceAll<R, M, `${A}${F}`>
             : A
-    }
-    export namespace Object {
-        export interface ToQueriesOptions {
-            objectAccsessor: '.' | '{}' | '[]'
-            arrayAccsessor: '.' | '{}' | '[]'
-            skipUndefined: boolean
-            skipNull: boolean
-        }
-
-        export const defaultToQueriesOptions: ToQueriesOptions = {
-            skipNull: true,
-            skipUndefined: true,
-            arrayAccsessor: '[]',
-            objectAccsessor: '.',
-        }
-
-        export const toQueriesAccsessors = {
-            '.': ['.', ''] as const,
-            '[]': ['[', ']'] as const,
-            '{}': ['{', '}'] as const,
-        }
-    }
-    export namespace Array {
-        export type Of<T extends any[]> = T extends (infer U)[] ? U : never
-        export namespace Sort {
-            export type Order = 'ASC' | 'DESC' | 'default'
-
-            export type FieldObject<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
-                xpath: XPath
-                handler: (item: Utility.JSONFind<Of<T>, XPath> | undefined) => Utility.Primitive
-            }
-
-            export type Field<T extends any[], XPath extends Utility.JSONPath<Of<T>>> =
-                | XPath
-                | FieldObject<T, XPath>
-
-            export type State<T extends any[]> = {
-                collection: T
-                order: Order
-                orders: Order[]
-                field?: Field<T, Utility.JSONPath<Of<T>>>
-            }
-
-            export type Options<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
-                field?: Field<T, XPath>
-                order?: Order
-                orders?: Order[]
-                onMount?: boolean
-                onSortUpdate: (state: State<T>) => void
-            }
-
-            export type SortMethods<T extends any[]> = {
-                cleanup(): void
-                update: <XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(
-                    options?: Types.Array.Sort.UpdateOptions<T, XPath>
-                ) => void
-            }
-
-            export type UpdateOptions<T extends any[], XPath extends Utility.JSONPath<Of<T>>> = {
-                field?: Field<T, XPath>
-                noUpdateOrderFalsyEqualXPath?: boolean
-            }
-
-            export const defaultOrders: Order[] = ['ASC', 'DESC', 'default']
-
-            export const defaultOrder: Order = 'default'
-        }
-        export namespace Paging {
-            export type State = {
-                page: number
-                isFirstPage: boolean
-                isLastPage: boolean
-                isFirstPagingPage: boolean
-                isLastPagingPage: boolean
-                pages: number[]
-            }
-
-            export type Options = {
-                itemsCount: number
-                startsWith?: number
-                pageSize: number
-                paginationSize: number
-                onMount?: boolean
-                onPagingUpdate?: (state: State) => void
-            }
-
-            export type PagingMethods = {
-                updatePage: (page: number) => void
-                nextPage: () => void
-                prevPage: () => void
-                nextPaginationPage: () => void
-                prevPaginationPage: () => void
-            }
-        }
-        export namespace CreatePaging {
-            export type State = Paging.State
-            export interface Options<T extends any[]> extends Omit<Paging.Options, 'itemsCount'> {
-                onCollectionUpdate: (collection: T) => void
-            }
-        }
-    }
-}

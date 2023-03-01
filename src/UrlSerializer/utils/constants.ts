@@ -1,3 +1,3 @@
-import { Types } from '../../Base/Types'
+import { defaultToQueriesOptions } from "../../Base/Object/to-queries";
 
-export const defaultSerializeOptions = Types.Object.defaultToQueriesOptions
+export const defaultSerializeOptions = defaultToQueriesOptions

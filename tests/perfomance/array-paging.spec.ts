@@ -15,9 +15,7 @@ describe('Array paging perfomance', () => {
         const pageSize = 21
 
         let t0 = performance.now()
-        const { updatePage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = $Array(
-            users1000000
-        ).paging({
+        const { updatePage, nextPage, prevPage } = $Array(users1000000).paging({
             startsWith: 1,
             pageSize,
             paginationSize: 6,

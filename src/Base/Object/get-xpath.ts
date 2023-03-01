@@ -1,9 +1,9 @@
-import { Types } from '../Types'
+import { JSONFind, JSONPath } from '../types'
 import split from '../String/split'
 
 const memoStringToPath = () => {
     const cache: Record<string, string[]> = {}
-    return <O extends object>(path: Types.Utility.JSONPath<O>) => {
+    return <O extends object>(path: JSONPath<O>) => {
         if (cache[path]) {
             return cache[path]
         }
@@ -15,9 +15,9 @@ const memoStringToPath = () => {
 const stringToPath = memoStringToPath()
 
 const getXPath = <O extends object>(obj: O) => {
-    return <Path extends Types.Utility.JSONPath<O>>(
+    return <Path extends JSONPath<O>>(
         path: Path
-    ): Types.Utility.JSONFind<O, Path> | undefined => {
+    ): JSONFind<O, Path> | undefined => {
         const keys = stringToPath<O>(path)
 
         let index = 0,

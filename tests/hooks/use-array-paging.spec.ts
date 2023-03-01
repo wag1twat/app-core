@@ -1,9 +1,8 @@
 import { describe, test, expect } from '@jest/globals'
 import { act, renderHook } from '@testing-library/react-hooks'
 import todos from '../mocks/200-todos'
-import { useArrayPaging } from '../../src/hooks'
+import { useCollectionPaging } from '../../src/hooks'
 import React from 'react'
-import { deepEqual, Types } from '../../src/Base'
 
 const wrapper = (props: any) => {
     const [counter, updateCounter] = React.useState(0)
@@ -24,7 +23,7 @@ const wrapper = (props: any) => {
 describe('use array paging', () => {
     const hook = renderHook(
         (props) => {
-            return useArrayPaging({
+            return useCollectionPaging({
                 pageSize: 6,
                 paginationSize: 5,
                 collection: todos,
@@ -176,7 +175,7 @@ describe('use array paging', () => {
     test('on mount false', () => {
         const hook = renderHook(
             (props) => {
-                const result = useArrayPaging({
+                const result = useCollectionPaging({
                     pageSize: 6,
                     paginationSize: 5,
                     collection: todos,
@@ -213,7 +212,7 @@ describe('use array paging', () => {
     test('on mount true', () => {
         const hook = renderHook(
             (props) => {
-                const result = useArrayPaging({
+                const result = useCollectionPaging({
                     pageSize: 6,
                     paginationSize: 5,
                     collection: todos,
@@ -238,7 +237,7 @@ describe('use array paging', () => {
     test('on mount true controlled page', () => {
         const hook = renderHook(
             (props) => {
-                const result = useArrayPaging({
+                const result = useCollectionPaging({
                     startsWith: 3,
                     pageSize: 6,
                     paginationSize: 5,

@@ -1,28 +1,31 @@
 import React from 'react'
-import { $Array, deepEqual, Types } from '../../Base'
+import { $Array, ArrayOf, deepEqual, JSONPath, PublicSortMethods, SortOptions, SortState } from '../../Base'
 
-interface ArraySortProps<
+interface CollectionSortProps<
     T extends any[],
-    XPath extends Types.Utility.JSONPath<Types.Array.Of<T>> = Types.Utility.JSONPath<
-        Types.Array.Of<T>
+    XPath extends JSONPath<ArrayOf<T>> = JSONPath<
+        ArrayOf<T>
     >
-> extends Omit<Types.Array.Sort.Options<T, XPath>, 'onSortUpdate'> {
+> extends Omit<SortOptions<T, XPath>, 'onSortUpdate'> {
     collection: T
 }
-interface ArraySort<T extends any[]>
-    extends Types.Array.Sort.SortMethods<T>,
-        Partial<Types.Array.Sort.State<T>> {}
+interface CollectionSort<T extends any[]>
+    extends PublicSortMethods<T>,
+        Partial<SortState<T>> {}
 
-const useArraySort = <T extends any[], XPath extends Types.Utility.JSONPath<Types.Array.Of<T>>>(
-    options: ArraySortProps<T, XPath>
-): ArraySort<T> => {
+const useCollectionSort = <
+    T extends any[],
+    XPath extends JSONPath<ArrayOf<T>>
+>(
+    options: CollectionSortProps<T, XPath>
+): CollectionSort<T> => {
     const { collection, order, orders, field } = options
 
     const collectionRef = React.useRef(collection)
     const ordersRef = React.useRef(orders)
     const fieldRef = React.useRef(field)
 
-    const [sortState, onSortUpdate] = React.useState<Partial<Types.Array.Sort.State<T>>>({})
+    const [sortState, onSortUpdate] = React.useState<Partial<SortState<T>>>({})
 
     if (!deepEqual(collectionRef.current, collection)) {
         collectionRef.current = collection
@@ -35,7 +38,7 @@ const useArraySort = <T extends any[], XPath extends Types.Utility.JSONPath<Type
     }
 
     const functions = React.useMemo(() => {
-        return $Array(collectionRef.current).sort({
+        const { update, cleanup } = $Array(collectionRef.current).sort({
             order,
             orders: ordersRef.current,
             field: fieldRef.current,
@@ -44,6 +47,7 @@ const useArraySort = <T extends any[], XPath extends Types.Utility.JSONPath<Type
                     !deepEqual(prevState, nextState) ? { ...prevState, ...nextState } : prevState
                 ),
         })
+        return { update, cleanup }
     }, [collectionRef.current, ordersRef.current, fieldRef.current, order])
 
     return {
@@ -52,5 +56,5 @@ const useArraySort = <T extends any[], XPath extends Types.Utility.JSONPath<Type
     }
 }
 
-export type { ArraySortProps, ArraySort }
-export { useArraySort }
+export type { CollectionSortProps, CollectionSort }
+export { useCollectionSort }

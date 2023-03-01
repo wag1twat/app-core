@@ -1,3 +1,3 @@
-export * from './useArrayPaging'
+export * from './useCollectionPaging'
 export * from './usePaging'
-export * from './useArraySort'
+export * from './useCollectionSort'

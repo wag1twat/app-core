@@ -1,5 +1,5 @@
-import { Types } from '../../Types'
 import orders, { OrdersKeys } from './orders'
+import { SortOrder } from './types'
 
 const retypeof = {
     string: 'string',
@@ -12,7 +12,7 @@ const retypeof = {
     function: 'null',
 } as const
 
-const getCompareFunction = (order: Exclude<Types.Array.Sort.Order, 'default'>, l: any, r: any) => {
+const getCompareFunction = (order: Exclude<SortOrder, 'default'>, l: any, r: any) => {
     return orders[order][`${retypeof[typeof l]}:${retypeof[typeof r]}` as OrdersKeys](
         l as never,
         r as never

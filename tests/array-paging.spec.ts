@@ -1,16 +1,14 @@
 import { describe, test } from '@jest/globals'
-import { $Array, Types } from '../src/Base'
+import { $Array, PagingState } from '../src/Base'
 import todos from './mocks/200-todos'
 
 describe('Array paging', () => {
     test('init test', () => {
         const pageSize = 9
-        let state!: Types.Array.CreatePaging.State
+        let state!: PagingState
         let collection!: typeof todos
 
-        const { updatePage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = $Array(
-            todos
-        ).paging({
+        const { updatePage, nextPage, prevPage } = $Array(todos).paging({
             startsWith: 1,
             pageSize,
             paginationSize: 6,

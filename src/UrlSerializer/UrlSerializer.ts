@@ -1,4 +1,4 @@
-import { $Object, $String, Types } from '../Base'
+import { $Object, $String, ReplaceAll } from '../Base'
 import {
     defaultSerializeOptions,
     UrlSerializerOptions,
@@ -41,11 +41,11 @@ class UrlSerializer<Path extends string, Params extends UrlSerializerParams<stri
         type: 'queries'
     ): UrlSerializer<P, Params>
     private extend<P extends Params>(
-        path: Types.String.ReplaceAll<Path, P>,
+        path: ReplaceAll<Path, P>,
         type: 'link'
-    ): UrlSerializer<Types.String.ReplaceAll<Path, P>, Omit<Params, keyof P>>
+    ): UrlSerializer<ReplaceAll<Path, P>, Omit<Params, keyof P>>
     private extend<P extends Params>(
-        path: Types.String.ReplaceAll<Path, P> | `${Path}?${string}` | undefined = undefined,
+        path: ReplaceAll<Path, P> | `${Path}?${string}` | undefined = undefined,
         type: 'build' | 'queries' | 'link'
     ) {
         if (path === undefined && type === 'build') {
@@ -55,8 +55,8 @@ class UrlSerializer<Path extends string, Params extends UrlSerializerParams<stri
             return new UrlSerializer<`${Path}?${string}`, Params>(path, this._options, this._params)
         }
         if (path && type === 'link') {
-            return new UrlSerializer<Types.String.ReplaceAll<Path, P>, Omit<Params, keyof P>>(
-                path as Types.String.ReplaceAll<Path, P>,
+            return new UrlSerializer<ReplaceAll<Path, P>, Omit<Params, keyof P>>(
+                path as ReplaceAll<Path, P>,
                 this._options,
                 this._params
             )

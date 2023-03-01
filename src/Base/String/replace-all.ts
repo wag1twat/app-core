@@ -1,4 +1,4 @@
-import { Types } from '../Types'
+import { ReplaceAll } from '../types'
 import { $Object } from '../Object'
 import split from './split'
 
@@ -7,7 +7,7 @@ const replaceAll =
     <P extends { [x: string]: any }, Separator extends string = string>(
         separator: Separator,
         properties: P
-    ): Types.String.ReplaceAll<S, P> => {
+    ): ReplaceAll<S, P> => {
         const result = []
 
         const parts = split(string)(separator)
@@ -22,7 +22,7 @@ const replaceAll =
             }
         }
 
-        return result.join(separator) as Types.String.ReplaceAll<S, P>
+        return result.join(separator) as ReplaceAll<S, P>
     }
 
 export default replaceAll

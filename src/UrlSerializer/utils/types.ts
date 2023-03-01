@@ -1,4 +1,5 @@
-import { Types } from '../../Base/Types'
+import { StringOrNumber } from "../../Base"
+import { ToQueriesOptions } from "../../Base/Object/to-queries"
 
 type UrlSerializerParamKey<T extends string> = `:${T}`
 
@@ -10,11 +11,11 @@ type UrlSerializerParams<T extends string> = {
 
 type UrlSerializerQueries = {
     [x: string]:
-        | (Types.Utility.StringOrNumber | boolean | undefined | null)
-        | Array<Types.Utility.StringOrNumber | null | undefined>
+        | (StringOrNumber | boolean | undefined | null)
+        | Array<StringOrNumber | null | undefined>
         | UrlSerializerQueries
 } & {}
 
-interface UrlSerializerOptions extends Types.Object.ToQueriesOptions {}
+interface UrlSerializerOptions extends ToQueriesOptions {}
 
 export type { UrlSerializerOptions, UrlSerializerParams, UrlSerializerQueries }

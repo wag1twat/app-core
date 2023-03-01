@@ -1,17 +1,17 @@
 import { describe, test, expect } from '@jest/globals'
-import { Types } from '../src/Base'
-import { $Array } from '../src/Base/Array'
+import { $Array, SortField, SortOrder } from '../src/Base/Array'
 import users from './mocks/10-users'
 import { Guards } from '../src/Guards'
+import { JSONPath } from '../src/Base'
 
 describe('Array sort', () => {
     const orders = ['ASC', 'DESC'] as const
     const order = 'ASC' as const
 
     let _collection: typeof users
-    let _field: Types.Array.Sort.Field<typeof users, Types.Utility.JSONPath<(typeof users)[number]>>
-    let _order: Types.Array.Sort.Order
-    let _orders: Types.Array.Sort.Order[]
+    let _field: SortField<typeof users, JSONPath<(typeof users)[number]>>
+    let _order: SortOrder
+    let _orders: SortOrder[]
 
     const { update } = $Array(users).sort({
         field: {
@@ -42,7 +42,7 @@ describe('Array sort', () => {
             expect(_field.handler).toBeInstanceOf(Function)
         }
     })
-    test('update test [DESC/ASC]', () => {
+    test('update test [DESC]', () => {
         update({
             field: {
                 xpath: 'id',
@@ -57,11 +57,12 @@ describe('Array sort', () => {
         expect(_collection[5].id).toBe(5)
         expect(_collection[7].id).toBe(3)
     })
-    test('update test [noUpdateOrderFalsyEqualXPath]', () => {
+    test('update test [equalUpdate]', () => {
+        const companyHandler = (item: any) => item?.name
         update({
             field: {
                 xpath: 'company',
-                handler: (item) => item?.name,
+                handler: companyHandler,
             },
         })
 
@@ -75,7 +76,7 @@ describe('Array sort', () => {
         update({
             field: {
                 xpath: 'company',
-                handler: (item) => item?.name,
+                handler: companyHandler,
             },
         })
 
@@ -86,27 +87,13 @@ describe('Array sort', () => {
         expect(_collection[3].company.name).toBe('Robel-Corkery')
         expect(_collection[4].company.name).toBe('Keebler LLC')
 
-        update({
-            field: {
-                xpath: 'username',
-                handler: (item) => item,
-            },
-            noUpdateOrderFalsyEqualXPath: true,
-        })
-
-        expect(_order).toBe('DESC')
-        expect(_collection[0].username).toBe('Samantha')
-        expect(_collection[1].username).toBe('Moriah.Stanton')
-        expect(_collection[2].username).toBe('Maxime_Nienow')
-        expect(_collection[3].username).toBe('Leopoldo_Corkery')
-        expect(_collection[4].username).toBe('Karianne')
+        const usernameHandler = (item: any) => item
 
         update({
             field: {
                 xpath: 'username',
-                handler: (item) => item,
+                handler: usernameHandler,
             },
-            noUpdateOrderFalsyEqualXPath: true,
         })
 
         expect(_order).toBe('ASC')
@@ -118,10 +105,23 @@ describe('Array sort', () => {
 
         update({
             field: {
+                xpath: 'username',
+                handler: usernameHandler,
+            },
+        })
+
+        expect(_order).toBe('DESC')
+        expect(_collection[0].username).toBe('Samantha')
+        expect(_collection[1].username).toBe('Moriah.Stanton')
+        expect(_collection[2].username).toBe('Maxime_Nienow')
+        expect(_collection[3].username).toBe('Leopoldo_Corkery')
+        expect(_collection[4].username).toBe('Karianne')
+
+        update({
+            field: {
                 xpath: 'company',
                 handler: (item) => item?.name,
             },
-            noUpdateOrderFalsyEqualXPath: true,
         })
 
         expect(_order).toBe('ASC')
@@ -137,8 +137,8 @@ describe('Array sort', () => {
         const asked = [0, 1, 3, 54, 77, 111, 91293, null, undefined]
         const desced = [91293, 111, 77, 54, 3, 1, 0, null, undefined]
         let _collection!: number[]
-        let _order!: Types.Array.Sort.Order
-        let _orders!: Types.Array.Sort.Order[]
+        let _order!: SortOrder
+        let _orders!: SortOrder[]
 
         const { update, cleanup } = $Array(array).sort({
             orders: ['ASC', 'DESC', 'default'],
@@ -220,8 +220,8 @@ describe('Array sort', () => {
         ]
 
         let _collection!: string[]
-        let _order!: Types.Array.Sort.Order
-        let _orders!: Types.Array.Sort.Order[]
+        let _order!: SortOrder
+        let _orders!: SortOrder[]
 
         const { update, cleanup } = $Array(array).sort({
             orders: ['ASC', 'DESC', 'default'],
@@ -271,6 +271,6 @@ describe('Array sort', () => {
         cleanup()
 
         expect(_order).toBe('ASC')
-        expect(_collection).toEqual(array)
+        expect(_collection).toEqual(asced)
     })
 })

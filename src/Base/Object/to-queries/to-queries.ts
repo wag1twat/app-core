@@ -1,12 +1,13 @@
-import { noEmptyString } from '../rules'
-import { Types } from '../Types'
-import { Guards } from '../../Guards'
-import get from './get'
+import { noEmptyString } from '../../rules'
+import { Guards } from '../../../Guards'
+import get from '../get'
+import { ToQueriesOptions } from './types'
+import { defaultToQueriesOptions, toQueriesAccsessors } from './constants'
 
 const toQueries =
     <O extends object>(obj: O) =>
     (
-        options: Partial<Types.Object.ToQueriesOptions> = Types.Object.defaultToQueriesOptions,
+        options: Partial<ToQueriesOptions> = defaultToQueriesOptions,
         prefix?: string
     ): string => {
         const { skipNull, skipUndefined } = options
@@ -26,16 +27,16 @@ const toQueries =
 
             if (Guards.isArrayConstructor(obj)) {
                 const [pre, post] =
-                    Types.Object.toQueriesAccsessors[
+                    toQueriesAccsessors[
                         options.arrayAccsessor ||
-                            Types.Object.defaultToQueriesOptions.arrayAccsessor
+                            defaultToQueriesOptions.arrayAccsessor
                     ]
                 accsessor = `${prefix}${pre}${post}`
             } else if (Guards.isObjectConstructor(obj)) {
                 const [pre, post] =
-                    Types.Object.toQueriesAccsessors[
+                    toQueriesAccsessors[
                         options.objectAccsessor ||
-                            Types.Object.defaultToQueriesOptions.objectAccsessor
+                            defaultToQueriesOptions.objectAccsessor
                     ]
                 accsessor = prefix ? `${prefix}${pre}${accsessor}${post}` : accsessor
             }
@@ -54,4 +55,4 @@ const toQueries =
         return result.length ? result.join('&') : ''
     }
 
-export default toQueries
+    export  { toQueries }

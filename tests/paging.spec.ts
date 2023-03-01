@@ -1,15 +1,14 @@
 import { describe } from '@jest/globals'
-import { Types } from '../src/Base'
-import { paging } from '../src/Base/Array/create-paging'
+import { paging, PagingState } from '../src/Base/Array/Paging'
 
 describe('Paging', () => {
     test('init test', () => {
-        let state!: Types.Array.Paging.State
+        let state!: PagingState
 
         const itemsCount = 53
         const pageSize = 5
         const paginationSize = 5
-        const { updatePage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = paging({
+        const { updatePage, nextPage, prevPage } = paging({
             itemsCount,
             startsWith: 1,
             pageSize,
@@ -198,12 +197,12 @@ describe('Paging', () => {
         expect(state.pages).toEqual([6, 7, 8, 9, 10])
     })
     test('on mount', () => {
-        let state!: Types.Array.Paging.State
+        let state!: PagingState
 
         const itemsCount = 53
         const pageSize = 5
         const paginationSize = 5
-        const { updatePage, nextPage, prevPage, nextPaginationPage, prevPaginationPage } = paging({
+        const { updatePage } = paging({
             itemsCount,
             startsWith: 1,
             pageSize,
