@@ -1,24 +1,15 @@
 import React from 'react'
-import { $Array, ArrayOf, deepEqual, JSONPath, PublicSortMethods, SortOptions, SortState } from '../../Base'
+import { $Array, ArrayOf, deepEqual, JSONPath, SortState } from '../../Base'
+import { CollectionSortProps, CollectionSortResult } from './types'
 
-interface CollectionSortProps<
-    T extends any[],
-    XPath extends JSONPath<ArrayOf<T>> = JSONPath<
-        ArrayOf<T>
-    >
-> extends Omit<SortOptions<T, XPath>, 'onSortUpdate'> {
-    collection: T
-}
-interface CollectionSort<T extends any[]>
-    extends PublicSortMethods<T>,
-        Partial<SortState<T>> {}
+
 
 const useCollectionSort = <
     T extends any[],
     XPath extends JSONPath<ArrayOf<T>>
 >(
     options: CollectionSortProps<T, XPath>
-): CollectionSort<T> => {
+): CollectionSortResult<T> => {
     const { collection, order, orders, field } = options
 
     const collectionRef = React.useRef(collection)
@@ -56,5 +47,4 @@ const useCollectionSort = <
     }
 }
 
-export type { CollectionSortProps, CollectionSort }
 export { useCollectionSort }

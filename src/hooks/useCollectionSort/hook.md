@@ -1,4 +1,4 @@
-## Hooks: useArraySort
+## Hooks: useCollectionSort
 
 ##### What problem are we solving?
 
@@ -21,14 +21,14 @@ The order is determined by the [orders] property. Available 'ASC' | 'DESC' | 'de
 Performance lags slightly behind the default [].sort() method up to 1 million objects in the sorted array
 
 ```javascript
-const arrayOfObjects = useArraySort({
+const arrayOfObjects = useCollectionSort({
     collection: todos,
     order: 'ASC',
     orders: ['ASC', 'DESC', 'default'],
     field: 'id',
 })
 
-const arrayOfPrimitievs = useArraySort({
+const arrayOfPrimitievs = useCollectionSort({
     collection: [1, 2, 3, 4, 5, 6, 7],
     order: 'ASC',
     orders: ['ASC', 'DESC', 'default'],

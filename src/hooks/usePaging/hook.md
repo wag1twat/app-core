@@ -4,7 +4,7 @@
 
 usePaging is for server pagination.
 
-This pagination supports page listing, navigation through increment or decrement of page number or hard setting of page number. There is support for switching pagination pages via function calls [nextPaginationPage | prevPaginationPage].
+This pagination supports page listing, navigation through increment or decrement of page number or hard setting of page number. There is support for switching pagination pages via function calls [nextPagingPage | prevPagingPage].
 
 usePaging also returns other useful properties for your web applications.
 
@@ -23,8 +23,8 @@ pagingProps.isLastPagingPage // > boolean (last page of pagination list)
 pagingProps.nextPage() // > go page + 1
 pagingProps.prevPage() // > go page - 1
 pagingProps.updatePage(10) // > set page 10
-pagingProps.nextPaginationPage() // > go next page of pagination list
-pagingProps.prevPaginationPage() // > go prev page of pagination list
+pagingProps.nextPagingPage() // > go next page of pagination list
+pagingProps.prevPagingPage() // > go prev page of pagination list
 pagingProps.page // > current page
 pagingProps.pages // > visible pages of pagination list
 
