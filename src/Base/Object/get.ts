@@ -1,10 +1,33 @@
-const get =
-    <O extends object>(obj: O) =>
-    <K extends string>(key: K | keyof O) => {
-        if (obj.hasOwnProperty(key)) {
-            return obj[key as Exclude<typeof key, K>]
+import { JSONFind, JSONPath } from '../types'
+import split from '../String/split'
+
+const memoStringToPath = () => {
+    const cache: Record<string, string[]> = {}
+    return <O extends object>(path: JSONPath<O>) => {
+        if (cache[path]) {
+            return cache[path]
         }
-        return undefined
+        cache[path] = split(path)('.')
+        return cache[path]
     }
+}
+
+const stringToPath = memoStringToPath()
+
+const get = <O extends object>(obj: O) => {
+    return <Path extends JSONPath<O>>(path: Path): JSONFind<O, Path> | undefined => {
+        const keys = stringToPath<O>(path)
+
+        let index = 0,
+            length = keys.length,
+            res: any = obj
+
+        while (res != null && index < length) {
+            res = res[keys[index++]]
+        }
+
+        return index && index == length ? res : (undefined as any)
+    }
+}
 
 export default get

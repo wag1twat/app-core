@@ -9,7 +9,7 @@ export type JSONPath<T, Prefix = ''> = {
               | `${string & Prefix}${string & K}`
               | (IsAny<T[K]> extends false
                     ? JSONPath<T[K], `${string & Prefix}${string & K}.`>
-                    : never)
+                    : JSONPath<T[K], `${string & Prefix}${string & K}.`>)
 }[keyof T]
 
 export type JSONFind<T extends Record<string, any>, Path = JSONPath<T>> = Path extends keyof T

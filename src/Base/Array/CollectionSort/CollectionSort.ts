@@ -1,6 +1,6 @@
 import { ArrayOf, JSONPath } from '../../types'
 import { Guards } from '../../../Guards'
-import getXPath from '../../Object/get-xpath'
+import get from '../../Object/get'
 import getCompareFunction from './get-compare-function'
 import {
     PublicSortMethods,
@@ -99,10 +99,10 @@ class CollectionSort<T extends any[], XPath extends JSONPath<ArrayOf<T>>>
 
     private getValue(item: ArrayOf<T>) {
         if (Guards.isString(this.state.field)) {
-            return getXPath(item)(this.state.field)
+            return get(item)(this.state.field)
         }
         if (Guards.isObject(this.state.field)) {
-            return this.state.field.handler(getXPath(item)(this.state.field.xpath))
+            return this.state.field.handler(get(item)(this.state.field.xpath))
         }
         return item
     }

@@ -14,7 +14,7 @@ const memoStringToPath = () => {
 
 const stringToPath = memoStringToPath()
 
-const getXPath = <O extends object>(obj: O) => {
+const set = <O extends object>(obj: O) => {
     return <Path extends JSONPath<O>>(path: Path): JSONFind<O, Path> | undefined => {
         const keys = stringToPath<O>(path)
 
@@ -30,4 +30,4 @@ const getXPath = <O extends object>(obj: O) => {
     }
 }
 
-export default getXPath
+export default set
