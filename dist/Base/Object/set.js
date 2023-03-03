@@ -1,0 +1,2 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.set=void 0;const deep_path_1=require("../String/deep-path"),Guards_1=require("../../Guards");function isIndex(e){return!isNaN(parseInt(e,10))}function set(p){return function(e,s){if(Guards_1.Guards.isObject(p)){var u=(0,deep_path_1.deepPath)(e),n=u.length,a=n-1;let t=-1,r=p;for(;null!=r&&++t<n;){var d,i=u[t];let e=s;t!=a&&(d=r[i],e=Guards_1.Guards.isObject(d)?d:isIndex(u[t+1])?[]:{}),r[i]=e,r=r[i]}}return p}}exports.set=set;
+//# sourceMappingURL=set.js.map

@@ -1,15 +1,16 @@
 import { describe, test, expect } from '@jest/globals'
-import { $Array, SortField, SortOrder } from '../src/Base/Array'
+import { $Array } from '../src/Base/Array'
 import users from './mocks/10-users'
 import { Guards } from '../src/Guards'
-import { JSONPath } from '../src/Base'
+import { Path } from '../src/Base/types'
+import { SortField, SortOrder } from '../src/Base/Array/CollectionSort'
 
 describe('Array sort', () => {
     const orders = ['ASC', 'DESC'] as const
     const order = 'ASC' as const
 
     let _collection: typeof users
-    let _field: SortField<typeof users, JSONPath<(typeof users)[number]>>
+    let _field: SortField<typeof users, Path<(typeof users)[number]>>
     let _order: SortOrder
     let _orders: SortOrder[]
 

@@ -4,4 +4,4 @@ const hasQueryParams =
         return `${string}`.indexOf('?') !== -1
     }
 
-export default hasQueryParams
+export { hasQueryParams }

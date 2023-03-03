@@ -1,4 +1,4 @@
-import hasQueryParams from './has-query-params'
+import { hasQueryParams } from './has-query-params'
 
 const joinQueries =
     <S extends string>(string: S) =>
@@ -9,4 +9,4 @@ const joinQueries =
         return isHasQueryParams ? `${string}&${queryString}` : (`${string}?${queryString}` as any)
     }
 
-export default joinQueries
+export { joinQueries }

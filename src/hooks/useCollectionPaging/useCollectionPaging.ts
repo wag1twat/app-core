@@ -1,4 +1,4 @@
-import { PagingState } from '../../Base/Array'
+import { PagingState } from '../../Base/Array/Paging'
 import React from 'react'
 import { deepEqual, $Array } from '../../Base'
 import { CollectionPagingResult, CollectionPagingProps } from './types'

@@ -1,2 +1,3 @@
-declare const get: <O extends object>(obj: O) => <K extends string>(key: K | keyof O) => O[Exclude<K, K> | Exclude<keyof O, K>] | undefined;
-export default get;
+import { Path, PathValue } from '../types';
+declare function get<O extends object>(obj: O): <P extends Path<O>>(path: P) => PathValue<O, P> | undefined;
+export { get };

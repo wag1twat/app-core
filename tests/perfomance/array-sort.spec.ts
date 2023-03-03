@@ -1,5 +1,6 @@
 import { describe, test } from '@jest/globals'
-import { $Array, Types } from '../../src/Base'
+import { $Array } from '../../src/Base'
+import { SortOrder } from '../../src/Base/Array/CollectionSort'
 import { createFakeUser } from '../mocks/create-fake-user'
 
 const users1000000 = Array.from(Array(1000000).keys()).map((i) => createFakeUser(i + 1))
@@ -24,7 +25,7 @@ describe('Array sort perfomance', () => {
     })
     test('$Array sort 1000000', () => {
         let t0 = performance.now()
-        let order!: Types.Array.Sort.Order
+        let order!: SortOrder
         const array = $Array(users1000000).sort({
             field: 'address.geo.lat',
             order: 'ASC',

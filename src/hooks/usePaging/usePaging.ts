@@ -1,6 +1,6 @@
 import React from 'react'
-import { deepEqual, PagingState } from '../../Base'
-import { paging } from '../../Base/Array/Paging'
+import { deepEqual } from '../../Base'
+import { paging, PagingState } from '../../Base/Array/Paging'
 import { PagingProps, PagingResult } from './types'
 
 const usePaging = (options: PagingProps): PagingResult => {
