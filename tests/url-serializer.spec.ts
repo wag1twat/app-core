@@ -3,6 +3,7 @@ import { UniqueParamException } from '../src/UrlSerializer/utils/exceptions'
 import { UrlSerializer } from '../src/UrlSerializer'
 
 const root = 'https://anydomain.com' as const
+
 const queries = {
     regionId: 12,
     cityId: 121,

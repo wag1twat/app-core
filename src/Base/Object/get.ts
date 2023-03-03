@@ -7,12 +7,12 @@ function get<O extends object>(obj: O) {
 
         let index = 0,
             length = deep.length,
-            res: unknown = obj
+            nested: object = obj
 
-        while (res != null && index < length) {
-            res = res[deep[index++] as keyof typeof res]
+        while (nested != null && index < length) {
+            nested = nested[deep[index++] as keyof typeof nested]
         }
-        return index && index == length ? (res as PathValue<O, P>) : undefined
+        return index && index == length ? (nested as PathValue<O, P>) : undefined
     }
 }
 

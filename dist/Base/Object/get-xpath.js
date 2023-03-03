@@ -1,2 +1,0 @@
-"use strict";var __importDefault=function(t){return t&&t.__esModule?t:{default:t}};Object.defineProperty(exports,"__esModule",{value:!0});const split_1=__importDefault(require("../String/split")),memoStringToPath=()=>{const e={};return t=>(e[t]||(e[t]=(0,split_1.default)(t)(".")),e[t])},stringToPath=memoStringToPath(),getXPath=l=>t=>{var e=stringToPath(t);let r=0,o=e.length,i=l;for(;null!=i&&r<o;)i=i[e[r++]];return r&&r==o?i:void 0};exports.default=getXPath;
-//# sourceMappingURL=get-xpath.js.map

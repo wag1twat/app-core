@@ -1,5 +1,6 @@
 import { describe, test } from '@jest/globals'
-import { $Array, PagingState } from '../src/Base'
+import { $Array } from '../src/Base'
+import { PagingState } from '../src/Base/Array/Paging'
 import todos from './mocks/200-todos'
 
 describe('Array paging', () => {

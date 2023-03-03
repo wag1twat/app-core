@@ -1,4 +1,5 @@
-import { CollectionPagingOptions, PagingState, PublicPagingMethods } from '../../Base'
+import { CollectionPagingOptions } from '../../Base/Array/CollectionPaging'
+import { PagingState, PublicPagingMethods } from '../../Base/Array/Paging'
 
 type CollectionPagingProps<T extends any[]> = Omit<
     CollectionPagingOptions<T>,

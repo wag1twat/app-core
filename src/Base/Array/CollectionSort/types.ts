@@ -7,9 +7,7 @@ type SortFieldObject<T extends any[], XPath extends Path<ArrayOf<T>>> = {
     handler: (item: PathValue<ArrayOf<T>, XPath> | undefined) => Primitive
 }
 
-type SortField<T extends any[], XPath extends Path<ArrayOf<T>>> =
-    | XPath
-    | SortFieldObject<T, XPath>
+type SortField<T extends any[], XPath extends Path<ArrayOf<T>>> = XPath | SortFieldObject<T, XPath>
 
 interface SortState<T extends any[], XPath extends Path<ArrayOf<T>>> {
     collection: T

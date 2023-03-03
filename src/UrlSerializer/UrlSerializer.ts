@@ -1,4 +1,4 @@
-import { $Object, $String, ReplaceAll } from '../Base'
+import { $Object, $String, ReplaceAll, Path as NestedPath } from '../Base'
 import {
     defaultSerializeOptions,
     UrlSerializerOptions,
@@ -29,7 +29,7 @@ class UrlSerializer<Path extends string, Params extends UrlSerializerParams<stri
     }
 
     private setupParam<Key extends string>(key: Key) {
-        if ($Object(this._params).get(key)) {
+        if ($Object(this._params).get(`:${key}` as NestedPath<Params>)) {
             throw new UniqueParamException(key)
         }
         this._params = { ...this._params, [`:${key}`]: key }

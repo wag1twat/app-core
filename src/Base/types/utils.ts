@@ -55,3 +55,5 @@ export type IndicesOf<T extends unknown[] | readonly unknown[]> = number extends
     : [] extends T
     ? never
     : ArrayOf<AsDescendingLengths<Tail<T>>>
+
+export type Keys<T> = keyof T

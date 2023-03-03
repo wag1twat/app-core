@@ -10,4 +10,4 @@ type UrlSerializerQueries = {
 } & {};
 interface UrlSerializerOptions extends ToQueriesOptions {
 }
-export type { UrlSerializerOptions, UrlSerializerParams, UrlSerializerQueries };
+export type { UrlSerializerParamKey, UrlSerializerOptions, UrlSerializerParams, UrlSerializerQueries, };

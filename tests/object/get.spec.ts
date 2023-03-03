@@ -2,7 +2,7 @@ import { get } from '../../src/Base/Object/get'
 import mockObject from './mock.object'
 
 describe('object get', () => {
-    test('array prop', () => {
+    test('props', () => {
         let id = get(mockObject)('batters.batter.0.id')
 
         expect(id).toBe(mockObject.batters.batter[0].id)

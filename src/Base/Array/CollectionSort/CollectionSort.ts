@@ -73,11 +73,9 @@ class CollectionSort<T extends any[], XPath extends Path<ArrayOf<T>>>
         }
     }
 
-    private setField = <XPath extends Path<ArrayOf<T>>>(
-        field: SortField<T, XPath> | undefined
-    ) => {
+    private setField = <XPath extends Path<ArrayOf<T>>>(field: SortField<T, XPath> | undefined) => {
         if (!Guards.isUndefined(field)) {
-            this.setState({ field })
+            this.setState({ field: field as any })
         }
     }
 

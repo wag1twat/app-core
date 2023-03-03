@@ -1,17 +1,18 @@
+import { SortState } from '../../Base/Array/CollectionSort'
 import React from 'react'
-import { $Array, ArrayOf, deepEqual, JSONPath, SortState } from '../../Base'
+import { $Array, ArrayOf, deepEqual, Path } from '../../Base'
 import { CollectionSortProps, CollectionSortResult } from './types'
 
-const useCollectionSort = <T extends any[], XPath extends JSONPath<ArrayOf<T>>>(
+const useCollectionSort = <T extends any[], XPath extends Path<ArrayOf<T>>>(
     options: CollectionSortProps<T, XPath>
-): CollectionSortResult<T> => {
+): CollectionSortResult<T, XPath> => {
     const { collection, order, orders, field } = options
 
     const collectionRef = React.useRef(collection)
     const ordersRef = React.useRef(orders)
     const fieldRef = React.useRef(field)
 
-    const [sortState, onSortUpdate] = React.useState<Partial<SortState<T>>>({})
+    const [sortState, onSortUpdate] = React.useState<Partial<SortState<T, XPath>>>({})
 
     if (!deepEqual(collectionRef.current, collection)) {
         collectionRef.current = collection
