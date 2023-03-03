@@ -1,6 +1,6 @@
-import { ArrayOf, JSONPath } from '../../types'
+import { ArrayOf, Path } from '../../types'
 import { Guards } from '../../../Guards'
-import get from '../../Object/get'
+import { get } from '../../Object/get'
 import getCompareFunction from './get-compare-function'
 import {
     PublicSortMethods,
@@ -11,13 +11,13 @@ import {
     SortUpdateOptions,
 } from './types'
 
-class CollectionSort<T extends any[], XPath extends JSONPath<ArrayOf<T>>>
+class CollectionSort<T extends any[], XPath extends Path<ArrayOf<T>>>
     implements PublicSortMethods<T>
 {
     private defaultOrder: SortOrder = 'ASC'
     private defaultOrders: SortOrder[] = ['ASC', 'DESC', 'default']
-    private state: SortState<T>
-    private setState: (nextState: Partial<SortState<T>>) => void
+    private state: SortState<T, XPath>
+    private setState: (nextState: Partial<SortState<T, XPath>>) => void
     private getDefaultCollection: () => T
     public cleanup: () => void
     private haveBeenInitialize: boolean = false
@@ -49,7 +49,7 @@ class CollectionSort<T extends any[], XPath extends JSONPath<ArrayOf<T>>>
         this.getDefaultCollection = () => collection
         this.getDefaultCollection = this.getDefaultCollection.bind(this)
 
-        this.setState = function (nextState: Partial<SortState<T>>) {
+        this.setState = function (nextState: Partial<SortState<T, XPath>>) {
             this.state = { ...this.state, ...nextState }
 
             if (Guards.isFunc(onSortUpdate)) {
@@ -73,7 +73,7 @@ class CollectionSort<T extends any[], XPath extends JSONPath<ArrayOf<T>>>
         }
     }
 
-    private setField = <XPath extends JSONPath<ArrayOf<T>>>(
+    private setField = <XPath extends Path<ArrayOf<T>>>(
         field: SortField<T, XPath> | undefined
     ) => {
         if (!Guards.isUndefined(field)) {
@@ -107,7 +107,7 @@ class CollectionSort<T extends any[], XPath extends JSONPath<ArrayOf<T>>>
         return item
     }
 
-    public update<XPath extends JSONPath<ArrayOf<T>>>(options: SortUpdateOptions<T, XPath> = {}) {
+    public update<XPath extends Path<ArrayOf<T>>>(options: SortUpdateOptions<T, XPath> = {}) {
         const { field } = options
 
         this.setOrder()
@@ -132,7 +132,7 @@ class CollectionSort<T extends any[], XPath extends JSONPath<ArrayOf<T>>>
     }
 }
 
-const collectionSort = <T extends any[], XPath extends JSONPath<ArrayOf<T>>>(
+const collectionSort = <T extends any[], XPath extends Path<ArrayOf<T>>>(
     collection: T,
     options: SortOptions<T, XPath>
 ): PublicSortMethods<T> => new CollectionSort(collection, options)

@@ -1,8 +1,9 @@
 import { noEmptyString } from '../../rules'
 import { Guards } from '../../../Guards'
-import get from '../get'
 import { ToQueriesOptions } from './types'
 import { defaultToQueriesOptions, toQueriesAccsessors } from './constants'
+import { $Object } from '../Object'
+import { Path } from '../../types'
 
 const toQueries =
     <O extends object>(obj: O) =>
@@ -12,34 +13,38 @@ const toQueries =
         let result: string[] = []
 
         for (let key in obj) {
-            const value = get(obj)(key)
+            if (obj.hasOwnProperty(key)) {
+                const value = $Object(obj).get(key as unknown as Path<O>)
 
-            if (skipNull === true && Guards.isNull(value)) {
-                continue
-            } else if (skipUndefined === true && Guards.isUndefined(value)) {
-                continue
-            }
+                if (skipNull === true && Guards.isNull(value)) {
+                    continue
+                } else if (skipUndefined === true && Guards.isUndefined(value)) {
+                    continue
+                }
 
-            let accsessor: string = key
+                let accsessor: string = key
 
-            if (Guards.isArrayConstructor(obj)) {
-                const [pre, post] =
-                    toQueriesAccsessors[
-                        options.arrayAccsessor || defaultToQueriesOptions.arrayAccsessor
-                    ]
-                accsessor = `${prefix}${pre}${post}`
-            } else if (Guards.isObjectConstructor(obj)) {
-                const [pre, post] =
-                    toQueriesAccsessors[
-                        options.objectAccsessor || defaultToQueriesOptions.objectAccsessor
-                    ]
-                accsessor = prefix ? `${prefix}${pre}${accsessor}${post}` : accsessor
-            }
+                if (Guards.isArrayConstructor(obj)) {
+                    const [pre, post] =
+                        toQueriesAccsessors[
+                            options.arrayAccsessor || defaultToQueriesOptions.arrayAccsessor
+                        ]
+                    accsessor = `${prefix}${pre}${post}`
+                } else if (Guards.isObjectConstructor(obj)) {
+                    const [pre, post] =
+                        toQueriesAccsessors[
+                            options.objectAccsessor || defaultToQueriesOptions.objectAccsessor
+                        ]
+                    accsessor = prefix ? `${prefix}${pre}${accsessor}${post}` : accsessor
+                }
 
-            if (Guards.isObject(value)) {
-                result.push(toQueries(value)(options, accsessor))
+                if (Guards.isObject(value)) {
+                    result.push(toQueries(value)(options, accsessor))
+                } else {
+                    result.push(`${accsessor}=${encodeURIComponent(`${value}`)}`)
+                }
             } else {
-                result.push(`${accsessor}=${encodeURIComponent(`${value}`)}`)
+                continue
             }
         }
 

@@ -1,33 +1,19 @@
-import { JSONFind, JSONPath } from '../types'
-import split from '../String/split'
+import { deepPath } from '../String/deep-path'
+import { Path, PathValue } from '../types'
 
-const memoStringToPath = () => {
-    const cache: Record<string, string[]> = {}
-    return <O extends object>(path: JSONPath<O>) => {
-        if (cache[path]) {
-            return cache[path]
-        }
-        cache[path] = split(path)('.')
-        return cache[path]
-    }
-}
-
-const stringToPath = memoStringToPath()
-
-const get = <O extends object>(obj: O) => {
-    return <Path extends JSONPath<O>>(path: Path): JSONFind<O, Path> | undefined => {
-        const keys = stringToPath<O>(path)
+function get<O extends object>(obj: O) {
+    return function <P extends Path<O>>(path: P): PathValue<O, P> | undefined {
+        const deep = deepPath<O>(path)
 
         let index = 0,
-            length = keys.length,
-            res: any = obj
+            length = deep.length,
+            res: unknown = obj
 
         while (res != null && index < length) {
-            res = res[keys[index++]]
+            res = res[deep[index++] as keyof typeof res]
         }
-
-        return index && index == length ? res : (undefined as any)
+        return index && index == length ? (res as PathValue<O, P>) : undefined
     }
 }
 
-export default get
+export { get }

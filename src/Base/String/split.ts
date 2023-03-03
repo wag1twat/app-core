@@ -1,4 +1,4 @@
-import { Split } from '../types'
+import { Split } from '../types/utils'
 
 const split =
     <S extends string>(string: S) =>
@@ -9,4 +9,4 @@ const split =
         return `${string}`.split(separator, limit) as any
     }
 
-export default split
+export { split }
