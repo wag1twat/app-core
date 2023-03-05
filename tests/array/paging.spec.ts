@@ -1,5 +1,5 @@
 import { describe } from '@jest/globals'
-import { paging, PagingState } from '../src/Base/Array/Paging'
+import { paging, PagingState } from '../../src/Base/Array/Paging'
 
 describe('Paging', () => {
     test('init test', () => {

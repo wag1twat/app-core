@@ -48,7 +48,7 @@ describe('object set', () => {
         target = set(target)('name', 'Cock')
 
         expect(target.name).toBe('Cock')
-        
+
         target = set(target)('name', 'Adam')
 
         expect(target.name).toBe('Adam')

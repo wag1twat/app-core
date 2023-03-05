@@ -1,9 +1,9 @@
 import { describe, test, expect } from '@jest/globals'
-import { $Array } from '../src/Base/Array'
-import users from './mocks/10-users'
-import { Guards } from '../src/Guards'
-import { Path } from '../src/Base/types'
-import { SortField, SortOrder } from '../src/Base/Array/CollectionSort'
+import { $Array } from '../../src/Base/Array'
+import users from '../mocks/10-users'
+import { Guards } from '../../src/Guards'
+import { Path } from '../../src/Base/types'
+import { SortField, SortOrder } from '../../src/Base/Array/CollectionSort'
 
 describe('Array sort', () => {
     const orders = ['ASC', 'DESC'] as const
