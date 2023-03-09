@@ -1,8 +1,17 @@
+import { Guards } from '../../../Guards'
 import { get } from '../../Object/get'
-import { Path, PathValue } from '../../types'
+import { ArrayOf, Path, PathValue } from '../../types'
 
-const groupBy = function <T extends object, K extends Path<T>>(t: T[], key: K) {
-    const map = new Map<PathValue<T, K>, T[]>()
+const groupBy = function <T extends any[], K extends Path<ArrayOf<T>>>(t: T, key: K) {
+    const map = new Map<PathValue<ArrayOf<T>, K>, ArrayOf<T>[]>()
+
+    if (t.some((item) => !Guards.isObject(item))) {
+        return {
+            map,
+            values: Array.from(map.values()),
+            entries: Array.from(map.entries()),
+        }
+    }
 
     t.forEach((item) => {
         const k = get(item)(key)

@@ -1,6 +1,6 @@
 {
     "name": "shulga-app-core",
-    "version": "1.0.258",
+    "version": "1.0.259",
     "description": "",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
